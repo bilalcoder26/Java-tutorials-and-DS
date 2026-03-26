@@ -1,0 +1,13 @@
+comparator is an interface in java.util that is used to define custom sorting logic for object.
+It allows you to sort object in different ways without modifying the actual class.
+
+since java 8 , comparator is functional interface -- it has one abstract method
+
+int compare(T O1, T O2);
+
+Comparable                                    Comparator
+
+* Used for default sorting                       * Used for custom sorting
+* Sorting logic inside the class                 * sorting logic outside the class
+* Only one sort method                           * Multiple sorting strategies possible
+* Method: compareTo()                            * Method compare()

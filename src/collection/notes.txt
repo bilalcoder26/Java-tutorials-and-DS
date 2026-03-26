@@ -1,0 +1,40 @@
+java collection framework is a set of classes and interface used to store and manage group of objects efficiently
+
+why collection
+--> fixed size
+--> not dynamic
+--> don't provide useful feature like sorting, searching, adding, removing,etc.
+
+collection solve this:
+they are
+    --> Dynamic in size
+    --> easy to manipulate
+    --> offer built-in algorithms(search, sort,shuffle,etc.)
+
+java collection framework has three core interface
+
+    --> 1) List (ordered + allow duplication)
+    used when you need element in order and need duplicates.
+       common implementation:
+
+       --> ArrayList --> Fast for reading, slow for inserting in middle
+       --> LinkedList --> Fast insert/delete, slower for reading
+       --> vector --> Synchronized (Thread-safe), slower
+
+    --> 2) Set (No order + No Duplicate)
+    used when you want unique values
+         common implementation:
+
+         --> HashSet--> fast, no order
+         --> LinkedHashSet --> Maintained insertion order
+         --> TreeSet --> sorted order
+
+    --> 3) Map (Key --> value pair)
+    used when data needs to be stored as key-value pairs
+          common implementation:
+          --> HashMap --> Fast , no order
+          --> LinkedHashMap --> Maintained order
+          --> TreeMap --> Sorted by keys
+          --> Hashtable --> Thread-safe but slower
+
+

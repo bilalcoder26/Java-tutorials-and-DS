@@ -1,0 +1,71 @@
+* It is part of java.util package
+* It implement ListInterface which is a sub-interface of collection interface
+* ArrayList is a dynamic array
+* unlike regular arrays , it can grow and shrink automatically
+
+Key Features
+* Maintained insertion order
+* Duplicate are allowed
+* allows null values
+* provide index-based access
+* Dynamic resizing (no fixed size like normal arrays)
+* Not synchronized (not thread-safe)
+
+ArrayList Internal working
+    * internally Uses a dynamic object array
+    * Default capacity =1
+    * when array is full --> new capacity =old*1.5
+    * Element copied to new array
+
+when to use ArrayList?
+    use ArrayList when:
+    # You need fast access to element
+    # Insertion/deletions are rare
+    # you need random access
+
+performance Big-O
+
+    OPERATION     TIME COMPLEXITY
+
+    get(index)          o(1) --Fast
+    add(element)      Amortized o(1)
+    add(index)        O(n)
+    remove(index)       O(n)
+    search(contains)    O(n)
+
+what is Array.asList() in java ?
+ Array.asList() is a utility method in the java.util.Arrays class that converts an array into a list
+ But Important : It does not create an ArrayList.
+ it creates a fixed-size List backed by the original array
+
+Q) what is fail-fast behaviour ?
+a) If arraylist is modified while iterating , java throws:
+        concurrentModificationException
+
+Q) Can arrayList stores null values ?
+a) yes, it can store multiple nulls
+
+When you see add(element) → Amortized O(1), it means:
+
+👉 On average, the operation takes constant time (O(1)), even though some individual operations might take longer.
+
+💡 Simple Explanation
+Most of the time → adding an element is very fast (O(1))
+Occasionally → it may take more time (O(n))
+But overall (after many operations) → average cost per operation is still O(1)
+
+🧠 Key Idea
+
+Amortized O(1) = Total time of many operations ÷ Number of operations
+
+So even if a few operations are expensive, the average remains constant.
+
+⚡ Quick Analogy
+
+Think of it like:
+
+You pay ₹100 once for a yearly subscription
+Daily cost becomes very small
+
+👉 One big cost, spread over many uses = amortized cost
+

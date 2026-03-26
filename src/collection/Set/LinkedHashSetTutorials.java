@@ -1,4 +1,4 @@
-package collection.HashSet;
+package collection.Set;
 /*
 linkedHashSet is a class in java that implements the set interface just like HashSet but
 with one important difference

@@ -1,4 +1,4 @@
-package collection.HashSet;
+package collection.Set;
 /*
 treeSet is a sorted , unique NavigableSet implementation in java
 it stores elements in sorted (ascending) order automatically
