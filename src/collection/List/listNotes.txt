@@ -1,0 +1,62 @@
+List is an interface in the java collection framework
+
+A List is an ordered collection of element where duplicate are allowed.
+
+Key Feature of list
+
+* Maintained insertion order
+* Allow duplicate values
+* support index-based access
+* Dynamic in size
+* Provide useful methods like add(), remove(), get(), set(), etc
+
+
+common implementation of list
+1) ArrayList
+2) LinkedList
+3) Vector
+4) Stack (extends vector)
+
+--> Array list
+        * Backed by dynamic array
+        * Fast for searching/reading
+        * slow for inserting/deleting in the middle
+        * Not THREAD Safe
+
+--> Linked List
+        * Uses doubly linked list internally
+        * fast for insert/delete , slow for random access
+        * Good for queues & stacks
+
+--> Vector
+        * Similar to ArrayList but synchronized (Thread-safe)
+        * Slower because of synchronization
+
+--> Stack
+        * LIFO ( Last in First Out)
+        * Extends Vector
+
+ArrayList Internal working
+    * Uses dynamic array
+    * Default capacity =10
+    * when array is full --> new capacity =old*1.5
+    * Element copied to new array
+
+LinkedList Internal working
+    * Each element is a node
+    * Node stores:
+        # data
+        # reference to next node
+        # reference to previous node
+
+Q) why ArrayList is not thread-safe?
+a) Because its methods are not synchronized
+
+Q) How does ArrayList grow internally ?
+a) Old capacity + ( old Capacity /2)
+
+Q) How to make Array thread-safe ?
+a) List<Integer> sync
+
+Q) What is fail-fast iterator ?
+a) Iterator of List Throws concurrentModificationException if modified while iterating
