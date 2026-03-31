@@ -1,0 +1,62 @@
+Vector is a dynamic array
+    It belongs to java.util and grows automatically when elements are added
+
+Vector is a legacy class in java that implements a dynamic array similar to arrayList,
+but with one major difference
+
+    vector is synchronized (Thread-safe)
+        This means multiple threads can access it safely, but synchronization makes it slower than arrayList
+
+    Package
+        java.util.vector
+
+
+Key Features of vectors
+
+    1) Dynamic Size
+        * Grows automatically when needed.
+        * Capacity grows by doubling (by default)
+
+    2) Synchronized
+        * All methods are synchronized --> thread-safe
+        * Slower than ArrayList for single-threaded programs
+
+    3) Allow Random Access (O(1))
+        * Because it uses an internal array
+
+    4) Allow duplicates + Maintaines insertion order
+    5) support legacy methods
+
+
+Vector vs ArrayList
+
+Feature                         Vector                                      ArrayList
+
+1) Thread-safety               Synchronized                                  Not Synchronized
+
+2) Performance                  Slower                                          Faster
+
+3) Growth                       Double size                                 increased by 50%
+
+4) legacy                         yes                                       No
+
+5) usage-today                  rare                                        Very common
+
+The biggest difference from ArrayList
+    Vector is synchronized (Thread-safe)
+    Meaning : Multiple threads can modify a vector without corruption data
+
+Implements
+    * list
+    * Random Access
+    * Cloneable
+    * Serializable
+
+internal Structure
+    vector uses resizable array;
+        Object[] elementData;
+
+
+ Growth & capacity
+    * Default capacity :10;
+    * when full --> capacity grows by 100 % (doubles) unless custom increment defined

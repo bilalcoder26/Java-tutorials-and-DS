@@ -1,0 +1,77 @@
+ConcurrentHashMap
+
+ConcurrentHashMap is highly optimized thread-safe map introduce in java 1.5 as part of the
+java.util.concurrent package
+
+it is the modern replacement for HashTable and synchronized HashMap
+
+why do we need ConcurrentHashMap ?
+
+Traditional thread-safe option were:
+
+    # Hashtable
+        * Fully synchronized ---> very slow
+        * Entire map locked for every operation
+
+    # synchronizedMap (new HashMap() )
+        * Wrapper that locks entire map --> same problem
+
+
+ConcurrentHashMap solve this by :
+
+    * Allowing multiple thread to read and write simultaneously
+    * Using segment / bucket level locking (java 7)
+    * Using CAS  + node locking (java 8, highly efficient)
+
+    Best for high-performance multi-threaded applications
+
+Internal working
+
+    # java 8 (Modern implementation)
+        * Map is divided into many buckets
+        * Each bucket can be locked independently
+        * Multiple thread can operate without blocking each other.
+
+
+    # Key Technique used
+        * CAS (Compare -And -Swap)
+        * Synchronized blocks only on specific bins
+        * Tree-based bins (like HashMap ) for high collision keys
+        * Non- blocking reads
+
+# Important properties
+
+Feature                     Behaviour
+
+Thread-safe                  Yes
+Allow null keys ?            No
+allow null values ?          No
+Read operation               Non-blocking , very fast
+write operation              Minimally locked
+fail-safe iterator           No concurrentModificationException
+
+# When to use ConcurrentHashMap
+USE it when
+ 1) Multiple threads need to read/ write a shared map
+    example * caches, * Shared State * Counters * Token storage
+
+ 2) You need high performance with thread safety
+    better than :
+        * HashTable
+        * Collection.synchronizedMap()
+
+ 3) Large read operation  + some writes
+       * ConcurrentHashMap allows 99% read operation without locking
+
+ 4) when you must avoid concurrentModificationException
+        * Iterators are fail-safe
+
+
+   ConcurrentHashMap vs HashTable vs synchronizedMap
+
+ Feature                ConcurrentHashMap               Hashtable                   synchronized
+
+ Thread-safety          Yes                              yes                        Yes
+ Performance            Fastest                          slow                       slow
+ locking                fine-grained                     whole map                  whole map
+ Iterators              Fail-safe                        Fail-safe                  Fail-safe

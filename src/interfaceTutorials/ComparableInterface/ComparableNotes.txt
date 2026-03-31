@@ -1,0 +1,55 @@
+Comparable
+Comparable<T> is an interface in java used to define the natural ordering of objects.
+
+It is found in:
+            java.lang.Comparable
+
+classes that implement Comparable provide the logic for sorting object
+
+what Comparable Does
+
+    it defines a single method:
+
+     Public int comparaTo(T other);
+
+     This method tells java
+      * How one object compares to another
+      * how objects should be sorted
+
+How compareTo() Works?
+    The method return
+
+    Return Value                                Meaning
+
+    0                                           Both object are equal
+    positive(>0)                                this object is greater than other
+    negative(<0)                                this object is less than other
+
+
+    Comparable  = Natural Ordering
+
+    when a class implements Comparable --> the sorting becomes natural
+
+    Examples of classes already implementing Comparable:
+        * String --> alphabetical order
+        * Integer, Long, etc ---> numeric order
+        * Date ---> chronological order
+
+
+Where comparable is used in java?
+    used automatically by:
+        * Collection.sort(list)
+        * Array.sort(array)
+        * TreeSet
+        * TreeMap(for sorting keys)
+
+    These depends on natural ordering.
+
+    Comparable vs Comparator
+
+Feature                             Comparable                                      Comparator
+
+Location                            Inside the class                                Outside the class
+Method                              compareTo()                                     compare()
+Sorting type                        Single natural order                            Multiple Custom orders
+Flexibility                         Less                                            More

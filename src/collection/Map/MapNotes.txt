@@ -1,0 +1,96 @@
+Map is an interface in java.util used to store key-value pairs.
+    Think of it like a dictionary:
+    key --> value
+
+Key Feature of Map
+
+1) Stores key-value pairs
+  * keys are unique
+  * Values can be duplicate
+
+2) No duplicate keys
+    If you puts a duplicate key:
+    * It replaced old value
+
+3) Allows nulls
+    Depends on implementation:
+    * HashMap --> allow one null key & many null values
+    * LinkedHashMap --> same as hashMap
+    * Hashtable --> does Not allow null
+
+4) Fast lookups
+    Maps are optimized for:
+        * Search
+        * insert
+        * delete
+
+
+Map interface hierarchy
+
+    Map (Interface)
+     -->HashMap
+     -->LinkedHashMap
+     -->TreeMap
+     -->Hashtable
+     -->ConcurrentHashMap
+
+Real-world use cases of map
+
+1) caching (Most common use)
+
+* User session cache
+* Authorization tokens
+* Frequently accessed database results
+
+2) counting frequencies
+    e.g count word or character
+
+3) storing configuration
+4) Database lookups
+5) Routing requests (API gateways)
+6) Implementing LRU CACHE
+   USES: LinkedHashMap internally
+7) Multi-threaded shared data
+using concurrentHashMap
+
+
+question
+
+1) Is map part of the collection framework?
+a) Yes but it does not extend collection
+
+2) How does HashMap work internally?
+a)  * uses hashing
+    * Stores entries in buckets
+    * After java 8 --> uses balanced trees to avoid collisions
+
+3) Why does HashMap allow one null key ?
+a) Because the null key always hashes to bucket index 0
+
+4) Difference : HashMap vs LinkedHashMap vs TreeMap
+
+
+features                HashMap                 LinkedHashMap                       TreeMap
+
+order                   No                      insertion order                     Sorted
+Null keys               Yes                     yes                                 No
+performance             Fast                    Slightly slower                     slowest
+
+5) what is load factor ?
+A) Threshold when HashMap expands (default =0.75)
+
+6) How ConcurrentHashMap achieve thread safety ?
+a) * Bucket-level locking (java 7)
+    * CAS + lock striping (java 8)
+
+7) why HashTable is outdated ?
+a) Because it locks entire map --> slow.
+
+8) what is fail-fast behaviour ?
+a) Modifying map during iteration --> concurrent Modification (Except concurrentHashMap).
+
+9) When to use TreeMap ?
+A) when sorting keys is required.
+
+10) when to use linkedHashMap?
+a) When you need predictable order (like LRU cache).

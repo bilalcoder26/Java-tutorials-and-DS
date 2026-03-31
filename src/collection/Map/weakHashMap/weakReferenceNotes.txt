@@ -1,0 +1,64 @@
+A weakReference is a special reference type that does not prevent an object from being garbage collected.
+
+
+why do we need weak Reference ?
+Because sometime we want to hold a reference to an object without keeping it alive unnecessarily
+
+    Good for:
+        * caches
+        * Maps where values can be removed automatically
+        * Large object that can be recreated
+
+
+Strong reference
+
+    Object obj = new Object()  // cannot be garbage collected
+
+weak reference
+
+    weakReference<object> weakObj = new WeakReference<>(new Object());
+
+    * If no other strong reference exists --> GC will remove it anytime.
+
+
+    ------------------------------------------------------------------------------------------------------
+
+    WeakHashMap
+
+    weakHashMap is a special java Map implementation where keys are stored as weak reference
+
+    A weak reference means
+        The key can be garbage-collected if no strong reference exists elsewhere
+
+    when a key become weakly reachable --> GC remove it automatically --> the entry disappears from the map
+
+
+
+How weakHashMap works internally
+
+1) Keys are weakReference objects
+    Each key is wrapped in a WeakReference<key> internally.
+
+    map.put(new KeyObject(), value)
+
+    if no other reference to keyObject exists --> GC clears it.
+
+2) Automatic entry cleanup
+    * After GC clear the weak reference , the entry become invalid
+    * A reference queue notifies WeakHashMap --> entry is removed
+
+3) Values are strong reference
+    * only keys are weak
+    * values are normal strong reference but are unreachable once the key is removed
+
+4) Not full memory-safe cache
+if you still hold a strong reference to the key, the entry is not removed
+
+--------------------------------
+
+why not just use HashMap ?
+a) In normal HashMap :
+    * Even if key become unreachable , the map holds its reference
+    * This leads to memory leaks
+
+    weakHashMap solve this

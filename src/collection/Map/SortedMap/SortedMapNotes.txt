@@ -1,0 +1,42 @@
+SortedMap is a java interface under java.util that represent a map sorted by its keys
+
+It is a subInterface of Map and provide a total ordering of keys either by:
+
+1) Natural ordering (via comparable ) or,
+2) A custom Comparator provided at map creation.
+
+The most commonly used implementation of sortedMap is:
+        *   TreeMap
+
+
+what SortedMap Guarantees
+
+A SortedMap Guarantees
+
+    1) Keys are always sorted
+        sorting order is consistent, meaning:
+            * If the keys are integers --> sorted numerically
+            * If keys are strings --> alphabetical order
+            * If you provide a comparator --> sorted by your rules
+
+    2) Support range-based operations
+        sortedMap adds powerful operation not present in a normal Map:
+
+        Method                              Description
+
+        headMap(toKey)                      All Keys < toKey
+        tailMap(fromKey)                    All keys >= fromKey
+        subMap(from, to)                    All keys in range [from, to]
+        firstKey()                          Lower Key
+        lastKey()                           Highest key
+
+
+SortedMap Interface Hierarchy
+
+    Map
+    |----> sortedMap
+                |-----> NavigableMap
+                            |---------> TreeMap
+
+
+TreeMap implements both sortedMap and navigableMap

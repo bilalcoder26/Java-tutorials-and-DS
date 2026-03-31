@@ -1,0 +1,84 @@
+ImmutableMap
+
+ImmutableMap is a class from google guava library that represents an immutable, unmodifiable,
+thread-safe map
+
+it is part of : com.google.common.collect.ImmutableMap
+
+What does "Immutable " Actually means
+    * Cannot be modified after creation
+    * Does not allow put(), remove(), or clear()
+    * Is inherently thread-safe
+    * Has better performance for read-heavy operations
+    * Prevents accidental modification
+    * Guarantees safe sharing between threads
+once you build the map , it will never change
+
+why do we need immutableMap ?
+
+     Because mutability causes problems like:
+        * Accidental data change
+        * concurrency issue
+        * incorrect assumption about state
+        * defensive copying overhead
+  ImmutableMap solves them by making the map unmodifiable and safe to share
+
+
+Feature                                     Description
+
+Modifiable                                  No
+Thread-safe                                 Yes
+Allow null keys/values                      No
+Fast Lookups                                Yes(optimized)
+Memory-efficient                            Yes
+Fail-fast?                                  No (It's Immutable so no structural change )
+
+
+use cases of ImmutableMap
+
+1) constants and configuration maps
+    example : country code, status mapping, error code
+
+2) Thread-safe shared data
+Example: Lookup tables, routing rules, cached read only data
+
+3) prevent accidental modification
+    useful in large teams where shared maps can be changed mistakenly
+
+4) Performance-sensitive apps
+    ImmutableMap is faster than:
+    * SynchronizedMap
+    * Collections.unmodifiable Map
+        Because
+            * No locking
+            * No copy
+            * optimized internal structure
+
+5) Functional programming style (java 8+)
+
+1) what is immutableMap ?
+a) A map that cannot be modified after creation and is thread-safe
+
+2) Difference between Collections.unmodifiableMap and ImmutableMap ?
+
+Feature                 Unmodifiable                    ImmutableMap
+
+Truly immutable         No (backing map can change)         Yes
+Thread-safe             No                                  Yes
+Allow null              Yes (if underlying map has )        No
+Performance             Medium                              High
+
+3) why does ImmutableMap not allow null keys/values?
+ a)  To avoid :
+        * ambiguity
+        * null pointer error
+        * unsafe comparison
+
+4) Is ImmutableMap thread-safe? why ?
+ a)   Yes --> because the map cannot change, so no synchronization is needed
+
+5) How do you build a large ImmutableMap ?
+a) using ImmutableMap.builder()
+
+
+

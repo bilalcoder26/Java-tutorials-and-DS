@@ -1,0 +1,39 @@
+CopyOnWriteArrayList is a thread-safe variant of arrayList from java.util.concurrent.
+
+    # It uses copy-on-write strategy
+        * Every write operation (add,remove,update) create a new copy of the entire list
+
+    This means
+        * Read operation = super fast, no locking
+        * write operation = expensive (copying entire array)
+
+    It is ideal when :
+        * Many Threads are reading
+        * Few threads are modifying
+
+
+How CopyOnWriteArrayList works internally
+
+    # Internal storage
+        transient volatile Object[] array;
+
+    # On add/remove/update
+        1) A new array is created (Current size +1 or -1)
+        2) All elements are copied into the new array
+        3) Reference switched atomically;
+
+        *** Volatile array reference updated safely
+
+    # On Iteration:
+        * Iteration read from a snapshot of the array
+        * They do not reflect modification after creation
+        * They never throw concurrentModificationException
+
+    This is why it is extremely useful in concurrent systems
+
+    Read vs write performance
+
+    Operation                               performance                                 Reason
+    Read                                    Super Fast                                  No locking, no copying
+    write(add/remove)                       Slow                                        Must copy entire array
+    Iteration                               Safe                                        Uses snapshot array
