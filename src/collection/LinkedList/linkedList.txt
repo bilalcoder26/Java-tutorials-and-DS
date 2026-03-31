@@ -1,0 +1,58 @@
+LinkedList is  a linear data structure from java.util package that stores element in nodes,
+where each node contains:
+1) Data
+2) A pointer/reference to the next node
+3) (In java's linkedList ) A pointer to the previous node --> making it a Doubly Linked List
+
+Key Characteristics
+
+1) Dynamic size
+    * Grows or Shrinks at runtime.
+    * No need to define size beforehand (Unlike arrays).
+
+2) Fast Insertion/ deletions (o(1))
+    * Adding or removing from the start or middle is efficient.
+    * Only pointer change
+
+3) Slow access time (O(n))
+    * No direct index access like arrays
+    * Traverses from the head node
+
+4) Doubly linked
+    * Can move forward and backward
+    * Useful in many algorithm scenarios.
+
+
+    LinkedList vs arrayList
+
+Feature                         ArrayList                               LinkedList
+
+1) Access                       O(1) random access                      O(n) traversal needed
+
+2) Insert/Delete at beginning    slow(Shift elements)                       Fast(change pointer)
+
+3) Memory                           Continuous Block                        More memory (extra pointers)
+
+4) Best use                         Ready- heavy tasks                          Insert/delete-heavy tasks
+
+
+Real use cases of linkedList
+
+1) Implementing queue or deque
+
+    * Linkedlist implements Queue and deque
+    * Perfect for FIFO behaviour
+
+    Queue<Integer> queue  = new LinkedList<>();
+
+2) Undo/ Redo Functionality
+    * Doubly linked list nature makes it ideal.
+
+3) Playlist Navigation
+    * Previous and next song navigation
+
+4) Browser History
+    * Move forward/backward easily
+
+5) LRU  Cache (with HashMap)
+    * LinkedList helps maintains order efficiently

@@ -1,0 +1,23 @@
+IdentityHashMap
+
+IdentityHashMap is a special Map Implementation in java that use == instead of equals() to compare keys
+
+it is part of java.util
+
+what makes IdentityHashMap unique ?
+
+Normal maps (HashMap, LinkedHashMap, TreeMap) compare keys using :
+
+    * equals() // to check logical equality
+    * hashCode() // for bucket placement
+
+IdentityHashMap compares keys using:
+
+    * == // reference equality (Same memory address)
+    System.identityHashCode() // hash based on object identity
+
+    *** This means two objects having the same content are considered different keys if they are different objects
+
+why does java have IdentityHashMap?
+ -->It's a very special-purpose map used mostly by framework and JVM internals.
+        Not recommended for general use

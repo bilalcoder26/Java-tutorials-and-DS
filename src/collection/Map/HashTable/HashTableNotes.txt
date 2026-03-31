@@ -1,0 +1,43 @@
+Hashtable is a legacy class in java used to store key-value pairs in a hash table
+It is part of java since JDK 1.0 and resides in :
+        java.util.Hashtable
+
+    It implements
+        * Map
+        * Dictionary (deprecated legacy class )
+        * cloneable
+        * serializable
+
+
+Major characteristics of HashTable
+
+    1) Synchronized (Thread-Safe)
+        All public methods of Hashtable are synchronized meaning;
+            * Only one thread can access a method at a time.
+            * Safe for multithreaded environments
+        But this also makes it slower than HashMap
+
+     2) Does Not allow Null keys or null values
+        unlike HashMap
+        trying to store null will throw ---> nullPointerException
+
+     3) Legacy class
+        Hashtable is considered obsolete for most modern use cases.
+
+            Recommended alternatives;
+            * HashMap (non-sync)
+            * ConcurrentHashMap (Sync)
+
+     4) Iteration order unpredictable
+        * Like hashMap , it does not maintain insertion order
+
+     5) Performance
+        * slower than hashMap (due to full-method synchronization).
+        * slower than ConcurrentHashMap (Which uses segmented locking ).
+
+Internal working of Hashtable
+
+    * Uses hashing to store key-value pairs in buckets.
+    * Each bucket is a linked list ( or tree in newer implementation , but hashtable does not adopt the tree
+    optimization of hashMap)
+    * When load factor reaches limit (default 0.75), it rehashes and increase capacity

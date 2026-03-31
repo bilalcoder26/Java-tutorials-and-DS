@@ -1,0 +1,13 @@
+In java,  a Stack is a Last-in-first-Out (LIFO) data structure
+java provide a built-in stack class in java.util package
+
+lastIn --> First Out
+
+stack vs Deque (Modern java suggestion)
+
+java's official documentation recommends
+ Do Not use stack : use Deque(ArrayDeque ) instead.
+
+ reason:
+  * Stack is synchronized --> slow
+  * ArrayDeque is modern, faster and highly optimized

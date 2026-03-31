@@ -1,0 +1,87 @@
+EnumMap
+
+EnumMap is a specialized Map implementation designed specifically for enum keys
+    It is part of
+
+    java.util.EnumMap
+    * It is faster, more memory-efficient and type-safe compared to HashMap when using Enums as keys
+
+why EnumMap exits ?
+    Because when your keys are enums, using a regular HashMap is:
+        * slower
+        * memory-heavy
+        * unnecessary
+    EnumMap is optimized to store keys as array Indexes internally instead of hash buckets
+        * Super fast lookups
+        * Super fast writes
+        * Zero collision
+        * Very memory-efficient
+
+Key characteristics of EnumMap
+
+Feature                     Behaviour
+
+KeyType                     only enums
+Internal storage            Array
+performance                 Faster than hashMap
+ordering                    Follows natural order of enum constants
+allows null keys            No
+allows null values          Yes
+Thread-safe                 No (wrap if needed)
+
+internal working
+
+EnumMap uses:
+    * an array indexed by the ordinal of enum constants
+    * Example : Day.MON.ordinal() --> 0
+    * No hashing --> no collision
+    * very fast O(1) Operations
+
+ordering
+
+EnumMap Maintain the order of enum declaration:
+
+Uses cases of EnumMap
+
+1) Replacing switch-case for cleaner design
+    * instead of large switches that become complex
+
+2) state machines
+    Enum represent states; EnumMap stores transitions.
+    Example :
+        * Game state
+        * workflow engine
+        * UI navigation states
+3) configuration of enum based settings
+    Example :
+    * logging level --> configuration
+    * user role --> permission
+    * events --> handlers
+
+4) storing precomputed values for enums
+    example :
+    * Days --> working hours
+    * Colors --> RGB VALUE
+    * Currency --> exchange rate
+
+5) statistics counting
+
+EnumMap<Day, Integer> count = new EnumMap<>(Day.class)
+count.put(Day.MON, 5);
+
+
+EnumMap VS HashMap
+
+Feature                 EnumMap                                 HashMap
+
+keys allowed            only enums                              Any object
+performance             Fastest                                 Slower
+Memory usage            Very low                                Higher
+Null keys               No                                      Allowed
+ordering                Enum natural order                      Unpredictable
+Internal                Array                                   Hash table
+
+
+How to make EnumMap Thread safe ?
+    EnumMap is not thread , but you can wrap it:
+    Map<Day, String> syncMap = collections.synchronizedMap(new EnumMap<>(Day.class));
