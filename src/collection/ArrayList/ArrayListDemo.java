@@ -11,7 +11,7 @@ public class ArrayListDemo {
         list.add("Bilal");
         System.out.println("arrayList " + list);
         System.out.println("get element " + list.get(1));
-        System.out.println("remove element " + list.remove(0));
+        System.out.println("remove element " + list.remove(1));
         System.out.println("updated list " + list);
     }
 

@@ -9,7 +9,7 @@ Key Feature of Map
   * Values can be duplicate
 
 2) No duplicate keys
-    If you puts a duplicate key:
+    If you put a duplicate key:
     * It replaced old value
 
 3) Allows nulls

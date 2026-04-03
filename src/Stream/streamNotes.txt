@@ -1,0 +1,165 @@
+java stream are one of the biggest java 8 additions, enabling functional-style operation on data collection.
+
+A stream is a sequence of data elements supporting aggregate operation without modifying the source
+
+# 1 ) A stream represents a pipeline of operations that process data:
+ Source --> Intermediate Operation -> Terminal Operation
+
+ Think of it like an assembly line: data flows through operation
+
+# 2)  Stream are Not:
+
+    * Not data structure
+    * Not Collection
+    * Do not store elements
+    * Do not modify the original data
+    * Not reusable ( A stream can be consumed only once )
+
+    Stream<String> s = list.stream();
+    s.forEach(System.out::println) // OK
+    s.forEach(System.out::println) // Error - stream already consumed
+
+# 3) Stream pipeline components
+
+    * 1) Source
+            Example : List <T>, Set<T>, Map<K,V>, arrays, Files.lines(), Random.ints(), Stream.of()
+    * 2) Intermediate Operation ( Lazy )
+            Do not execute immediately
+            example : filter(),map(),sorted(),distinct(),limit(),skip()
+            Intermediate ops return Stream ---> used for chaining.
+
+    * 3) Terminal Operation (Eager)
+            Trigger execution of pipeline
+            example : collect(),forEach(),reduce(),count(), toArray()
+            Once a terminal op runs --> pipeline executes
+
+    * 4) Example : BASIC Stream Pipeline
+
+        List<String> names = List.of("Bilal", "Ahmed","Ravi", "Aman")
+                names.streams()
+                     .filter(n->n.startsWith("A"))
+                     .map(String::toUpperCase)
+                     .forEach(System.out::println)
+
+                     //output AHMED AMAN
+
+    * 5) Intermediate Operation (Detailed)
+
+            * filter(Predicate)
+
+                selects elements that match a condition
+
+                numbers.stream().filter(n-> n%2 ==0)
+
+            * map(Function)
+
+                Transform each element.
+
+                 names.streams().map(String::length)
+
+            * flatMap(Function)
+
+                Flatten nested structure
+
+                listOfLists.stream().flatMap(List::stream)
+
+            * sorted (Comparator)
+
+                sorted stream data
+
+            * distinct()
+
+                Remove duplicates.
+
+            * limit(n) / skip(n)
+
+                Pagination-like behaviour
+
+   *  6)  Terminal Operation
+
+            * forEach()
+
+                Applies an action
+
+            * Collect()
+
+                Convert back to collection
+
+                List<String> upper = names.stream()
+                                            .map(String :: toUpperCase)
+                                            .collect(Collector.toList());
+
+            * reduce()
+
+                Combine element --> sum, max, min
+
+                int sum = numbers.stream().reduce(0,Integer::sum);
+
+            * count ()
+
+                count elements.
+
+   * 7) Primitive Stream
+
+        java provides
+
+            * IntStream
+            * LongStream
+            * DoubleStream
+
+            why? to avoid boxing/unboxing overhead
+
+            IntStream.range(1,5).sum() // 1+2
+
+   * 8) parallel Stream
+
+        use all CPU cores --> fork/Join pool
+
+            list.parallelStream()
+                .map(...)
+                .filter(...)
+                .collect(...)
+            when to avoid?
+            * shared mutable state
+            * order-sensitive operations
+            * small datasets (Overhead > gain )
+
+      * 9) Stream API with collections
+
+            * from List
+               List.stream()
+
+            * From arrays
+                Arrays.stream(arr)
+
+            * From Map
+                map.entrySet().stream()
+
+      * 10 ) Lazy Evaluation
+
+            Stream are lazy until a terminal operation is called
+
+            stream.filter(x -> {
+            System.out.println("Filtering") ; // won't run until a terminal op
+            return true
+
+            })
+
+    * 11) Stateless vs stateful Operations
+
+            # Stateless
+                No dependency on previous element
+                    * filter, map
+
+            # Stateful
+                Need knowledge of other elements:
+                * sorted, distinct, limit
+
+                stateful ops can impact performance
+
+     * 12) short-circuiting operations
+
+            stop processing early .
+                * anyMatch(),allMatch,noneMatch(),findFirst(),findAny()
+
+                ex : boolean found = list.stream().anyMatch(s->s.contains("test"))

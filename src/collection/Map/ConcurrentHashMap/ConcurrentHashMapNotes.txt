@@ -23,7 +23,7 @@ ConcurrentHashMap solve this by :
     * Using segment / bucket level locking (java 7)
     * Using CAS  + node locking (java 8, highly efficient)
 
-    Best for high-performance multi-threaded applications
+    Best for high-performance multithreaded applications
 
 Internal working
 
@@ -37,7 +37,7 @@ Internal working
         * CAS (Compare -And -Swap)
         * Synchronized blocks only on specific bins
         * Tree-based bins (like HashMap ) for high collision keys
-        * Non- blocking reads
+        * Non-blocking reads
 
 # Important properties
 

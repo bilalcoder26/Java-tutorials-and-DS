@@ -40,7 +40,7 @@ Real use cases of linkedList
 
 1) Implementing queue or deque
 
-    * Linkedlist implements Queue and deque
+    * Linked list implements Queue and deque
     * Perfect for FIFO behaviour
 
     Queue<Integer> queue  = new LinkedList<>();
