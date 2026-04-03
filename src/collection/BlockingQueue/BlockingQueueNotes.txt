@@ -1,0 +1,153 @@
+what is BlockingQueue ?
+
+BlockingQueue is an interface in java's java.util.concurrent package used for thread-safe communication
+between threads
+
+It key feature is blocking behaviour
+
+    * If the queue is empty, a thread trying to remove an element waits
+    * If the queue is full, a thread trying to add an element waits
+
+This makes BlockingQueue perfect for Producer-consumer problems.
+
+why do we need BlockingQueue ?
+
+without BlockingQueue:
+    * You must write manual synchronization
+    * Handle wait()/notify()
+    * Risk of deadlocks and race conditions
+
+with BlockingQueue
+    * Thread-safe
+    * No manual locking
+    * cleaner and safe code
+
+common BlockingQueue Method
+
+Method                                  Behaviour
+
+put()                                   Block if queue is full
+take()                                  Block if queue is empty
+offer()                                 Return false if full
+poll()                                  Return null if empty
+peek()                                  Read Head without removing
+
+Type of BlockingQueue (with example & use Cases)
+
+1) ArrayBlockingQueue
+    # Fixed-size queue backed by an array
+
+    BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(5);
+
+   # characteristics
+        * Bounded (size is fixed)
+        * FIFO (First-In-first-out)
+        * Optional fairness policy
+
+   # when to use
+        * You want to limit memory usage
+        * Fixed number of tasks
+        * Prevent producers from overwhelming consumers
+
+   Example use Case:
+        * Thread pool task queue
+        * Rate-limited systems
+
+
+2) LinkedBlockingQueue
+
+      # optional size, backed by linked nodes
+
+        BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+
+      # Characteristics
+
+            * Can be bounded or unbounded
+            * Higher throughput than ArrayBlockingQueue
+            * more Memory usage
+
+      # When to use
+            * Unknown number of tasks
+            * Many Producer and consumers
+            * Default choice for Executor frameworks
+
+      Example use case:
+            * Logging systems
+            * Message processing pipelines
+
+
+3) PriorityBlockingQueue
+    # Element processed based on priority, not insertion order
+
+        BlockingQueue<Task> queue = new PriorityBlockingQueue<>()
+
+    # Characteristics
+        * Unbounded
+        * Does Not Block on put()
+        * Order elements by priority
+
+
+    # when to use
+        * Important tasks must execute first
+        * Scheduling systems.
+
+    # Example use case:
+        * Job schedulers
+        * Alerting system
+
+
+4) SynchronousQueue
+    # No internal capacity -- direct handoff
+
+        BlockingQueue<String> queue = new SynchronousQueue<>();
+
+    # Characteristics
+        * Each put waits for a take
+        * Zero storage
+        * High-performance thread handoff
+
+    # When to use
+        * Direct producer-to-consumer model
+        * Low latency systems
+
+    Example use case
+        * Hand-off designs
+        * Thread pool work stealing
+
+
+5) DelayQueue
+    # Element are available only after a delay
+
+    BlockingQueue<DelayedTask> queue = new DelayQueue<>();
+
+    # Characteristics
+        * Element must implement Delayed
+        * Time-based blocking
+
+    # When to use
+        * Scheduled tasks
+        * Timeout-based processing
+
+    Example  use case:
+        * Session expiration
+        * Retry mechanisms
+
+
+6) LinkedTransferQueue
+    # Optimized for high concurrency
+
+    TransferQueue<String> queue = new LinkedTransferQueue<>();
+
+    # Characteristics
+
+        * Unbounded
+        * Producer an wait until consumer receive data
+
+    # When to use
+
+     * High -throughput system
+     * Messaging platform
+
+
+
+

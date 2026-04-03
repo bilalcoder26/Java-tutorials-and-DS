@@ -1,0 +1,53 @@
+1) what is a skip list ? ( Concept)
+a) A skip list is a probabilistic, multi-level linked list that provides O(log n ) time complexity for
+        * search * insert * Delete
+
+It is an alternative to balanced trees (Like Red-black Trees) but easier to implement and highly concurrent
+
+
+2) Why concurrent skip lists ?
+A) The primary reason : High concurrency with lock-free operations.
+
+Unlike collections.synchronizedMap or hashtable which use big locks, skip-lists use:
+    * Lock-free, non-blocking algorithm
+    * Fine-grained atomic operation
+    * Optimistic concurrency
+This results in excellent performance under multithreaded access.
+
+3) ConcurrentSkipListMap<K,V>
+
+A thread-safe sorted, navigable, non-blocking map
+
+Feature                                     Description
+
+Sorting                                     Natural ordering or custom comparator
+Thread-safety                               Lock-free, highly scalable
+Performance                                 O(log n) search/insert/delete
+Iterator                                    weakly consistent, never throw concurrentModificationException
+Nulls                                       Does Not Allow null keys or null values
+
+
+4) ConcurrentSkipListSet
+    A thread version of a sorted set built on concurrentSkipMap
+
+    characteristics
+        * sorted
+        * Thread-safe
+        * Backed by a skip-list
+        * No duplicate
+
+5) Concurrency Behaviour
+
+    non-blocking Reads
+     * can proceed even while write operation occur.
+
+    Optimistic concurrency
+      * writers operate atomically using CAS (Compare -And -Swap)
+
+    No Global Lock
+      * Unlike TreeMap synchronized wrappers, there is no single lock blocking the entire structure
+
+    Iterators
+        * Are weakly consistent
+        * Reflect update that happen during iteration
+        * Never throw concurrentModificationException

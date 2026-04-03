@@ -1,0 +1,27 @@
+what is Deque in java ?
+
+Deque stands for double Ended Queue
+    A Deque allows insertion and removal of elements from both ends:
+
+        * Front
+        * Rear (Back)
+
+        so it can work as
+            * Queue (FIFO)
+            * Stack (LIFO)
+
+Deque is an interface
+    Present in : java.util.Deque
+
+    Since it's an interface, we use implementing classes like:
+        * ArrayDeque (Most commonly used)
+        * LinkedList
+
+why use Deque ?
+
+    Deque is used when :
+        * You want flexibility (add/remove from both ends )
+        * you want one structure to act as :
+                # Queue
+                # Stack
+        * Faster than stack and linkedList in most cases

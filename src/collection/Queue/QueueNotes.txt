@@ -1,0 +1,70 @@
+A queue is data structure that work on the principle of
+
+    FIFO - First In, First Out
+        The element that is inserted first is removed first
+
+    Real-life example
+        * People standing in a line at a ticket counter
+        * First person in line gets the tickets first
+
+In java , Queue is an interface present in
+        java.util.Queue
+
+        Since it is an interface, it cannot be instantiated directly
+        we use classes that implement the queue interface
+
+Common Implementation
+    * LinkedList
+    * PriorityQueue
+    * ArrayDeque
+
+important Queue Methods
+
+Method                      Description
+
+add()                       Insert element (Throw exception if full)
+offer()                     Insert element (return false if fails)
+remove()                    Removes head element (Throw exception if empty )
+poll()                      Remove head element (return null if empty)
+element()                   Gets Head element(Throws exception if empty)
+peek()                      Gets head element (return null if empty )
+
+# Head = first element of the queue
+
+PriorityQueue does not follow FIFO Strictly
+element are removed based on priority (Smallest first)
+
+when should you use queue ?
+
+    use Queue when :
+        * Order matter (FIFO)
+        * Task scheduling
+        * Handling request (e.g printer queue)
+        * Breadth-First Search (BFS)
+
+Queue vs Stack
+
+Queue                                               Stack
+
+FIFO                                                LIFO
+add/remove                                          push/pop
+used for scheduling                                 Used for undo operations
+
+
+Deque vs Queue vs Stack
+
+Feature                         Deque                           queue                           Stack
+
+Insert                          Both ends                       Rear                            Top
+Remove                          Both ends                       Front                           Top
+Flexible                        YES                             NO                              NO
+
+why ArrayDeque is preferred ?
+
+* No capacity limitation (Unlike array)
+* Faster than stack
+* No synchronization overhead
+* Recommended by java docs
+
+# ArrayDeque does not allow null elements
+
