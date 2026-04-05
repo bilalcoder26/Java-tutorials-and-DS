@@ -1,0 +1,16 @@
+1) Why Runnable instead of thread ?
+
+    *  Although extending Thread works, Runnable preferred because
+           *  Java does not support multiple inheritance
+           *  Better separation of responsibility
+                # Runnable --> task
+                # Thread   --> execution
+           * Works naturally with thread pools (ExecutorService)
+
+#### --> "Runnable " is preferred because it promotes better design and support multiple inheritance
+
+which method actually runs concurrently ?
+--> start()
+
+where is run() defined ?
+---> In Runnable and Thread (Thread internally calls Runnable's run ()

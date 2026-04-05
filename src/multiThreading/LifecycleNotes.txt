@@ -1,0 +1,82 @@
+Thread Lifecycle in java ( Multithreading )
+
+In java a thread lifecycle represent the various states a thread goes through from creation to termination
+
+java define these states using the Thread.State enum
+
+java thread lifecycle consist of 6 states
+
+NEW --> Runnable --> (Blocked / waiting / Timed_waiting) --> Terminated
+
+1) NEW state
+    meaning
+    * Thread object is created
+    * start() has not been called yet
+
+Example: Thread t = new Thread();
+
+Thread is in NEW State
+
+2) RUNNABLE State
+    meaning
+    * Thread is ready to run
+    * JVM Scheduler decide when it actually runs
+    * Include both ready and running
+
+t.start();
+
+Thread enters RUNNABLE State
+
+java does not have a separate RUNNING state
+
+3) BLOCKED State
+    meaning
+    * Thread is waiting to acquire a monitor lock
+    * Occurs due to synchronized block/methods
+
+    example
+    synchronized(lock) {
+    //thread waits if lock is unavailable
+    }
+
+    Thread enters BLOCKED State until lock is released
+
+4) WAITING STATE
+
+    meaning
+    * Thread waits indefinitely
+    * another thread must wake it up
+
+    Method that cause this state
+    * wait()
+    * join()
+    * park()
+
+    t.wait();
+
+    * Thread enters WAITING State
+
+5) TIMED_WAITING STATE
+    meaning
+    * Thread waits for fixed amount of time
+
+    Methods that cause this state
+        * sleep(time)
+        * wait(time)
+        * join(time)
+
+    Example
+        Thread.sleep(1000);
+
+        Thread enters TIMED_WAITING State
+
+6) TERMINATED (dead) state
+
+    Meaning
+        * Thread has completed execution
+        * cannot be restarted
+
+        example
+        run() method finishes
+        thread enter TERMINATED state
+        calling start() again --> IllegalThreadException

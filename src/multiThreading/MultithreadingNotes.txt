@@ -1,0 +1,89 @@
+# What is  Multithreading in java ?
+
+Multithreading in java is a feature that allow multiple thread to run concurrently within a single java
+program.
+
+    * Java supports multithreading at the language level
+    * Each thread represents an independent path of execution
+    * All thread share the same heap memory , but each has its own stack
+
+Goal:
+
+    To maximize CPU utilization and improve application performance and responsiveness
+
+# Process vs Thread
+
+Aspect                              Process                                     Thread
+
+Memory                              Separate                                    Shared(Heap)
+Creation                            Heavy                                       Lightweight
+Communication                       Slow (IPC)                                  Fast (Shared data)
+java support                        Limited                                     First-class support
+
+
+Java provides two main ways to create threads:
+
+1) Extending the Thread class
+2) Implementing the runnable interface (Preferred)
+
+
+# why Runnable is better ?
+
+    * Support multiple inheritance
+    * separates task from thread
+    * More flexible for thread pools
+
+# Thread lifecycle in java
+  A java thread goes through the following states:
+        1) New --> Thread created not started
+        2) Runnable --> Ready or running
+        3) Blocked --> Waiting for monitor lock
+        4) Waiting --> waiting indefinitely
+        5) Timed_waiting --> waiting for fixed time
+        6) Terminated --> Finished execution
+
+# Thread Priorities
+    java thread priorities range from :
+
+        * Thread.MIN_PRIORITY (1)
+        * Thread.NORM_PRIORITY (5)
+        * Thread.MAX_PRIORITY (10)
+
+Note: priority behaviour is OS-DEPENDENT
+
+
+# Synchronization in java
+
+Because thread share memory concurrency problems may occur
+
+    Common Issue
+        * Race conditions
+        * Inconsistent data
+        * Unexpected behaviour
+
+
+# Inter-Thread communication
+
+    java provide these methods (inside Object class):
+        * wait()
+        * notify()
+        * notifyAll()
+
+        wait()   // release lock & wait
+        notify()    // wake one waiting thread
+        // used in producer-consumer problems
+
+# deadlock in java
+    when two thread wait forever for each other's locks.
+
+# Executor & Thread Pools (Modern java)
+
+# Java concurrency Utilities (Java.util.concurrent)
+
+    * Executor service
+    * callable & Future
+    * countDownLatch
+    * CyclicBarrier
+    * Semaphore
+    * ConcurrentHashMap
+    * AtomicInteger
