@@ -1,4 +1,4 @@
-package leetcodequestion.arrayquestion.easy;
+package leetcodequestion.arrayquestion;
 /*
 https://leetcode.com/problems/remove-element/description/?envType=problem-list-v2&envId=array
 
