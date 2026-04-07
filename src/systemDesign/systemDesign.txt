@@ -1,0 +1,75 @@
+System Design is about planning how a software system will be built—its structure, components, and
+how everything works together.
+
+It is mainly divided into two parts:
+🔹 1. High-Level Design (HLD)
+👉 What it means:
+
+HLD gives a big-picture view of the system.
+
+Think of it like a map of a city, not individual streets.
+
+✅ Focus areas:
+Overall architecture (Monolith / Microservices)
+Major components (Frontend, Backend, Database, Cache, etc.)
+How components interact
+Technology choices
+📌 Example (Food Delivery App like Zomato)
+
+HLD will define:
+
+Mobile App (User Interface)
+Backend Server
+Database
+Payment Service
+Delivery Service
+
+👉 And show:
+User → App → Backend → Database
+                  ↓
+             Payment Service
+
+
+🔹 2. Low-Level Design (LLD)
+👉 What it means:
+
+LLD goes into deep details of each component.
+
+Think of it like street-level planning of the same city.
+
+✅ Focus areas:
+Classes and objects
+Methods and functions
+Database schema (tables, fields)
+API request/response structure
+Design patterns (Singleton, Factory, etc.)
+📌 Example (Same Food App)
+
+LLD will define:
+
+User class
+Order class
+Restaurant class
+
+API like:
+
+POST /createOrder
+GET /order/{id}
+Database tables:
+Users
+Orders
+Payments
+🧠 Key idea:
+
+👉 How each component is implemented internally
+
+🔥 HLD vs LLD (Simple Difference)
+Feature	HLD 🏗️	LLD 🔧
+Level	High-level (overview)	Detailed (implementation)
+Focus	Architecture	Code-level design
+Components	Modules/services	Classes & methods
+Audience	Architects, Senior Devs	Developers
+Example	"Use microservices"	"Create OrderService class"
+🎯 Easy Analogy
+HLD = Blueprint of a house 🏠
+LLD = Interior design + wiring + plumbing ⚡🚿
