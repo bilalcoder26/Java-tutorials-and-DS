@@ -1,0 +1,136 @@
+🚀 1. Throughput kya hota hai?
+
+👉 Throughput = system kitna kaam kar raha hai per unit time
+
+Throughput = number of requests / second
+
+🧠 Simple Example
+Server 1 second me 100 requests handle kar raha hai
+
+👉 Throughput = 100 req/sec (RPS)
+
+🎯 2. Real Life Analogy (Best 🔥)
+🚗 Toll Plaza Example
+1 car pass hone ka time = Latency
+1 minute me 200 cars pass ho gayi = Throughput
+
+👉
+
+Latency = ek car ka time
+Throughput = total cars per minute
+
+⚡ 3. Important Units
+Requests per second (RPS)
+Queries per second (QPS)
+Transactions per second (TPS)
+
+
+🧠 4. Latency vs Throughput (Clear Difference)
+
+| Feature | Latency            | Throughput                    |
+| ------- | ------------------ | ----------------------------- |
+| Meaning | ek request ka time | kitni requests handle ho rahi |
+| Focus   | speed              | capacity                      |
+| Unit    | ms                 | req/sec                       |
+
+🔥 Relationship (IMPORTANT)
+
+👉 High throughput ≠ low latency always
+
+Example:
+
+System 1000 req/sec handle kar raha hai
+But har request 5 sec le rahi hai
+
+👉 Throughput high, latency bhi high ❗
+
+🎬 5. Visualization (Flow)
+Time: 1 second
+Requests processed: 5
+
+👉 Throughput = 5 req/sec
+
+Another Case:
+Time: 1 second
+Requests processed: 1000
+
+👉 Throughput = 1000 req/sec 🚀
+
+6. System Flow Example
+User → Load Balancer → Server → DB
+
+👉 Throughput depend karta hai:
+
+servers kitne hain
+DB kitna fast hai
+bottleneck kaha hai
+
+⚠️ 7. Bottleneck Concept (VERY IMPORTANT 🔥)
+
+👉 System ka throughput = slowest component
+
+Example:
+
+Server → 1000 req/sec
+DB → 100 req/sec ❌
+
+👉 Final throughput = 100 req/sec
+
+
+🧠 8. Throughput ka Formula (Conceptual)
+Throughput = Total work done / Time taken
+
+🔥 9. Throughput kaise badhayein?
+
+🔹 1. Horizontal Scaling
+aur servers add karo
+
+🔹 2. Load Balancing
+requests distribute karo
+
+🔹 3. Caching
+DB load kam karo
+
+🔹 4. Async Processing
+background jobs use karo
+
+🔹 5. Batch Processing
+ek baar me multiple kaam
+
+🔹 6. DB Optimization
+indexing
+read replicas
+
+🎯 10. Real World Example
+🔸 Instagram Feed
+Millions users request kar rahe
+System ko high throughput chahiye
+
+👉 Solution:
+
+CDN
+caching
+distributed servers
+
+💥 11. Important Insight
+
+👉 Throughput increase karne ke liye:
+
+Parallelism ↑  → Throughput ↑
+
+🧠 FINAL INTUITION
+
+👉 Throughput =
+
+"System kitna load handle kar sakta hai"
+
+🚀 One Line Summary
+
+👉
+Throughput = number of requests processed per second
+
+🎯 Interview Ready Line
+
+👉
+“Throughput defines the capacity of a system, i.e.,
+how many requests it can process per unit time, typically measured in requests per second.”
