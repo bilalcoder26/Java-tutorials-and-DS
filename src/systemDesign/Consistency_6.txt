@@ -1,0 +1,120 @@
+what is Consistency ?
+👉 Consistency = sabhi users ko same data kab aur kaise dikhega
+
+🔹 Strong Consistency
+📌 Definition
+
+Jab bhi tum data update karte ho, har read me latest updated value hi milegi — instantly.
+
+👉 Matlab:
+
+Write hua → turant sabko updated value milegi
+
+📌 Example
+
+Suppose:
+
+Bank balance = ₹1000
+Tumne ₹500 withdraw kiya
+
+👉 Strong consistency me:
+
+Har user ko immediately ₹500 hi dikhega
+Old value kabhi nahi dikhegi
+
+📌 Real-world systems
+Banking systems
+Payment systems
+📌 Pros
+
+✅ Always correct data
+✅ No stale data
+
+📌 Cons
+
+❌ Slow (kyunki sync karna padta hai sab nodes ko)
+❌ High latency
+
+🔹 Eventual Consistency
+📌 Definition
+
+Update hone ke baad thoda time lag sakta hai sab jagah update hone me, but eventually sab same ho jayega.
+
+👉 Matlab:
+
+Write hua → kuch time tak old data mil sakta hai
+Baad me sab correct ho jayega
+
+📌 Example
+
+Instagram post:
+
+Tumne post kiya
+Tumhe turant dikhega
+Dost ko 1–2 sec baad dikhega
+
+👉 Ye eventual consistency hai
+
+📌 Real-world systems
+Social media (Instagram, Twitter)
+DNS systems
+Caching systems
+📌 Pros
+
+✅ Fast
+✅ High availability
+✅ Scalable
+
+📌 Cons
+
+❌ Temporary wrong/stale data
+❌ Conflict handling needed
+
+🔥 Strong vs Eventual (Quick Comparison)
+
+| Feature        | Strong Consistency | Eventual Consistency |
+| -------------- | ------------------ | -------------------- |
+| Data freshness | Always latest      | Eventually latest    |
+| Speed          | Slow               | Fast                 |
+| Complexity     | High               | Medium               |
+| Use case       | Banking            | Social media         |
+| Availability   | Lower              | Higher               |
+
+🔥 Real Interview Insight (IMPORTANT)
+
+Ye concept directly linked hai:
+
+👉 CAP Theorem
+
+CAP bolta hai:
+
+Consistency
+Availability
+Partition tolerance
+
+👉 Tum ek time pe 3 me se sirf 2 choose kar sakte ho
+
+So:
+
+Strong consistency → sacrifice availability
+Eventual consistency → sacrifice immediate consistency
+
+🔥 Simple Analogy
+Strong consistency:
+
+👉 WhatsApp "last seen" exact time (always correct)
+
+Eventual consistency:
+
+👉 Instagram likes count (thoda delay)
+
+🔥 Interview One-Liner
+
+Agar interviewer pooche:
+
+👉 “Difference?”
+
+Answer:
+
+Strong consistency ensures every read gets the latest write immediately, while eventual consistency
+allows temporary stale reads but guarantees data will become consistent over time.
