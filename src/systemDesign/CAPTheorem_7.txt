@@ -1,0 +1,118 @@
+CAP Theorem
+
+CAP Theorem kehta hai:
+
+Distributed system me tum 3 me se sirf 2 cheeze hi guarantee kar sakte ho:
+
+C → Consistency
+A → Availability
+P → Partition Tolerance
+
+👉 Teeno ek saath 100% guarantee nahi ho sakte
+
+1. Consistency (C)
+
+👉 Har user ko same data dikhe
+
+Example:
+
+Tum update karo name = "Bilal"
+Sabko wahi updated value dikhe immediately
+2. Availability (A)
+
+👉 System hamesha response de
+
+Chahe data updated ho ya na ho
+But request fail nahi hogi
+3. Partition Tolerance (P)
+
+👉 System network failure ke baad bhi kaam karta rahe
+
+Server A aur Server B ke beech connection toot gaya
+Phir bhi system chalna chahiye
+
+🧪 2. Real-world Example
+
+Socho tumhara system 2 servers pe chal raha hai:
+
+User → Server A → DB1
+User → Server B → DB2
+
+Agar network toot gaya (partition ho gaya):
+
+👉 Ab tumhe choose karna padega:
+
+Option 1: Consistency + Partition (CP)
+Dono servers sync nahi → kuch requests reject kar do
+❌ Availability sacrifice
+Option 2: Availability + Partition (AP)
+Har request ka response do
+❌ Data inconsistent ho sakta hai
+
+💻 3. Project Use-case (Tumhare Backend me)
+
+Tum Spring Boot + MySQL use kar rahe ho:
+
+Case 1: Banking App 💰
+Paisa galat nahi hona chahiye
+👉 Choose: CP (Consistency + Partition)
+
+➡️ Agar DB down hai → error de do
+(kyunki wrong balance dikhana dangerous hai)
+
+Case 2: Social Media App 📱
+Thoda delay chalega
+
+👉 Choose: AP (Availability + Partition)
+
+➡️ Like count thoda late update ho sakta hai
+but app band nahi hona chahiye
+
+🎤 4. Interview Answer (Ready-made)
+
+Agar interviewer bole: “Explain CAP theorem”
+
+👉 Tum bol sakte ho:
+
+“CAP theorem states that in a distributed system, we can only guarantee two out of three properties:
+Consistency, Availability, and Partition Tolerance.
+
+In case of a network partition, a system has to choose between consistency and availability.
+
+For example, banking systems prefer consistency to availability, while social media systems
+prefer availability over strict consistency.”
+
+⚠️ 5. Follow-up Questions (Important)
+❓ Q1: Can we ignore Partition Tolerance?
+
+👉 ❌ Nahi
+
+Real world me network failure hoga hi → P mandatory hai
+
+👉 So actual choice hoti hai:
+
+CP vs AP
+❓ Q2: Example of CP systems?
+Traditional RDBMS (MySQL with strict mode)
+❓ Q3: Example of AP systems?
+Cassandra
+DynamoDB
+❓ Q4: What is eventual consistency?
+
+👉 AP systems me use hota hai
+
+Data thoda delay se sync hota hai
+But end me consistent ho jata hai
+
+🔥 Final Intuition (Shortcut yaad rakhne ke liye)
+
+👉 Network toot gaya = Partition
+
+Ab choose karo:
+
+“Galat data nahi chahiye” → Consistency (CP)
+“App band nahi hona chahiye” → Availability (AP)
+💥 One-line killer line (Interview me use karo)
+
+“In distributed systems, partition tolerance is unavoidable, so the real trade-off is between
+consistency and availability.”
