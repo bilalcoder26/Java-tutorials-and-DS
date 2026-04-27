@@ -1,7 +1,8 @@
 package leetcodequestion.arrayquestion;
 //https://leetcode.com/problems/merge-intervals/description/?envType=problem-list-v2&envId=array
 /*
-iven an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals,
+and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
 
 
@@ -63,9 +64,9 @@ public class MergeInterval_56 {
         int[][] mergedIntervals = mergeInterval(intervals);
         System.out.println("merged interval");
         System.out.println(Arrays.deepToString(mergedIntervals));
-        for(int[] interval: mergedIntervals){
-            System.out.println("[" + interval[0] + ", " + interval[1] + "]");
-        }
+//        for(int[] interval: mergedIntervals){
+//            System.out.println("[" + interval[0] + ", " + interval[1] + "]");
+//        }
     }
 
 
