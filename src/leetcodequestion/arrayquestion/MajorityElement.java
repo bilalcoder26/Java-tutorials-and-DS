@@ -32,6 +32,7 @@ public class MajorityElement {
         for (int num : nums){
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
+        System.out.println("map --> " + map);
 //         just for looping reference
 //        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
 //            if(entry.getValue() == 1){

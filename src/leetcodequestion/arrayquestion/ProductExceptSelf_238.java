@@ -53,13 +53,14 @@ public class ProductExceptSelf_238 {
         for(int i = 1; i < n; i++){
             prefix[i] = prefix[i - 1] * nums[i - 1];
         }
-
+        System.out.println("prefix  ---> " + Arrays.toString(prefix));
         //step 2 : suffix
         suffix[n-1] =1;
         for(int i=n-2;i>=0;i--){
             suffix[i] = suffix[i+1] * nums[i+1];
 
         }
+        System.out.println("suffix --->  " + Arrays.toString(suffix));
         // Step 3: Result
         for(int i = 0; i < n; i++){
             result[i] = prefix[i] * suffix[i];
@@ -78,6 +79,7 @@ public class ProductExceptSelf_238 {
         for(int i = 1; i < n; i++){
             result[i] = result[i - 1] * nums[i - 1];
         }
+        System.out.println("prefix result ---> " + Arrays.toString(result));
 
         // Step 2: Multiply with suffix
         int suffix = 1;
@@ -85,6 +87,7 @@ public class ProductExceptSelf_238 {
             result[i] = result[i] * suffix;
             suffix *= nums[i];
         }
+        System.out.println("suffix ---> " + suffix);
 
         return result;
     }
@@ -94,6 +97,10 @@ public class ProductExceptSelf_238 {
         System.out.println(Arrays.toString(ans));
         int[] ans2 = productofSelfOptimized(new int[]{1,2,3,4});
         System.out.println(Arrays.toString(ans2));
+
+        int[] ans3 = productExceptSelf(new int[]{1,2,3,4});
+        System.out.println(Arrays.toString(ans3));
+
 
     }
 }
