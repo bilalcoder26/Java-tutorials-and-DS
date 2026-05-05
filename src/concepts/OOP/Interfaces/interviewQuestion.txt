@@ -1,0 +1,110 @@
+✅ Q1: Can interface have constructor?
+
+Answer:
+No, interfaces cannot have constructors because they cannot be instantiated.
+
+----------------------------------------------------------------------------------------------------
+
+✅ Q2: Can we create object of interface?
+
+Answer:
+No, but we can create reference:
+
+Animal obj = new Dog();
+
+----------------------------------------------------------------------------------------------------
+
+✅ Q3: Why multiple inheritance is allowed in interface but not class?
+
+Answer:
+Because interfaces do not have method implementation (before Java 8), so there is no ambiguity problem.
+
+----------------------------------------------------------------------------------------------------
+
+✅ Q4: What happens if two interfaces have same method?
+
+Answer:
+No issue—class just implements it once.
+
+----------------------------------------------------------------------------------------------------
+❗ Q1: What if two interfaces have same default method?
+interface A {
+    default void show() {
+        System.out.println("A");
+    }
+}
+
+interface B {
+    default void show() {
+        System.out.println("B");
+    }
+}
+
+class Test implements A, B {
+    public void show() {
+        A.super.show();  // resolve conflict
+    }
+}
+
+👉 You must override the method to resolve ambiguity.
+
+----------------------------------------------------------------------------------------------------
+
+❗ Q2: Can interface extend another interface?
+
+Answer: YES
+
+interface A {
+    void show();
+}
+
+interface B extends A {
+    void display();
+}
+
+----------------------------------------------------------------------------------------------------
+
+
+❗ Q3: Can interface have main method?
+
+Answer: YES
+
+interface Test {
+    public static void main(String[] args) {
+        System.out.println("Main in interface");
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+❗ Q4: Can we override static method?
+
+Answer: NO
+Static methods belong to interface, not instance.
+
+----------------------------------------------------------------------------------------------------
+
+💻 Q1: Functional Interface
+@FunctionalInterface
+interface MyInterface {
+    void display();
+}
+
+👉 Only one abstract method allowed
+
+----------------------------------------------------------------------------------------------------
+💻 Q2: Lambda Expression
+MyInterface obj = () -> System.out.println("Hello");
+obj.display();
+
+----------------------------------------------------------------------------------------------------
+
+
+💻 Q3: Marker Interface (Serializable)
+
+👉 Empty interface used as marker
+
+Example:
+
+class Test implements Serializable {}
+

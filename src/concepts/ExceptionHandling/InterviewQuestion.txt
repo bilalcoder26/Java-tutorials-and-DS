@@ -1,0 +1,127 @@
+Q1: What is exception handling in Java?
+
+👉 Answer:
+It is a mechanism to handle runtime errors to maintain the normal flow of the application.
+
+----------------------------------------------------------------------------------------------------
+
+Q2: Difference between checked and unchecked exceptions?
+
+👉 Answer:
+
+Checked: Checked at compile time, must be handled
+Unchecked: Occur at runtime, not mandatory to handle
+
+----------------------------------------------------------------------------------------------------
+
+Q3: What is the difference between throw and throws?
+
+👉 Answer:
+
+throw: Used to explicitly throw an exception
+throws: Declares exceptions that a method can throw
+
+----------------------------------------------------------------------------------------------------
+
+Q4: What is finally block?
+
+👉 Answer:
+A block that always executes regardless of whether an exception occurs or not, used for cleanup.
+
+
+----------------------------------------------------------------------------------------------------
+Q5: Can we have multiple catch blocks?
+
+👉 Answer:
+Yes, but they must be ordered from most specific to most general.
+
+
+----------------------------------------------------------------------------------------------------
+
+
+Q6: What is try-with-resources?
+
+👉 Answer:
+A feature that automatically closes resources implementing AutoCloseable.
+----------------------------------------------------------------------------------------------------
+
+
+😈 Tricky Interview Questions
+
+
+----------------------------------------------------------------------------------------------------
+🔹 Q1: Will finally block always execute?
+
+👉 Answer: NO (not always)
+
+❌ Cases where it won’t execute:
+
+System.exit()
+JVM crash
+
+
+----------------------------------------------------------------------------------------------------
+
+Q2: Can we write try without catch?
+
+👉 Answer: YES (with finally)
+
+try {
+    // code
+} finally {
+    // cleanup
+}
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q3: Can we write try without finally?
+
+👉 Answer: YES (with catch)
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q4: Can we have multiple finally blocks?
+
+👉 Answer: NO
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 Q5: What happens if exception occurs in finally?
+
+👉 Answer:
+It overrides the previous exception.
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q6: Can we catch multiple exceptions in one catch?
+
+👉 Answer: YES (Java 7+)
+
+catch (IOException | SQLException e)
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 Q7: Can constructors throw exceptions?
+
+👉 Answer: YES
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 Q8: What is the parent class of all exceptions?
+
+👉 Answer: Throwable
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 Q9: Difference between Error and Exception?
+
+👉 Answer:
+
+Error: Serious issue (JVM related, not recoverable)
+Exception: Recoverable condition
+
+----------------------------------------------------------------------------------------------------

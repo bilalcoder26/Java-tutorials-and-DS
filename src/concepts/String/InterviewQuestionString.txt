@@ -1,0 +1,96 @@
+Q1: Why are strings immutable in Java?
+Expected answer:
+
+Security – Strings are used in class loading, network connections, file paths.
+Immutability prevents malicious modification.
+
+Thread Safety – No synchronization needed when sharing across threads.
+
+String Pool – Immutability allows string interning (pooling) without risk of corruption.
+
+HashCode Caching – Hash code is computed once and cached, improving HashMap performance.
+
+Q2: What is the difference between StringBuilder and StringBuffer?
+Expected answer:
+StringBuilder is not synchronized (not thread-safe) but faster. StringBuffer is synchronized (thread-safe) but slower.
+Use StringBuilder in single-threaded scenarios; use StringBuffer when multiple threads modify the same string.
+
+
+Q3: Will this code create new String objects? How many?
+java
+String s = "Java";
+for (int i = 0; i < 100; i++) {
+    s = s + "!";
+}
+Answer: 101 objects – 1 original + 100 new strings created in each iteration. Very inefficient.
+Should use StringBuilder.
+
+
+Q4: What will this output?
+java
+String s1 = "Hello";
+String s2 = "Hello";
+String s3 = new String("Hello");
+
+System.out.println(s1 == s2);
+System.out.println(s1 == s3);
+System.out.println(s1.equals(s3));
+Answer:
+
+text
+true   (same reference from String Pool)
+false  (different objects – pool vs heap)
+true   (same content)
+
+Q5: How do you convert StringBuilder to String and vice versa?
+java
+// StringBuilder to String
+StringBuilder sb = new StringBuilder("Hello");
+String str = sb.toString();
+
+// String to StringBuilder
+StringBuilder sb2 = new StringBuilder("Hello");
+
+Q6: What is the default capacity of StringBuilder/StringBuffer?
+Answer: 16 characters. When exceeded, capacity increases to (old capacity * 2) + 2.
+
+Q7: Can you make StringBuilder thread-safe?
+Answer: Yes, by using external synchronization:
+
+java
+StringBuilder sb = new StringBuilder();
+synchronized(sb) {
+    sb.append("thread-safe operation");
+}
+But it's better to simply use StringBuffer for multi-threaded scenarios.
+
+Q8: Predict the output:
+java
+String s = "Java";
+StringBuilder sb = new StringBuilder("Java");
+System.out.println(s.equals(sb));
+System.out.println(sb.equals(s));
+Answer:
+
+text
+false  (String equals() checks type – StringBuilder not a String)
+false  (StringBuilder equals() not overridden – compares references)
+To compare content: s.equals(sb.toString())
+
+Q9: Which is better in a web application (servlet environment)?
+Expected answer: StringBuilder unless the StringBuilder is shared across requests (which it shouldn't be).
+Each request typically runs in its own thread with isolated variables, so synchronization is unnecessary overhead.
+
+
+Q10: Why not always use StringBuilder instead of String?
+Answer: Because:
+
+String is immutable, making it thread-safe by default
+
+String objects can be interned for memory efficiency
+
+String has hash code caching – better for HashMap keys
+
+For constant strings, String is more readable and optimized by compiler
+
+Using StringBuilder for simple concatenation adds unnecessary complexity

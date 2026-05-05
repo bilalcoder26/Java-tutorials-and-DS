@@ -1,0 +1,157 @@
+🔷 1. What is Inheritance? (Definition – Interview Ready)
+
+Inheritance is a mechanism in Object-Oriented Programming (OOP) where one class acquires
+the properties and behaviors (fields and methods) of another class.
+
+👉 It promotes code reusability and establishes an "is-a" relationship.
+
+class Animal {
+    void eat() {
+        System.out.println("Eating...");
+    }
+}
+
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Barking...");
+    }
+}
+
+👉 Here:
+
+Dog inherits Animal
+Dog is-a Animal
+
+----------------------------------------------------------------------------------------------------
+
+
+
+🔷 2. Real-Life Intuition
+
+Soch:
+
+Parent → common features deta hai
+Child → apne features add karta hai
+
+Example:
+
+Animal → eat(), sleep()
+Dog → bark()
+
+👉 Dog ko dubara eat() likhne ki zarurat nahi hai → reuse ho gaya
+
+----------------------------------------------------------------------------------------------------
+
+
+🔷 3. Types of Inheritance in Java
+✅ 1. Single Inheritance
+A → B
+✅ 2. Multilevel Inheritance
+A → B → C
+❌ 3. Multiple Inheritance (Not supported via class)
+A → B
+A → C
+B, C → D ❌
+
+👉 Java me class se multiple inheritance nahi hota (Diamond problem)
+
+✅ 4. Hierarchical Inheritance
+    A
+   / \
+  B   C
+✅ 5. Hybrid (via Interfaces)
+
+----------------------------------------------------------------------------------------------------
+
+🔷 4. Why Java Doesn’t Support Multiple Inheritance?
+
+👉 Diamond Problem
+
+class A {
+    void show() { System.out.println("A"); }
+}
+
+class B extends A {}
+class C extends A {}
+class D extends B, C {} // ❌ error
+
+👉 Confusion:
+
+show() kis class se aaye? B ya C?
+
+----------------------------------------------------------------------------------------------------
+
+🔷 5. Method Overriding (Important)
+
+👉 Child class parent ke method ko override kar sakti hai
+
+class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+👉 Runtime pe decide hota hai → Runtime Polymorphism
+
+----------------------------------------------------------------------------------------------------
+🔷 6. super Keyword
+
+👉 Parent class ko refer karta hai
+
+class Animal {
+    Animal() {
+        System.out.println("Animal constructor");
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super(); // call parent constructor
+        System.out.println("Dog constructor");
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+🔷 7. Constructor Behavior (Very Important)
+
+👉 Jab object banta hai:
+
+Parent constructor call hota hai
+Fir child constructor
+
+👉 Output:
+
+Animal constructor
+Dog constructor
+
+----------------------------------------------------------------------------------------------------
+
+🔷 8. final Keyword in Inheritance
+
+
+| Usage            | Meaning              |
+| ---------------- | -------------------- |
+| `final class`    | Cannot be inherited  |
+| `final method`   | Cannot be overridden |
+| `final variable` | Constant             |
+
+----------------------------------------------------------------------------------------------------
+
+🔷 9. Access Modifiers Impact
+
+| Modifier  | Inherited?           |
+| --------- | -------------------- |
+| private   | ❌ No                 |
+| default   | ⚠️ package dependent |
+| protected | ✅ Yes                |
+| public    | ✅ Yes                |
+
+----------------------------------------------------------------------------------------------------
+

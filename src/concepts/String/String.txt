@@ -1,0 +1,24 @@
+1. String
+What is it?
+String in Java represents an immutable sequence of characters.
+Once a String object is created, it cannot be changed.
+
+String s = "Hello";
+s = s + " World";  // Creates a NEW String object ("Hello World")
+// The old "Hello" object is now lost (eligible for garbage collection)
+
+Key Characteristics:
+Immutable – cannot be modified after creation
+
+Thread-safe – because it cannot change, it's safe to share across threads
+
+Stored in – String Pool (heap memory special area) for literals
+
+Performance – Inefficient for repeated modifications because each change creates a new object
+
+String str = "Java";
+str.concat(" Programming");  // Returns new string but not assigned
+System.out.println(str);     // Output: "Java" (original unchanged)
+
+str = str.concat(" Programming"); // Now str points to new string
+System.out.println(str);     // Output: "Java Programming"

@@ -1,0 +1,134 @@
+JDK ⊃ JRE ⊃ JVM
+
+👉 matlab:
+
+JDK sabse bada
+uske andar JRE
+uske andar JVM
+
+⚙️ 1. JVM (Java Virtual Machine)
+👉 Kya hai?
+
+JVM ek engine hai jo Java bytecode ko run karta hai
+
+.java → compile → .class (bytecode) → JVM → machine code
+
+🧠 Simple language
+
+JVM = “translator + executor”
+
+🔥 Responsibilities
+Bytecode ko run karna
+Memory manage karna (Heap, Stack)
+Garbage Collection
+Platform independence
+
+💡 Important line (interview me bolna)
+
+“JVM makes Java platform independent by converting bytecode to machine-specific instructions.”
+
+⚙️ 2. JRE (Java Runtime Environment)
+👉 Kya hai?
+
+JRE = JVM + libraries
+
+JRE = JVM + runtime libraries + supporting files
+
+🧠 Simple
+
+“Program run karne ke liye jo chahiye — wo sab JRE me hota hai”
+
+❗ Important
+
+👉 JRE me compiler nahi hota
+
+👉 tum Java program run kar sakte ho, but bana nahi sakte
+
+⚙️ 3. JDK (Java Development Kit)
+👉 Kya hai?
+
+JDK = JRE + development tools
+
+JDK = JRE + compiler + debugger + tools
+
+🔧 Tools inside JDK
+javac → compile
+java → run
+jdb → debugger
+🧠 Simple
+
+“Java develop + run dono karna hai → JDK chahiye”
+
+🎯 Real Flow (IMPORTANT)
+1. Write code → Hello.java
+2. Compile → javac Hello.java
+3. Bytecode → Hello.class
+4. Run → java Hello
+5. JVM executes it
+
+🔥 Super Simple Analogy
+
+| Component | Analogy                          |
+| --------- | -------------------------------- |
+| JVM       | Engine                           |
+| JRE       | Car (engine + fuel + system)     |
+| JDK       | Car factory (tools to build car) |
+
+❓ Q1: JVM platform dependent hai ya independent?
+
+👉 Answer:
+
+JVM itself = platform dependent (Windows JVM, Mac JVM alag hota hai)
+Java = platform independent
+
+🔥 trick yahin hota hai
+
+❓ Q2: Kya hum JRE ke bina Java program run kar sakte hain?
+
+👉 ❌ Nahi
+
+👉 JVM + libraries chahiye → JRE
+
+❓ Q3: Kya JDK ke bina Java run ho sakta hai?
+
+👉 ✔️ Haan
+👉 agar JRE installed hai
+
+❓ Q4: .class file me kya hota hai?
+
+👉 Bytecode (machine independent code)
+
+❓ Q5: JVM ka part hai ya JRE ka?
+
+👉 JVM JRE ka part hai
+
+❓ Q6: Agar system me sirf JDK hai, kya JRE alag install karna padega?
+
+👉 ❌ Nahi
+👉 JDK me already JRE included hota hai
+
+❓ Q7: Java platform independent kaise hai?
+
+👉 Bytecode + JVM
+
+❓ Q8: Kya JVM directly .java file run karta hai?
+
+👉 ❌ Nahi
+👉 pehle compile → .class
+
+❓ Q9: Heap aur Stack kis part ka hai?
+
+👉 JVM memory
+
+❓ Q9: Heap aur Stack kis part ka hai?
+
+👉 JVM memory
+
+❓ Q10: Garbage Collection kaun karta hai?
+
+👉 JVM
+
+🚀 Final One-Line Summary
+JVM → runs bytecode
+JRE → provides runtime environment
+JDK → provides tools to develop + run

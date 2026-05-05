@@ -1,0 +1,65 @@
+Performance Comparison
+Example test (appending 100,000 times):
+
+// String - VERY SLOW (~5000ms)
+String s = "";
+for (int i = 0; i < 100000; i++) {
+    s = s + "a";  // Creates 100,000 new objects!
+}
+
+// StringBuilder - VERY FAST (~5ms)
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 100000; i++) {
+    sb.append("a");  // Modifies same object
+}
+
+// StringBuffer - FAST BUT SLOWER than StringBuilder (~8ms)
+StringBuffer sbuf = new StringBuffer();
+for (int i = 0; i < 100000; i++) {
+    sbuf.append("a");  // Synchronized, slight overhead
+}
+
+
+When to Use Which?
+Scenario                                                    	Recommended
+String is constant (never changes)	                            String
+Concatenating in a loop (single thread)                     	StringBuilder
+Building strings dynamically (single thread)	                StringBuilder
+Multiple threads modifying same string	                        StringBuffer
+Very small number of concatenations	String (compiler optimizes with StringBuilder anyway)
+
+StringBuilder/Buffer Capacity
+
+StringBuilder sb = new StringBuilder();     // Default capacity: 16
+StringBuilder sb2 = new StringBuilder(50);  // Custom initial capacity
+StringBuilder sb3 = new StringBuilder("Hi"); // Initial capacity: 16 + "Hi".length()
+
+Conclusion: For loops and repeated concatenation, StringBuilder is 1000x faster than String.
+
+When capacity is exceeded, it automatically increases by (old capacity * 2) + 2.
+
+Quick Decision Flowchart
+text
+Do you need to modify the string?
+    |
+    +-- NO  → Use String
+    |
+    +-- YES → Will multiple threads access it?
+                |
+                +-- NO  → Use StringBuilder (fastest)
+                |
+                +-- YES → Use StringBuffer (safe)
+Key Takeaways for Interviews
+String = Immutable, thread-safe, slow for changes
+
+StringBuilder = Mutable, NOT thread-safe, fast (Java 5+)
+
+StringBuffer = Mutable, thread-safe, slower (Java 1.0)
+
+Never use String concatenation in loops
+
+Always use StringBuilder in single-threaded methods
+
+Remember capacity growth formula: (old capacity * 2) + 2
+
+Know that modern compilers optimize simple concatenations with StringBuilder automatically

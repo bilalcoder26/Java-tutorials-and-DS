@@ -1,0 +1,100 @@
+String Pool
+
+Definition
+
+String Pool in Java is a special memory area inside the heap where unique String literals are stored to
+optimize memory usage by avoiding duplicate String objects.
+
+Java me jab bhi tum string banate ho, 2 tareeke hote hain:
+
+1. String literal (String Pool use hota hai)
+String s1 = "Bilal";
+String s2 = "Bilal";
+
+👉 Yaha kya hoga:
+
+JVM check karega ki "Bilal" already pool me hai ya nahi
+Agar hai → naya object nahi banega
+Dono reference same object ko point karenge
+
+👉 Memory:
+
+String Pool:
+  "Bilal"  <-- s1, s2 dono yahi point kar rahe
+
+  --------------------------------------------------
+
+2. new keyword (Heap me object banega)
+  String s3 = new String("Bilal");
+
+  👉 Yaha:
+
+  Ek object heap me banega
+  Aur ek pool me already ho sakta hai (agar pehle bana ho)
+
+  👉 Memory:
+
+  Heap:       s3 → "Bilal" (new object)
+  Pool:       "Bilal"
+
+  String s1 = "Bilal";
+  String s2 = "Bilal";
+  String s3 = new String("Bilal");
+
+  System.out.println(s1 == s2); // true (same reference)
+  System.out.println(s1 == s3); // false (different object)
+  System.out.println(s1.equals(s3)); // true (value same)
+
+  --------------------------------------------------
+
+
+  🧠 String Pool ka Purpose
+  Memory optimization (duplicate string avoid)
+  Performance improve (reuse objects)
+  Faster comparison (reference compare possible)
+
+  --------------------------------------------------
+
+  🔥 Intern Method (Important)
+
+  String s3 = new String("Bilal");
+  String s4 = s3.intern();
+
+  System.out.println(s1 == s4); // true
+
+  👉 intern():
+
+  Heap object ko String Pool me daal deta hai (ya existing ko return karta hai)
+
+    --------------------------------------------------
+
+  📦 Where String Pool Lives?
+  Java 7 ke baad → Heap memory me hota hai
+  Pehle (Java 6 tak) → PermGen me hota tha
+
+    --------------------------------------------------
+
+
+  2. Difference between String literal and new String()?
+
+  | Feature         | Literal        | new String()      |
+  | --------------- | -------------- | ----------------- |
+  | Memory          | String Pool    | Heap              |
+  | Object creation | Reuse possible | Always new object |
+  | Performance     | Faster         | Slower            |
+
+3. Why String is immutable in Java?
+
+👉 So that:
+
+String Pool can work safely
+Thread-safe
+Secure (used in class loading, URLs, etc.)
+4. What does intern() method do?
+
+👉 Returns reference from String Pool (ensures uniqueness)
+
+6. Difference between == and equals() in String?
+
+👉 == → reference compare
+👉 equals() → value compare

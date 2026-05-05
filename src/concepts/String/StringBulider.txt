@@ -1,0 +1,33 @@
+2. StringBuilder
+What is it?
+StringBuilder represents a mutable sequence of characters. It was introduced in Java 5.
+
+Key Characteristics:
+Mutable – can be modified without creating new objects
+
+Not thread-safe – not synchronized (faster)
+
+Introduced – Java 5
+
+Performance – Very fast for single-threaded operations
+
+Preferred for – Most string manipulation in single-threaded environments
+
+StringBuilder sb = new StringBuilder("Hello");
+sb.append(" World");      // Modifies the same object
+sb.insert(5, " Beautiful");
+sb.reverse();
+System.out.println(sb);   // Output may vary based on operations
+
+Common Methods:
+append() – add to end
+
+insert() – insert at index
+
+delete() – remove characters
+
+replace() – replace substring
+
+reverse() – reverse the sequence
+
+toString() – convert to String

@@ -1,0 +1,145 @@
+🧠 What are OOP Principles in Java?
+
+Object-Oriented Programming (OOP) is a programming paradigm based on objects and classes,
+used to design modular, reusable, and scalable software.
+
+🔑 4 Core OOP Principles
+
+1. 🧱 Encapsulation (Data Hiding)
+✅ Definition:
+
+Wrapping data (variables) and methods into a single unit (class) and restricting direct access.
+
+💡 Idea:
+Use private variables
+Access through getters/setters
+
+🎯 Why Important?
+Data security
+Controlled access
+Maintainability
+
+🗣️ Interview Line:
+
+Encapsulation is used to hide internal data and expose only necessary functionality.
+
+----------------------------------------------------------------------------------------------------
+
+2. 🧬 Inheritance (Code Reusability)
+✅ Definition:
+
+One class acquires properties and behavior of another class.
+
+💡 Idea:
+Parent → Child relationship
+Use extends
+
+🎯 Why Important?
+Code reuse
+Reduces duplication
+🗣️ Interview Line:
+
+Inheritance allows one class to reuse properties and methods of another class.
+
+----------------------------------------------------------------------------------------------------
+
+3. 🎭 Polymorphism (Many Forms)
+✅ Definition:
+
+Same method behaves differently in different situations.
+
+🎯 Why Important?
+Flexibility
+Dynamic behavior
+🗣️ Interview Line:
+
+Polymorphism allows methods to take multiple forms, achieved via overloading and overriding.
+
+----------------------------------------------------------------------------------------------------
+
+4. 🧠 Abstraction (Hiding Complexity)
+✅ Definition:
+
+Showing only essential details and hiding implementation.
+
+💡 Achieved Using:
+Abstract classes
+Interfaces
+
+🎯 Why Important?
+Reduces complexity
+Improves design
+🗣️ Interview Line:
+
+Abstraction hides internal implementation and shows only necessary functionality.
+
+----------------------------------------------------------------------------------------------------
+🆚 Quick Comparison
+
+
+| Principle     | Focus             | Keyword                |
+| ------------- | ----------------- | ---------------------- |
+| Encapsulation | Data hiding       | private                |
+| Inheritance   | Reusability       | extends                |
+| Polymorphism  | Flexibility       | overloading/overriding |
+| Abstraction   | Hiding complexity | abstract/interface     |
+
+----------------------------------------------------------------------------------------------------
+
+🧠 Real-Life Analogy (Easy Memory Trick)
+
+👉 Car Example:
+
+Encapsulation → Engine hidden inside car
+Inheritance → ElectricCar extends Car
+Polymorphism → Same brake, different behavior
+Abstraction → You drive without knowing engine logic
+
+
+----------------------------------------------------------------------------------------------------
+
+
+🎯 Common Interview Questions
+1. What are the 4 pillars of OOP?
+
+👉 Encapsulation, Inheritance, Polymorphism, Abstraction
+
+----------------------------------------------------------------------------------------------------
+
+
+2. Difference between abstraction and encapsulation?
+
+👉
+
+Encapsulation → data hiding
+Abstraction → hiding complexity
+
+----------------------------------------------------------------------------------------------------
+
+
+3. Can we achieve abstraction without inheritance?
+
+👉 Yes (interfaces)
+
+----------------------------------------------------------------------------------------------------
+
+
+4. What is runtime polymorphism?
+
+👉 Method overriding
+
+----------------------------------------------------------------------------------------------------
+
+
+5. Why use OOP?
+
+👉 Reusability, scalability, maintainability
+
+----------------------------------------------------------------------------------------------------
+
+
+💥 Final One-Line Summary
+
+OOP in Java is based on four principles: encapsulation, inheritance, polymorphism, and abstraction,
+used to build modular and reusable applications.
+

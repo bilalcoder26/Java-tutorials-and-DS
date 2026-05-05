@@ -1,0 +1,151 @@
+Polymorphism is one of the core pillars of OOP (Object-Oriented Programming) in Java. The word itself means:
+
+👉 “Poly” = many
+👉 “Morph” = forms
+
+So, polymorphism = one thing behaving in multiple ways
+
+----------------------------------------------------------------------------------------------------
+
+
+🔷 1. Simple Definition (Interview Ready)
+
+Polymorphism allows a single method, object, or interface to take multiple forms depending on the context.
+
+----------------------------------------------------------------------------------------------------
+🔷 2. Types of Polymorphism in Java
+
+There are two main types:
+
+----------------------------------------------------------------------------------------------------
+
+
+✅ 1. Compile-Time Polymorphism (Static Binding)
+
+👉 Achieved using Method Overloading
+
+🔹 What is Method Overloading?
+
+Same method name, but:
+
+Different parameters (type / number / order)
+
+class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+
+👉 Here add() behaves differently based on input → compile-time decision
+
+----------------------------------------------------------------------------------------------------
+
+✅ 2. Runtime Polymorphism (Dynamic Binding)
+
+👉 Achieved using Method Overriding
+
+🔹 What is Method Overriding?
+Same method name
+Same parameters
+But different implementation in child class
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+Usage:
+Animal obj = new Dog();
+obj.sound();  // Output: Dog barks
+
+👉 Decision happens at runtime → runtime polymorphism
+
+----------------------------------------------------------------------------------------------------
+
+🔷 3. Real-Life Analogy (Important for Interviews)
+
+Think of a remote control:
+
+Same button → different TVs → different behavior
+
+Or:
+
+👉 Parent reference → child object
+
+Animal obj = new Dog();
+
+👉 This is the core of runtime polymorphism
+
+----------------------------------------------------------------------------------------------------
+🔷 4. Key Concepts You MUST Know
+🔹 Method Overloading Rules
+Return type can be same/different
+Parameters MUST be different
+Happens at compile time
+
+----------------------------------------------------------------------------------------------------
+🔹 Method Overriding Rules
+Same method signature
+Same or covariant return type
+Cannot override:
+final methods
+static methods (they are hidden, not overridden)
+private methods
+
+----------------------------------------------------------------------------------------------------
+
+
+🔷 5. Upcasting (VERY IMPORTANT)
+Animal obj = new Dog();
+
+👉 This is called Upcasting
+
+Reference → Parent
+Object → Child
+
+👉 Enables runtime polymorphism
+
+----------------------------------------------------------------------------------------------------
+
+
+🔷 6. Why Polymorphism is Used
+Code flexibility
+Loose coupling
+Easy extensibility
+Better readability
+
+----------------------------------------------------------------------------------------------------
+🔷 7. Compile-Time vs Runtime Polymorphism
+
+| Feature              | Compile-Time | Runtime    |
+| -------------------- | ------------ | ---------- |
+| Method               | Overloading  | Overriding |
+| Binding              | Early        | Late       |
+| Decision             | Compile time | Runtime    |
+| Inheritance required | ❌ No         | ✅ Yes      |
+
+----------------------------------------------------------------------------------------------------
+
+
+
+👉 “Explain polymorphism”
+
+You can say:
+
+Polymorphism in Java refers to the ability of a method or object to take multiple forms.
+It is mainly of two types: compile-time polymorphism achieved through method overloading,
+and runtime polymorphism achieved through method overriding. Runtime polymorphism uses inheritance
+and method overriding, where a parent reference can point to a child object, and the method call
+is resolved at runtime using dynamic method dispatch.
