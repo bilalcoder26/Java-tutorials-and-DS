@@ -1,0 +1,122 @@
+🧠 What is Exception Handling?
+
+👉 Definition (interview-ready):
+Exception handling in Java is a mechanism to handle runtime errors so that the normal flow
+of the program can be maintained.
+
+----------------------------------------------------------------------------------------------------
+
+🎯 Final One-Line Summary
+
+Exception handling in Java is a structured way to detect, handle, and
+recover from runtime errors to maintain application stability.
+
+----------------------------------------------------------------------------------------------------
+🔍 Simple Understanding
+
+When something goes wrong during execution (like divide by zero, null access, file not found),
+Java throws an exception.
+
+👉 Instead of crashing, we handle it gracefully.
+
+----------------------------------------------------------------------------------------------------
+
+
+⚙️ Basic Structure
+try {
+    // risky code
+} catch (Exception e) {
+    // handling logic
+} finally {
+    // always executes
+}
+
+----------------------------------------------------------------------------------------------------
+
+
+🔥 Example
+public class Test {
+    public static void main(String[] args) {
+        try {
+            int result = 10 / 0;
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+        } finally {
+            System.out.println("Execution completed");
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+🧩 Types of Exceptions
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 1. Checked Exceptions (Compile-time)
+
+👉 Must be handled at compile time
+
+Examples:
+
+IOException
+SQLException
+FileNotFoundException
+FileReader file = new FileReader("test.txt"); // must handle
+
+----------------------------------------------------------------------------------------------------
+
+🔹 2. Unchecked Exceptions (Runtime)
+
+👉 Occur during runtime
+
+Examples:
+
+NullPointerException
+ArithmeticException
+ArrayIndexOutOfBoundsException
+int a = 10 / 0; // runtime error
+
+
+----------------------------------------------------------------------------------------------------
+
+🧱 Exception Hierarchy
+Throwable
+ ├── Exception
+ │     ├── Checked Exceptions
+ │     └── RuntimeException (Unchecked)
+ └── Error
+
+
+----------------------------------------------------------------------------------------------------
+⚠️ Important Rule
+
+👉 Always catch specific exception first
+
+❌ Wrong:
+
+catch (Exception e)
+catch (ArithmeticException e)
+
+✔ Correct:
+
+catch (ArithmeticException e)
+catch (Exception e)
+
+----------------------------------------------------------------------------------------------------
+🔄 Try-with-Resources (Very Important)
+try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+    System.out.println(br.readLine());
+}
+
+👉 Automatically closes resources
+
+----------------------------------------------------------------------------------------------------
+
+💡 Custom Exception
+class MyException extends Exception {
+    public MyException(String msg) {
+        super(msg);
+    }
+}

@@ -1,0 +1,119 @@
+2. How is abstraction achieved in Java?
+
+👉 Abstract class + Interface
+
+----------------------------------------------------------------------------------------------------
+
+
+4. Can we create object of abstract class?
+
+👉 ❌ No
+
+----------------------------------------------------------------------------------------------------
+
+
+5. Why use abstraction?
+
+👉 Reduce complexity, improve flexibility
+
+----------------------------------------------------------------------------------------------------
+
+
+6. Can abstract class have constructor?
+
+👉 ✅ Yes
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 1. Can abstract class have implemented methods?
+
+👉 ✅ Yes
+
+----------------------------------------------------------------------------------------------------
+
+
+
+❓ 2. Can interface have method body?
+
+👉 ✅ Yes (default & static methods)
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 3. Can a class implement multiple interfaces?
+
+👉 ✅ Yes
+
+----------------------------------------------------------------------------------------------------
+
+❓ 4. Can abstract class implement interface?
+
+👉 ✅ Yes
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 5. Which is faster: abstract class or interface?
+
+👉 ⚠️ No significant difference
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 6. Can we declare constructor in interface?
+
+👉 ❌ No
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 7. If class doesn’t implement all interface methods?
+
+👉 👉 Must be declared abstract
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 8. 100% abstraction possible?
+
+👉 ✔️ Interface (conceptually)
+
+----------------------------------------------------------------------------------------------------
+
+❓ 1. Can interface have multiple abstract methods?
+
+👉 ✅ Yes (main purpose)
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 2. Can interface have no abstract methods?
+
+👉 ✅ Yes (marker interface like Serializable)
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 3. What if two interfaces have same method?
+interface A { void show(); }
+interface B { void show(); }
+
+👉 No issue — implement once
+
+----------------------------------------------------------------------------------------------------
+
+
+
+
+🧠 Interview Answer (Perfect 2–3 Lines)
+
+Abstraction is the process of hiding implementation details and exposing only essential functionality.
+ In Java, it is achieved using abstract classes and interfaces, allowing us to design flexible and maintainable systems.
+
+ ----------------------------------------------------------------------------------------------------
+
+
+💥 Final Takeaway
+
+Abstraction = Hide HOW, Show WHAT

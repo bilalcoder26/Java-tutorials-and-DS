@@ -1,4 +1,4 @@
-package leetcodequestion.stringquestion.InterviewQuestion;
+package leetcodequestion.stringquestion;
 //https://leetcode.com/problems/longest-substring-without-repeating-characters/description/?envType=problem-list-v2&envId=string
 /*
 Example 1:

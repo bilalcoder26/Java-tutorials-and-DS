@@ -1,0 +1,249 @@
+How does Garbage Collection work in java explain in detail also explain what are minor,
+major
+
+🔥 1. Garbage Collection kya hota hai?
+
+Simple definition:
+
+👉 Garbage Collection (GC) is a process in Java jo automatically unused objects ko memory se remove karta hai.
+
+Java me tum manually free() ya delete nahi karte (jaise C/C++ me), JVM khud manage karta hai.
+
+🧠 2. Memory Structure samjho (VERY IMPORTANT)
+
+Java Heap 3 parts me divided hota hai:
+
+Heap Memory:
+   ├── Young Generation
+   │     ├── Eden Space
+   │     ├── S0 (Survivor 0)
+   │     └── S1 (Survivor 1)
+   │
+   └── Old Generation (Tenured)
+
+ 🚀 3. Object ka Lifecycle (FLOW – interview me ye bolna 🔥)
+
+   Step 1: Object Creation
+
+   User u = new User();
+   👉 Object Eden Space me create hota hai.
+
+ Step 2: Young Generation fill hoti hai
+
+ Jab Eden full ho jata hai 👉 Minor GC trigger hota hai
+
+ ⚡ 4. Minor GC (Young GC)
+
+ 👉 Ye sirf Young Generation me run hota hai.
+
+ Process:
+ Eden + Survivor spaces scan hoti hain
+ Jo objects still in use hain (reachable):
+ Unko Survivor space (S0/S1) me move kar diya jata hai
+ Jo objects unused hain 👉 delete ho jate hain
+
+ 👉 Isko bolte hain:
+ Mark + Copy (or Evacuate)
+
+ 💡 Important:
+ Objects jo survive karte rehte hain multiple GC cycles me
+ 👉 unki age increase hoti hai
+ Jab age threshold cross hota hai
+ 👉 object Old Generation me promote ho jata hai
+
+ 🧓 5. Major GC (Old Generation GC)
+
+ 👉 Ye Old Generation me run hota hai
+
+ Kab trigger hota hai?
+ Jab Old Gen fill hone lagta hai
+ Process:
+ Entire Old Gen scan hota hai
+ Unreachable objects delete hote hain
+
+ 👉 Algorithm:
+
+ Mark + Sweep
+ Kabhi kabhi Mark + Compact
+
+ ⚠️ Problem:
+ Slow hota hai
+ Stop-The-World pause karta hai (application temporarily ruk jati hai)
+
+ 💣 6. Full GC (Most Important for Interview)
+
+ 👉 Ye poori heap (Young + Old + Metaspace) clean karta hai
+
+ Kab hota hai?
+ Memory pressure high ho
+ System.gc() call ho
+ Old Gen full ho
+ Metaspace full ho
+
+ ⚠️ Impact:
+ Sabse slow
+ Long pause (application freeze lag sakta hai)
+
+ 👉 Interview me bolo:
+
+ “Full GC is expensive and should be avoided in production systems.”
+
+ 🔁 7. Complete Flow (Short + Powerful Answer)
+
+ 👉 Interview me ye 30 sec ka answer bol sakte ho:
+
+ Java me objects pehle Eden space me create hote hain. Jab Eden full hota hai, Minor GC run hota hai jo live objects
+ ko Survivor spaces me move karta hai aur dead objects remove karta hai. Jo objects multiple cycles survive karte hain,
+ unhe Old Generation me promote kar diya jata hai. Jab Old Gen fill hota hai, Major GC run hota hai jo wahan ke unused
+ objects ko clean karta hai. Agar poori heap clean karni pade, toh Full GC hota hai jo sabse expensive hota hai.
+
+
+ 🧩 8. Reachability Concept (CORE LOGIC)
+
+ 👉 GC ka main funda:
+
+ Object tab tak alive hai jab tak wo reachable hai
+
+ Example:
+
+ User u1 = new User();
+ User u2 = u1;
+
+ u1 = null;
+
+ 👉 Object still alive hai (because u2 refer kar raha hai)
+
+ u2 = null;
+
+ 👉 Ab object unreachable → GC remove karega
+
+ 🧠 9. GC Roots (IMPORTANT)
+
+ GC roots wo starting points hain jahan se reachability check hoti hai:
+
+ Stack variables
+ Static variables
+ JNI references
+
+ ⚙️ 10. GC Algorithms (Thoda advance – interview booster)
+
+ | Algorithm    | Use case             |
+ | ------------ | -------------------- |
+ | Mark-Sweep   | Old Gen              |
+ | Mark-Compact | Fragmentation remove |
+ | Copying      | Young Gen            |
+
+Q1: Kya GC guaranteed hai?
+
+👉 ❌ No (JVM decide karta hai)
+
+Q2: System.gc() kya karta hai?
+
+👉 Suggest karta hai GC run kare, but guarantee nahi
+
+Q3: Stop-The-World kya hai?
+
+👉 GC ke time application threads pause ho jate hain
+
+Q4: Memory leak Java me possible hai?
+
+👉 ✅ Yes (agar references release na kare)
+
+Q5: Minor vs Major vs Full GC difference?
+
+| Type     | Area        | Speed   |
+| -------- | ----------- | ------- |
+| Minor GC | Young Gen   | Fast    |
+| Major GC | Old Gen     | Slow    |
+| Full GC  | Entire Heap | Slowest |
+
+🎯 Garbage Collection in Java (Interview Answer)
+
+Answer (you can say this directly):
+
+Garbage Collection in Java is an automatic memory management process where the JVM identifies and removes objects
+that are no longer in use, to free up heap memory. This helps prevent memory leaks and eliminates the need for
+manual memory deallocation.
+
+Java uses a concept called reachability to determine whether an object is alive or eligible for garbage collection.
+If an object is not reachable from any GC Roots (like stack variables, static references, etc.),
+it becomes eligible for collection.
+
+🧠 Heap Structure (Important for Explanation)
+The Java Heap is divided into two main parts:
+
+
+Young Generation
+
+
+Eden Space
+
+
+Survivor Spaces (S0 and S1)
+
+
+
+
+Old Generation (Tenured Space)
+
+
+
+🔄 How Garbage Collection Works (Flow)
+1. Object Creation
+When an object is created using new, it is allocated in the Eden Space of the Young Generation.
+
+2. Minor GC (Young Generation GC)
+When Eden space fills up, a Minor GC is triggered.
+What happens:
+
+
+JVM scans Eden + Survivor spaces
+
+
+Objects that are still in use (reachable) are moved to Survivor space
+
+
+Unused objects are removed
+
+
+Objects that survive multiple GC cycles increase their age
+
+
+If an object survives enough cycles, it is promoted to Old Generation
+
+3. Major GC (Old Generation GC)
+When Old Generation starts filling up, Major GC is triggered.
+What happens:
+
+
+JVM scans Old Generation
+
+
+Removes unreachable objects
+
+
+Uses algorithms like Mark-Sweep or Mark-Compact
+
+
+👉 This is slower than Minor GC and causes application pauses.
+
+4. Full GC
+Full GC cleans the entire heap (Young + Old Generation + Metaspace).
+Triggered when:
+
+
+Memory is critically low
+
+
+Old Generation is full
+
+
+Metaspace is full
+
+
+Explicit call like System.gc()
+
+
+👉 This is the most expensive operation and causes long pauses.
+
+⚡ Key

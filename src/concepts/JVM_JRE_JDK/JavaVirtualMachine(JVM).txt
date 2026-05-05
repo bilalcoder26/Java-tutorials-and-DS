@@ -1,0 +1,98 @@
+Java Virtual Machine (JVM)
+
+Java Virtual Machine (JVM) is an abstract machine that provides a runtime environment
+in which Java bytecode can be executed. It enables platform independence by converting bytecode
+into machine-specific instructions.
+
+-------------------------------------------------------------------------------
+
+👉 JVM ek engine hai jo .class file (bytecode) ko run karta hai
+👉 Java ka main funda: “Write Once, Run Anywhere”
+
+-------------------------------------------------------------------------------
+
+
+🔄 Complete Flow (Step by Step)
+.java → (Compiler) → .class (Bytecode) → (JVM) → Machine Code → Output
+Tum code likhte ho (.java)
+javac compiler usko convert karta hai .class file me (bytecode)
+JVM us bytecode ko read karta hai
+OS-specific machine code generate hota hai
+Program run hota hai
+
+-------------------------------------------------------------------------------
+
+🏗️ JVM Architecture (Most Important Part)
+
+1. Class Loader Subsystem
+
+👉 Kaam: .class file ko load karna
+
+Steps:
+
+Loading → class ko memory me lana
+Linking
+Verification (bytecode safe hai ya nahi)
+Preparation (memory allocate)
+Resolution (references resolve)
+Initialization → static variables assign
+
+2. Runtime Data Areas (Memory)
+📌 Method Area
+Class metadata store hota hai
+static variables
+runtime constant pool
+📌 Heap (Most Important)
+Objects yaha bante hain
+String pool bhi yahi hota hai (Java 7+)
+📌 Stack
+Har thread ka apna stack hota hai
+Methods ke frames bante hain
+Local variables store hote hain
+📌 PC Register
+Current instruction ka address rakhta hai
+📌 Native Method Stack
+Native (C/C++) methods ke liye
+
+-------------------------------------------------------------------------------
+
+
+⚡ Execution Engine
+
+👉 JVM ka brain
+
+Components:
+1. Interpreter
+Bytecode line by line execute karta hai
+Slow hota hai
+2. JIT Compiler (Just-In-Time)
+Frequently used code ko machine code me convert karta hai
+Fast execution
+
+👉 Real life:
+
+Pehle interpreter run karega
+Baar baar use hone pe JIT optimize karega
+
+-------------------------------------------------------------------------------
+
+
+🔥 Garbage Collector (Short Overview)
+
+👉 Unused objects ko delete karta hai
+
+Types:
+
+Minor GC
+Major GC
+Full GC
+
+-------------------------------------------------------------------------------
+
+🎯 JVM + JRE + JDK (Confusion clear)
+
+| Component | Meaning                 |
+| --------- | ----------------------- |
+| JVM       | Execution engine        |
+| JRE       | JVM + libraries         |
+| JDK       | JRE + development tools |

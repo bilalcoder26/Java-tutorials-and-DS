@@ -1,0 +1,148 @@
+🔷 What is an Interface in Java?
+
+Definition (interview-ready):
+An interface in Java is a reference type that contains a collection of abstract methods (by default) and constants,
+used to achieve abstraction and multiple inheritance.
+
+👉 In simple terms:
+It defines what a class should do, not how it should do it.
+
+
+🔥 Best Interview Closing Line
+
+If interviewer asks:
+
+👉 “Explain interface in one line”
+
+Answer:
+
+“An interface is a contract that defines what a class must implement,
+enabling abstraction and multiple inheritance in Java.”
+
+----------------------------------------------------------------------------------------------------
+🔷 Key Characteristics of Interface
+* Methods are public and abstract by default
+* Variables are public static final (constants)
+* Cannot create object of interface
+* A class implements an interface
+* Supports multiple inheritance
+From Java 8:
+* default methods
+* static methods
+From Java 9:
+* private methods
+
+----------------------------------------------------------------------------------------------------
+
+interface Animal {
+    void sound();   // abstract method
+}
+
+class Dog implements Animal {
+    public void sound() {
+        System.out.println("Bark");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal obj = new Dog();
+        obj.sound();
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+🔷 Why Interface is Used?
+1 Abstraction
+2 Loose coupling
+3 Multiple inheritance
+4 Standardization (contracts)
+
+----------------------------------------------------------------------------------------------------
+
+
+🔷 Multiple Inheritance Using Interface
+
+interface A {
+    void show();
+}
+
+interface B {
+    void display();
+}
+
+class Test implements A, B {
+    public void show() {
+        System.out.println("A method");
+    }
+
+    public void display() {
+        System.out.println("B method");
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+
+🔷 Default Methods (Java 8)
+
+interface Vehicle {
+    default void start() {
+        System.out.println("Vehicle starts");
+    }
+}
+
+class Car implements Vehicle {}
+
+public class Main {
+    public static void main(String[] args) {
+        Car c = new Car();
+        c.start();
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+🔷 Static Methods in Interface
+
+interface MathUtil {
+    static int add(int a, int b) {
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(MathUtil.add(2, 3));
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+🔷 Private Methods (Java 9)
+
+Used to avoid code duplication inside default methods.
+
+interface Test {
+    default void show() {
+        helper();
+    }
+
+    private void helper() {
+        System.out.println("Private method");
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+🔷 Interface vs Abstract Class (Important)
+
+| Feature              | Interface                   | Abstract Class              |
+| -------------------- | --------------------------- | --------------------------- |
+| Methods              | Abstract + default + static | Abstract + concrete         |
+| Multiple inheritance | Yes                         | No                          |
+| Constructor          | No                          | Yes                         |
+| Variables            | Constants only              | Can have instance variables |
+
+
+
+
+

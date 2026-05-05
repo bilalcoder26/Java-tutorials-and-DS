@@ -1,0 +1,21 @@
+3. StringBuffer
+What is it?
+StringBuffer is a mutable sequence of characters, similar to StringBuilder, but thread-safe.
+
+Key Characteristics:
+Mutable – can be modified without creating new objects
+
+Thread-safe – all public methods are synchronized
+
+Introduced – Java 1.0 (original class)
+
+Performance – Slower than StringBuilder due to synchronization overhead
+
+Preferred for – Multi-threaded environments where shared mutable strings are needed
+
+Example:
+
+StringBuffer sbuf = new StringBuffer("Hello");
+sbuf.append(" World");    // Thread-safe, synchronized
+sbuf.delete(5, 6);        // Removes space
+System.out.println(sbuf); // Output: "HelloWorld"

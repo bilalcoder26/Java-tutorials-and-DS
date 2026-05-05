@@ -1,0 +1,132 @@
+Q1: Why abstract class is used?
+
+👉 Answer:
+Abstract class is used to achieve partial abstraction, code reusability,
+and to define a common base class with shared behavior while forcing subclasses to implement specific methods.
+
+----------------------------------------------------------------------------------------------------
+
+Q2: Can abstract class have constructor?
+
+👉 Answer:
+Yes, abstract classes can have constructors which are invoked when a subclass object is created.
+
+----------------------------------------------------------------------------------------------------
+
+Q3: Can abstract class have static methods?
+
+👉 Answer:
+Yes, abstract classes can have static methods which can be called using the class name.
+
+----------------------------------------------------------------------------------------------------
+
+Q4: Can abstract class have final methods?
+
+👉 Answer:
+Yes, but final methods cannot be overridden by subclasses.
+
+----------------------------------------------------------------------------------------------------
+
+Q5: Can we create object of abstract class?
+
+👉 Answer:
+No, we cannot instantiate an abstract class directly, but we can create a reference of it.
+
+----------------------------------------------------------------------------------------------------
+
+😈 Tricky Interview Questions
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q1: If a class has no abstract methods, can it still be abstract?
+
+👉 Answer: YES
+
+abstract class Test {
+    void show() {
+        System.out.println("Hello");
+    }
+}
+
+👉 Why?
+To prevent object creation
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q2: Can abstract class have private methods?
+
+👉 Answer: YES
+
+abstract class A {
+    private void test() {
+        System.out.println("Private method");
+    }
+}
+
+👉 But child class access nahi kar sakti
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q3: Can abstract class be final?
+
+👉 Answer: NO
+
+👉 Because:
+
+abstract → needs inheritance
+final → prevents inheritance
+
+👉 Conflict ❌
+
+----------------------------------------------------------------------------------------------------
+
+🔹 Q4: Can abstract class implement interface?
+
+👉 Answer: YES
+
+interface A {
+    void show();
+}
+
+abstract class B implements A {
+    // no need to implement show()
+}
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 Q5: Can constructor be abstract?
+
+👉 Answer: NO
+
+👉 Constructor ka purpose = object creation
+Abstract = incomplete → conflict ❌
+
+----------------------------------------------------------------------------------------------------
+
+
+🔥 Advanced Concept (Important)
+
+----------------------------------------------------------------------------------------------------
+
+Abstract Class + Polymorphism
+abstract class Shape {
+    abstract void draw();
+}
+
+class Circle extends Shape {
+    void draw() {
+        System.out.println("Circle");
+    }
+}
+
+class Square extends Shape {
+    void draw() {
+        System.out.println("Square");
+    }
+}
+
+Shape s = new Circle();
+s.draw(); // Circle
+
+👉 Runtime decide karega → polymorphism

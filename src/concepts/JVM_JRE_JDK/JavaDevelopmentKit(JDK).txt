@@ -1,0 +1,85 @@
+🧠 What is JDK?
+
+Definition:
+
+The Java Development Kit (JDK) is a complete software package used to develop, compile, and run Java applications.
+
+
+🔑 In Simple Terms
+
+👉 JDK = Tools to build Java programs
+
+It includes everything you need:
+
+Write code
+Compile code
+Run code
+
+-------------------------------------------------------------------------------------------------
+
+📦 Components of JDK
+
+JDK is not a single thing — it’s a collection of components:
+
+1. 🧩 JRE (Java Runtime Environment)
+
+Provides the environment to run Java programs
+
+Contains:
+JVM (Java Virtual Machine)
+Core libraries
+
+👉 Without JRE → you cannot run Java programs
+
+-------------------------------------------------------------------------------------------------
+
+2. ⚙️ JVM (Java Virtual Machine)
+
+Executes Java bytecode
+
+Responsibilities:
+Converts bytecode → machine code
+Memory management
+Garbage Collection
+
+👉 JVM makes Java platform independent
+
+-------------------------------------------------------------------------------------------------
+
+
+3. 🛠️ Development Tools (Most Important Part)
+
+These are the tools developers actually use:
+
+🔹 javac
+
+Compiler → converts .java → .class (bytecode)
+
+-------------------------------------------------------------------------------------------------
+🏗️ Architecture Overview
+
+JDK
+ ├── JRE
+ │    ├── JVM
+ │    └── Libraries
+ └── Development Tools (javac, java, jar, etc.)
+
+
+-------------------------------------------------------------------------------------------------
+
+ 👉 Important:
+
+ JDK = JRE + Development Tools
+ JRE = JVM + Libraries
+
+ -------------------------------------------------------------------------------------------------
+
+ 🆚 JDK vs JRE vs JVM (VERY COMMON QUESTION)
+
+ | Feature  | JDK         | JRE             | JVM                 |
+ | -------- | ----------- | --------------- | ------------------- |
+ | Purpose  | Development | Execution       | Execution Engine    |
+ | Contains | JRE + Tools | JVM + Libraries | Only runtime engine |
+ | Use      | Developers  | Users           | Internal            |
+
+

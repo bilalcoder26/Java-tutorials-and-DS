@@ -1,0 +1,56 @@
+1. What is JVM?
+
+👉 Runtime engine that executes Java bytecode.
+
+2. What are the main components of JVM?
+
+👉 Class Loader, Runtime Data Areas, Execution Engine
+
+3. What is the difference between Heap and Stack?
+
+👉 Heap → objects
+👉 Stack → method calls, local variables
+
+4. What is JIT Compiler?
+
+👉 Converts frequently used bytecode into native machine code for performance.
+
+5. What is ClassLoader?
+
+👉 Loads class files into memory at runtime.
+
+6. What is the role of JVM in platform independence?
+
+👉 Bytecode runs on any JVM irrespective of OS.
+
+❓ Q1: Why Java is platform independent but JVM is platform dependent?
+
+👉 JVM har OS ke liye alag hota hai
+👉 But bytecode same hota hai
+
+❓ Q2: Can we run Java without JVM?
+
+👉 ❌ No
+👉 JVM mandatory hai execution ke liye
+
+❓ Q3: Is JVM a process or a program?
+
+👉 JVM ek program/process hai jo system pe run karta hai
+
+❓ Q4: Where are objects created?
+
+👉 Heap memory
+
+❓ Q5: Does JVM store method code in stack?
+
+👉 ❌ No
+👉 Method code → Method Area
+👉 Execution → Stack
+
+❓ Q6: What happens if stack memory is full?
+
+👉 ❗ StackOverflowError
+
+❓ Q7: What happens if heap memory is full?
+
+👉 ❗ OutOfMemoryError

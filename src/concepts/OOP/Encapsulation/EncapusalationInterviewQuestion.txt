@@ -1,0 +1,80 @@
+🧠 Interview Understanding Line (IMPORTANT)
+
+Encapsulation is not just about hiding data, it is about controlling how data is accessed and modified.
+
+----------------------------------------------------------------------------------------------------
+
+2. Why use Encapsulation?
+
+👉 Security, maintainability, flexibility
+
+
+----------------------------------------------------------------------------------------------------
+
+
+3. How is Encapsulation achieved in Java?
+
+👉 Private variables + public methods
+
+----------------------------------------------------------------------------------------------------
+
+
+4. What is the difference between Encapsulation and Abstraction?
+
+👉
+
+Encapsulation → data hiding
+Abstraction → hiding implementation
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 1. Is Encapsulation only about getters and setters?
+
+👉 ❌ No
+👉 It’s about controlled access
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 2. If all variables are public, is it encapsulation?
+
+👉 ❌ No (no restriction)
+
+----------------------------------------------------------------------------------------------------
+
+
+
+❓ 3. Can Encapsulation exist without classes?
+
+👉 ❌ No (class is required)
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 4. Is immutable class encapsulated?
+
+👉 ✅ Yes (strongest form)
+
+----------------------------------------------------------------------------------------------------
+
+❓ 5. Does Encapsulation improve performance?
+
+👉 ❌ Not directly
+👉 It improves design & maintainability
+
+----------------------------------------------------------------------------------------------------
+
+
+❓ 6. What happens if you return internal list directly?
+return items;
+
+👉 ❌ External modification possible
+👉 Breaks encapsulation
+
+----------------------------------------------------------------------------------------------------
+
+
+💥 Final Takeaway
+
+Encapsulation = Data Protection + Controlled Access + Clean Design

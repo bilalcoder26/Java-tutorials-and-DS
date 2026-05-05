@@ -1,4 +1,4 @@
-package stringQuestion;
+package leetcodequestion.stringquestion;
 
 public class stringLoopBasicQuestion {
 
