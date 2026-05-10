@@ -1,0 +1,361 @@
+1--> What are Generics?
+**Answer:**
+> "Generics allow us to define classes, interfaces, and methods with type parameters.
+This lets us create reusable code that works with different data types while providing type safety at compile time."
+
+**Example:**
+> class Box<T> {        // T is a type parameter
+>     private T value;
+>
+>     public void set(T value) {
+>         this.value = value;
+>     }
+>
+>     public T get() {
+>         return value;
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Box<String> stringBox = new Box<>();  // holds String
+>         stringBox.set("Hello");
+>
+>         Box<Integer> intBox = new Box<>();    // holds Integer
+>         intBox.set(100);
+>     }
+> }
+
+**Short version for interview:**
+> "Generics allow us to write code that works with different types safely.
+For example, `ArrayList<String>` ensures only Strings can be added.
+It catches type errors at compile time instead of runtime."
+
+----------------------------------------------------------------------------------------------------
+
+2--> Why do we need Generics? Can you give an example of how Generics make a program more flexible?
+
+**Answer:**
+> "We need Generics to provide **type safety** and **eliminate type casting**. Without Generics,
+we could accidentally add wrong types to a collection and get runtime errors. With Generics,
+errors are caught at compile time. They also make code more flexible by allowing the same class
+to work with different data types."
+
+## Example of Flexibility:
+
+**Without Generics (problem):**
+> class Box {
+>     private Object value;
+>
+>     public void set(Object value) { this.value = value; }
+>     public Object get() { return value; }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Box box = new Box();
+>         box.set("Hello");
+>         String str = (String) box.get();  // need explicit cast
+>
+>         box.set(100);                     // allowed, but risky
+>         String str2 = (String) box.get(); // ❌ RUNTIME ERROR! Integer can't be cast to String
+>     }
+> }
+
+**With Generics (flexible and safe):**
+
+> class Box<T> {
+>     private T value;
+>
+>     public void set(T value) { this.value = value; }
+>     public T get() { return value; }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Box<String> stringBox = new Box<>();  // works with String
+>         stringBox.set("Hello");
+>         String str = stringBox.get();         // no cast needed
+>
+>         Box<Integer> intBox = new Box<>();    // same class, different type
+>         intBox.set(100);
+>         Integer num = intBox.get();           // no cast needed
+>
+>         // stringBox.set(100);  // ❌ COMPILE ERROR - prevents mistake
+>     }
+> }
+
+## Short version for interview:
+> "Generics make code flexible by allowing one class to work with any type,
+while keeping type safety. For example, `ArrayList<String>` and `ArrayList<Integer>`
+use the same `ArrayList` class but work with different types safely, without casting."
+
+----------------------------------------------------------------------------------------------------
+3--> How do you declare a generic class?
+
+**Answer:**
+> "To declare a generic class, we add angle brackets `<>` after the class name and specify
+one or more type parameters (like `T`, `E`, `K`, `V`). These type parameters can then be used throughout
+the class as placeholders for actual types."
+
+**Example:**
+> // Generic class declaration with one type parameter T
+> class MyGenericClass<T> {
+>     private T data;
+>
+>     public MyGenericClass(T data) {
+>         this.data = data;
+>     }
+>
+>     public T getData() {
+>         return data;
+>     }
+>
+>     public void setData(T data) {
+>         this.data = data;
+>     }
+> }
+>
+> // Generic class with two type parameters
+> class Pair<K, V> {
+>     private K key;
+>     private V value;
+>
+>     public Pair(K key, V value) {
+>         this.key = key;
+>         this.value = value;
+>     }
+>
+>     public K getKey() { return key; }
+>     public V getValue() { return value; }
+> }
+>
+> // Using the generic classes
+> class Test {
+>     public static void main(String[] args) {
+>         MyGenericClass<String> obj1 = new MyGenericClass<>("Hello");
+>         MyGenericClass<Integer> obj2 = new MyGenericClass<>(123);
+>
+>         Pair<String, Integer> pair = new Pair<>("Age", 25);
+>     }
+> }
+
+**Short version for interview:**
+> "Add `<T>` after the class name. For example: `class Box<T> { }`
+where `T` is a type placeholder. You can then use `T` inside the class as a data type."
+
+----------------------------------------------------------------------------------------------------
+
+4-->What are the restrictions in using generic type that is declared in a class declaration?
+
+**Answer:**
+> "When using a generic type parameter like `T` in a class, there are several restrictions.
+`T` cannot be used with `static` contexts, cannot be used in `instanceof` checks, cannot create arrays of `T`,
+and cannot instantiate `T` using `new T()`."
+
+**Example showing restrictions:**
+> class MyClass<T> {
+>     // ❌ Restriction 1: Cannot use T with static members
+>     private static T staticVar;        // ERROR
+>     public static T getStatic() { }    // ERROR
+>
+>     // ❌ Restriction 2: Cannot create array of T
+>     private T[] array = new T[10];     // ERROR
+>
+>     // ❌ Restriction 3: Cannot instantiate T with new
+>     public void create() {
+>         T obj = new T();               // ERROR
+>     }
+>
+>     // ❌ Restriction 4: Cannot use instanceof with T
+>     public void check(Object obj) {
+>         if (obj instanceof T) { }      // ERROR
+>     }
+>
+>     // ✅ Allowed: Using T as field type, method parameter, return type
+>     private T field;                   // OK
+>     public T getValue() { return field; }    // OK
+>     public void setValue(T value) { }        // OK
+> }
+
+**Short version for interview:**
+> "We cannot use `T` with `static`, cannot create arrays of `T`,
+cannot do `new T()`, and cannot use `instanceof` with `T`. Also, primitive types like `int`
+cannot be used — we must use wrapper classes like `Integer`."
+
+
+
+----------------------------------------------------------------------------------------------------
+
+5--> How can we restrict Generics to a subclass of particular class?
+
+**Answer:**
+> "We can restrict a generic type to only accept a specific class or its subclasses
+using **bounded type parameters** with the `extends` keyword."
+
+**Example:**
+> // Restrict T to only Number or its subclasses (Integer, Double, Float, etc.)
+> class Calculator<T extends Number> {
+>     private T value;
+>
+>     public Calculator(T value) {
+>         this.value = value;
+>     }
+>
+>     public double doubleValue() {
+>         return value.doubleValue();  // Number class has this method
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Calculator<Integer> intCalc = new Calculator<>(10);   // ✅ allowed
+>         Calculator<Double> doubleCalc = new Calculator<>(5.5); // ✅ allowed
+>         Calculator<String> stringCalc = new Calculator<>("Hi"); // ❌ ERROR - String is not subclass of Number
+>     }
+> }
+
+**Another example (restricting to Animal subclasses):**
+> ```java
+> class Animal { }
+> class Dog extends Animal { }
+> class Cat extends Animal { }
+>
+> class Shelter<T extends Animal> {  // only Animal or its subclasses allowed
+>     private T animal;
+>
+>     public Shelter(T animal) {
+>         this.animal = animal;
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Shelter<Dog> dogShelter = new Shelter<>(new Dog());  // ✅
+>         Shelter<Cat> catShelter = new Shelter<>(new Cat());  // ✅
+>         Shelter<String> stringShelter = new Shelter<>("");   // ❌ ERROR
+>     }
+> }
+> ```
+
+**Short version for interview:**
+> "Use `extends` keyword. For example: `class MyClass<T extends Number>` —
+this restricts `T` to only `Number` or its subclasses like `Integer`, `Double`, etc."
+
+
+----------------------------------------------------------------------------------------------------
+
+6--> How can we restrict Generics to a super class of particular class?
+
+**Answer:**
+> "To restrict a generic type to a specific class or its **superclasses** (parents),
+we use **lower bounded wildcards** with the `super` keyword. This is only allowed with
+wildcards (`?`), not with type parameters like `T` in class declarations."
+
+**Important:** Lower bounding (`super`) works with **wildcards** in method parameters, not in class declarations.
+
+**Example:**
+> // Lower bounded wildcard - accepts Integer or any superclass of Integer (Number, Object)
+> class Test {
+>     public static void addNumbers(List<? super Integer> list) {
+>         list.add(10);    // ✅ safe - can add Integer
+>         list.add(20);    // ✅ safe
+>         // list.add(10.5);  // ❌ Double not allowed
+>     }
+>
+>     public static void main(String[] args) {
+>         List<Number> numberList = new ArrayList<>();  // ✅ Number is super of Integer
+>         List<Object> objectList = new ArrayList<>();  // ✅ Object is super of Integer
+>         List<Integer> integerList = new ArrayList<>(); // ✅ Integer is itself
+>
+>         addNumbers(numberList);   // ✅ works
+>         addNumbers(objectList);   // ✅ works
+>         addNumbers(integerList);  // ✅ works
+>
+>         List<Double> doubleList = new ArrayList<>();
+>         // addNumbers(doubleList); // ❌ ERROR - Double is not superclass of Integer
+>     }
+> }
+> ```
+
+**Another example:**
+> // Method accepting only List of Integer or its superclasses
+> public void process(List<? super Integer> items) {
+>     items.add(100);      // can add Integer
+>     items.add(200);
+>     // items.get(0);     // returns Object, not Integer
+> }
+> ```
+
+**Short version for interview:**
+> "Using `? super ClassName` as a wildcard.
+For example, `List<? super Integer>` accepts `Integer` or its superclasses like `Number` or `Object`.
+ This is used when you want to **add** items to a collection. It is not allowed in class declarations —
+ only with wildcards in method parameters."
+
+**Quick comparison:**
+| Bounded Type | Keyword | Example | What it accepts |
+|--------------|---------|---------|-----------------|
+| Upper bound | `extends` | `T extends Number` | Number and its subclasses |
+| Lower bound | `super` | `? super Integer` | Integer and its superclasses |
+
+----------------------------------------------------------------------------------------------------
+7--> Can you give an example of a generic method?
+
+**Answer:**
+> "A generic method is a method that declares its own type parameters, independent of the class.
+Type parameters are placed before the return type."
+
+**Example:**
+> class Utility {
+>     // Generic method - T is declared before return type
+>     public static <T> void printArray(T[] array) {
+>         for (T element : array) {
+>             System.out.print(element + " ");
+>         }
+>         System.out.println();
+>     }
+>
+>     // Generic method that returns a value
+>     public static <T> T getMiddle(T[] array) {
+>         return array[array.length / 2];
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         String[] names = {"Alice", "Bob", "Charlie"};
+>         Integer[] numbers = {10, 20, 30, 40, 50};
+>
+>         Utility.printArray(names);    // Alice Bob Charlie
+>         Utility.printArray(numbers);  // 10 20 30 40 50
+>
+>         String middleName = Utility.getMiddle(names);    // returns "Bob"
+>         Integer middleNum = Utility.getMiddle(numbers);  // returns 30
+>     }
+> }
+
+**Another example with multiple type parameters:**
+> class PairUtil {
+>     // Generic method with two type parameters
+>     public static <K, V> void printPair(K key, V value) {
+>         System.out.println(key + " = " + value);
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         PairUtil.printPair("Name", "John");      // K = String, V = String
+>         PairUtil.printPair(101, 99.5);           // K = Integer, V = Double
+>     }
+> }
+
+**Short version for interview:**
+> "A generic method declares its own type parameter before the return type.
+Example: `public static <T> void print(T data) { }` This method can work with any type without affecting the class."
+
+
+----------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------

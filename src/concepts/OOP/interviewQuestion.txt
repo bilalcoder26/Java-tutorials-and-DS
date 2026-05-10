@@ -1,0 +1,396 @@
+1--> What is a class?
+
+**Answer:**
+> "A class is a blueprint or template for creating objects.
+It defines the properties (variables) and behaviors (methods) that objects of that class will have."
+
+**Short version:**
+> "A class is a blueprint from which we create objects.
+For example, a 'Car' class can have color and speed as properties and start() as a method."
+
+----------------------------------------------------------------------------------------------------
+2-->What is an object?
+
+**Answer:**
+> "An object is an instance of a class. It is a real-world entity that has state (variables) and behavior (methods).
+For example, if 'Car' is a class, then 'myRedCar' is an object of that class."
+
+**Short version:**
+> "An object is a real example created from a class. It has actual values for the properties defined in the class."
+
+
+----------------------------------------------------------------------------------------------------
+3--> What is state of an object?
+
+
+**Answer:**
+> "The state of an object means the current values of all its variables or attributes.
+For example, if a `Car` object has color `'red'` and speed `60`, then 'red' and `60` together represent its state."
+
+**Short version:**
+> "State is the current data or values stored inside an object at a given time."
+
+
+----------------------------------------------------------------------------------------------------
+4--> What is behavior of an object?
+
+**Answer:**
+> "Behavior of an object means what the object can do.
+It is defined by the methods of the class.
+For example, a `Car` object can `start()`, `stop()`, or `accelerate()`— these are its behaviors."
+
+**Short version:**
+> "Behavior is the actions an object can perform, defined by its methods like `start()` or `stop()`."
+
+
+
+----------------------------------------------------------------------------------------------------
+5--> What is the super class of every class in Java?
+
+**Answer:**
+> "The `Object` class is the superclass of every class in Java.
+Every class directly or indirectly inherits from `Object`."
+
+**Short version:**
+> "`Object` class — it's the root parent of all Java classes."
+
+
+----------------------------------------------------------------------------------------------------
+6-->Explain about toString method ?
+
+
+**Answer:**
+> "The `toString()` method returns a string representation of an object.
+It is defined in the `Object` class. By default, it returns the class name and memory address,
+but we should override it to return meaningful information about the object."
+
+**Short version:**
+> "`toString()` converts an object into a readable string.
+We override it to show useful details like variable values instead of memory addresses."
+
+
+----------------------------------------------------------------------------------------------------
+
+7--> What is the use of equals method in Java?
+
+
+**Answer:**
+> "The `equals()` method is used to compare two objects for logical equality — meaning whether
+their contents or values are the same. It is defined in the `Object` class, but we should override it
+to compare meaningful attributes of our objects."
+
+**Short version:**
+> "`equals()` checks if two objects have the same data or content, not just the same memory location."
+
+----------------------------------------------------------------------------------------------------
+8--> What are the important things to consider when implementing equals method?
+
+
+## What the question means:
+
+The interviewer is asking: "When you write your own `equals()` method to compare two objects,
+what rules should you follow so it works correctly?"
+
+## Simple Answer:
+
+> "When implementing `equals()`, I must follow five rules. Also, I must always
+override `hashCode()` whenever I override `equals()`."
+
+## Simple Explanation of Each Rule:
+
+| Rule | Meaning in simple words |
+|------|------------------------|
+| **Reflexive** | An object should equal itself. `obj.equals(obj)` must be true. |
+| **Symmetric** | If `a.equals(b)` is true, then `b.equals(a)` must also be true. |
+| **Transitive** | If `a.equals(b)` is true and `b.equals(c)` is true, then `a.equals(c)` must be true. |
+| **Consistent** | If two objects are equal, calling `equals()` multiple times should always return
+                    the same result (unless objects change). |
+| **Non-null** | `obj.equals(null)` should always return false, never throw an error. |
+
+## Most Important Rule (Always asked):
+
+> **"Always override `hashCode()` when you override `equals()`. Otherwise,
+your object may not work correctly in HashMaps or HashSets."**
+
+## Example of a correct equals() method (short):
+
+```java
+public boolean equals(Object obj) {
+    if (this == obj) return true;           // same object
+    if (obj == null) return false;           // null check
+    if (getClass() != obj.getClass()) return false; // different class
+
+    Person other = (Person) obj;
+    return this.age == other.age &&
+           this.name.equals(other.name);
+}
+```
+
+## Short answer for interview (easiest to remember):
+
+> "Make sure `equals()` is consistent, symmetric, and never fails with null.
+And most importantly, always override `hashCode()` together with `equals()`."
+
+
+----------------------------------------------------------------------------------------------------
+
+9 --> What is the Hashcode method used for in Java?
+
+Answer:
+
+"The hashCode() method returns a unique integer number for an object.
+It is used by collections like HashMap and HashSet to quickly find and store objects."
+
+Example:
+
+"For example, when you put an object in a HashMap, Java calls hashCode() to decide
+which bucket to store it in. This makes searching faster."
+
+----------------------------------------------------------------------------------------------------
+
+10-->  Explain inheritance with examples .
+
+**Answer:**
+> "Inheritance is a way to create a new class using an existing class.
+The new class (child) reuses the methods and variables of the existing class (parent)."
+
+**Example:**
+> "For example, a `Vehicle` class has a `start()` method.
+A `Car` class can inherit from `Vehicle` and use `start()` without rewriting it.
+We use the `extends` keyword."
+
+----------------------------------------------------------------------------------------------------
+
+11--> What is method overloading?
+
+**Answer:**
+> "Method overloading means having multiple methods in the same class with the same name
+but different parameters (different number, type, or order of parameters)."
+
+**Example:**
+> "For example, `add(int a, int b)` and `add(int a, int b, int c)` – same name `add`
+ but different number of parameters."
+
+----------------------------------------------------------------------------------------------------
+
+12--> What is method overriding?
+**Answer:**
+> "Method overriding means a child class redefines a method that is already defined in its parent class.
+The method name, parameters, and return type remain the same, but the child provides its own implementation."
+
+**Example:**
+> "For example, a `Animal` class has a `sound()` method that prints 'Some sound'.
+A `Dog` child class overrides `sound()` to print 'Bark'."
+
+----------------------------------------------------------------------------------------------------
+13-->Can super class reference variable can hold an object of sub class?
+
+**Answer:**
+> "Yes, a super class reference variable can hold an object of a sub class. This is called upcasting."
+
+**Example:**
+> "For example, `Animal a = new Dog();` Here, `a` is an `Animal` reference but holds a `Dog` object."
+
+
+----------------------------------------------------------------------------------------------------
+
+14--> Is multiple inheritance allowed in Java?
+
+**Answer:**
+> "No, Java does not allow multiple inheritance for classes. A class cannot extend more than one parent class."
+
+**Example:**
+> "For example, `class C extends A, B` is not allowed in Java.
+This is to avoid the 'diamond problem' where the compiler gets confused which parent method to use."
+
+**Note (if asked further):**
+> "However, multiple inheritance is allowed for interfaces. A class can implement multiple interfaces."
+
+----------------------------------------------------------------------------------------------------
+
+15--> What is an interface?
+
+**Answer:**
+> "An interface is a blueprint of a class that contains only abstract methods (method signatures without body).
+It defines *what* a class should do but not *how* to do it."
+
+**Example:**
+> "For example, a `Vehicle` interface can have `start()` and `stop()` methods.
+A `Car` class implements these methods with actual code."
+
+----------------------------------------------------------------------------------------------------
+16--> How do you define an interface?
+
+**Answer:**
+> "We define an interface using the `interface` keyword instead of `class`.
+Inside it, all methods are abstract by default (no body) and variables are `public`, `static`, and `final`."
+
+**Example:**
+> "For example:
+> interface Animal {
+>     void sound();  // abstract method
+> }
+
+
+----------------------------------------------------------------------------------------------------
+
+17--> How do you implement an interface?
+
+**Answer:**
+> "We implement an interface using the `implements` keyword.
+The class must provide a body (implementation) for all abstract methods of the interface."
+
+**Example:**
+
+> class Dog implements Animal {
+>     public void sound() {
+>         System.out.println("Bark");
+>     }
+> }
+
+
+
+----------------------------------------------------------------------------------------------------
+
+18--> Can you explain a few tricky things about interfaces?
+
+Here are a few **tricky things about interfaces** in simple words with examples:
+
+---
+
+### 1. **Interface variables are always public, static, and final**
+
+**Answer:**
+> "Any variable declared in an interface is automatically `public`, `static`, and `final`. That means it is a constant and cannot be changed."
+
+**Example:**
+
+> interface Animal {
+>     int LEGS = 4;  // automatically public static final
+> }
+> // LEGS cannot be changed by any class
+
+
+---
+
+### 2. **Interfaces can have default methods (from Java 8)**
+
+**Answer:**
+> "From Java 8, interfaces can have `default` methods with a body.
+This allows adding new methods to interfaces without breaking existing classes."
+
+**Example:**
+> interface Animal {
+>     default void sleep() {
+>         System.out.println("Sleeping");
+>     }
+> }
+> // Class implementing Animal does not have to override sleep()
+
+---
+
+### 3. **Interfaces can have static methods (from Java 8)**
+
+**Answer:**
+> "Interfaces can also have `static` methods with a body.
+These belong to the interface, not to the implementing class."
+
+**Example:**
+> interface Animal {
+>     static void info() {
+>         System.out.println("Animals are living beings");
+>     }
+> }
+> // Call using Animal.info()
+
+---
+
+### 4. **A class can implement multiple interfaces (multiple inheritance allowed here)**
+
+**Answer:**
+> "Unlike classes, a class can implement multiple interfaces. This is Java's way of supporting multiple inheritance."
+
+**Example:**
+> class Dog implements Animal, Pet {
+>     // must implement all methods from both interfaces
+> }
+
+---
+
+### 5. **If two interfaces have the same default method, the class must resolve the conflict**
+
+**Answer:**
+> "If two interfaces provide the same default method, the implementing class must override it
+ and specify which one to use or provide its own."
+
+**Example:**
+> ```java
+> interface A { default void show() { System.out.println("A"); } }
+> interface B { default void show() { System.out.println("B"); } }
+>
+> class C implements A, B {
+>     public void show() {
+>         A.super.show();  // choosing A's method
+>     }
+> }
+
+---
+
+### 6. **Interfaces cannot have instance variables**
+
+**Answer:**
+> "Interfaces cannot have instance variables (non-static, non-final fields). All variables are static and final."
+
+**Example:**
+> interface Animal {
+>     int age;  // ❌ ERROR: must be initialized (final)
+>     String name;  // ❌ ERROR
+> }
+
+---
+
+### 7. **Interfaces cannot have constructors**
+
+**Answer:**
+> "Interfaces cannot have constructors because you cannot create an object of an interface."
+
+**Example:**
+> interface Animal {
+>     Animal() { }  // ❌ ERROR: interfaces cannot have constructors
+> }
+
+---
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

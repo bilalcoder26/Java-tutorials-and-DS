@@ -1,0 +1,33 @@
+explain @Component
+**Answer:**
+> "`@Component` is an annotation in Spring that marks a Java class as a Spring-managed bean.
+Spring automatically detects and registers these classes during component scanning."
+
+**Example:**
+> import org.springframework.stereotype.Component;
+>
+> @Component  // Spring will create and manage this class as a bean
+> public class MyService {
+>     public void doSomething() {
+>         System.out.println("Doing something...");
+>     }
+> }
+>
+> // Usage in another component
+> @Component
+> public class MyController {
+>     @Autowired
+>     private MyService myService;  // Spring injects the bean here
+> }
+
+**Short version for interview:**
+> "`@Component` tells Spring to treat a class as a bean and manage its lifecycle.
+Spring automatically creates an instance of that class and makes it available for dependency injection."
+
+**Note (if asked further):**
+> There are specialized versions of `@Component`:
+> - `@Service` – for service layer classes
+> - `@Repository` – for data access layer (DAO)
+> - `@Controller` – for web controllers
+>
+> They work the same as `@Component` but add more specific meanings.

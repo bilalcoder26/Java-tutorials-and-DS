@@ -1,0 +1,48 @@
+Explain the @Repository?
+**Answer:**
+> "`@Repository` is a Spring annotation used on classes that interact with a database (Data Access Objects or DAOs).
+ It is a specialization of `@Component`. Spring automatically translates database-related
+ exceptions into Spring's `DataAccessException`."
+
+**Example:**
+> import org.springframework.stereotype.Repository;
+> import org.springframework.beans.factory.annotation.Autowired;
+> import javax.sql.DataSource;
+>
+> @Repository  // Marks this class as a data access bean
+> public class UserRepository {
+>
+>     @Autowired
+>     private DataSource dataSource;
+>
+>     public User findUserById(int id) {
+>         // database logic here
+>         return new User(id, "John");
+>     }
+>
+>     public void saveUser(User user) {
+>         // save to database
+>     }
+> }
+>
+> // Using the repository in a service
+> @Service
+> public class UserService {
+>
+>     @Autowired
+>     private UserRepository userRepository;
+>
+>     public User getUser(int id) {
+>         return userRepository.findUserById(id);
+>     }
+> }
+
+**Short version for interview:**
+> "`@Repository` is used on classes that access the database.
+It is a specialized version of `@Component` and provides automatic exception translation —
+database errors are converted into Spring's `DataAccessException`."
+
+**Note (if asked further):**
+> The main benefit of `@Repository` is **exception translation**.
+If a plain `@Component` throws a `SQLException`, it's harder to handle. With `@Repository`,
+Spring automatically converts it into a runtime exception that fits Spring's exception hierarchy.

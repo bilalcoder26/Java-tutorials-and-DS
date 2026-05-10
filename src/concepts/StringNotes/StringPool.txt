@@ -90,9 +90,16 @@ String Pool:
 String Pool can work safely
 Thread-safe
 Secure (used in class loading, URLs, etc.)
+
+    --------------------------------------------------
+
+
 4. What does intern() method do?
 
 👉 Returns reference from String Pool (ensures uniqueness)
+
+    --------------------------------------------------
+
 
 6. Difference between == and equals() in String?
 

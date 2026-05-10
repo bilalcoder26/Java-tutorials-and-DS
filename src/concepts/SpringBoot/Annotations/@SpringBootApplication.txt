@@ -1,0 +1,30 @@
+Explain the @SpringBootApplication in java?
+
+**Answer:**
+> "`@SpringBootApplication` is an annotation in Spring Boot that combines three annotations:
+`@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`.
+It is typically placed on the main class to mark it as the starting point of a Spring Boot application."
+
+**Example:**
+> import org.springframework.boot.SpringApplication;
+> import org.springframework.boot.autoconfigure.SpringBootApplication;
+>
+> @SpringBootApplication  // Combines three annotations
+> public class MyApplication {
+>     public static void main(String[] args) {
+>         SpringApplication.run(MyApplication.class, args);
+>     }
+> }
+> ```
+
+**What it does (simple breakdown):**
+> - `@Configuration` – Marks class as a source of bean definitions
+> - `@EnableAutoConfiguration` – Tells Spring to automatically configure based on dependencies
+> - `@ComponentScan` – Scans for components (Controllers, Services, etc.) in the package and subpackages
+
+**Short version for interview:**
+> "`@SpringBootApplication` is an annotation that combines
+`@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`.
+It is used on the main class to setup and run a Spring Boot application automatically."
+
+**Note:** The class containing this annotation must be at the root package so all components are scanned properly.

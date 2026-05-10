@@ -1,0 +1,125 @@
+1--> What are Wrapper classes?
+
+Answer:
+
+"Wrapper classes are used to convert primitive data types like int or boolean into objects in Java.
+For example, Integer for int and Boolean for boolean."
+
+Optional one more line (if they expect a bit more):
+
+"They are useful when we need to use collections like ArrayList, which only work with objects."
+
+----------------------------------------------------------------------------------------------------
+
+2--> Why do we need Wrapper classes in Java?
+
+Answer:
+
+"We need wrapper classes to use primitive data types where only objects are allowed, like in ArrayList or HashMap.
+They also provide useful methods for converting and comparing values."
+
+Even shorter version (if needed quickly):
+
+"Because collections like ArrayList cannot store primitive types — they only store objects.
+Wrapper classes fix that."
+
+
+----------------------------------------------------------------------------------------------------
+
+3--> What are the different ways of creating Wrapper class instances?
+
+Answer:
+
+"There are two main ways. First, using the constructor like Integer i = new Integer(10).
+Second, using static factory methods like Integer.valueOf(10).
+The second way is better because it can reuse cached objects and saves memory."
+
+Even shorter version:
+
+"Using new Integer() and using Integer.valueOf(). The valueOf() method is preferred because it’s more efficient."
+
+
+
+
+----------------------------------------------------------------------------------------------------
+4--> What are differences in the two ways of creating Wrapper classes?
+
+**Answer:**
+> "Using `new` always creates a new object. Using `valueOf()` may return a cached object
+for small values (like -128 to 127), so it is faster and uses less memory. That's why `valueOf()` is better."
+
+**Short version:**
+> "`new` creates a fresh object every time. `valueOf()` reuses objects when possible, so it's more efficient."
+
+
+----------------------------------------------------------------------------------------------------
+
+5--> What is auto boxing?
+
+**Answer:**
+> "Auto-boxing is Java's automatic way of converting a primitive type like `int` into its wrapper
+class object like `Integer` without us having to write extra code."
+
+**Example in short:**
+> "For example, instead of writing `Integer i = Integer.valueOf(10)`, we can simply write `Integer i = 10`.
+Java does the conversion automatically."
+
+
+
+----------------------------------------------------------------------------------------------------
+
+6--> What are the advantages of auto boxing?
+
+
+
+**Answer:**
+> "Auto-boxing makes code shorter and easier to read. It also allows primitives to be used directly in collections like `ArrayList` and in method calls without manually converting them."
+
+**Short version:**
+> "It saves us from writing extra conversion code, reduces errors, and makes primitives work naturally with objects."
+
+Next question?
+
+
+----------------------------------------------------------------------------------------------------
+7-->  What is casting?
+
+
+**Answer:**
+> "Casting is converting one data type into another.
+There are two types: implicit casting (automatic, like converting `int` to `double`) and
+explicit casting (manual, like converting `double` to `int` using parentheses)."
+
+**Short version:**
+> "Casting means changing a value from one data type to another, like converting a `double` to an `int`."
+
+
+----------------------------------------------------------------------------------------------------
+
+8--> What is implicit casting?
+
+**Answer:**
+> "Implicit casting is automatic type conversion done by Java when there is no chance of data loss.
+For example, converting an `int` to a `double` or a `float` to a `double`.
+Java handles it without us writing any extra code."
+
+**Short version:**
+> "It's automatic casting from a smaller to a larger type, like `int` to `double`. No manual code needed."
+
+----------------------------------------------------------------------------------------------------
+9--> What is explicit casting?
+
+**Answer:**
+> "Explicit casting is manual type conversion done by the programmer when there is a chance of data loss.
+For example, converting a `double` to an `int`. We write the target type in parentheses, like `int x = (int) 10.5`."
+
+**Short version:**
+> "It's manual casting from a larger to a smaller type, like `double` to `int`.
+ We must write `(int)` before the value, and it may lose data like decimal points."
+
+
+
+----------------------------------------------------------------------------------------------------
+
+
+
