@@ -1,0 +1,73 @@
+1. What is an Annotation?
+
+An annotation in Java is a special type of metadata.
+
+Metadata means:
+
+Data about data
+
+Annotations provide extra information to:
+
+Compiler
+JVM
+Frameworks
+Tools
+
+Annotations do NOT directly change program logic.
+
+They describe behavior or configuration.
+
+----------------------------------------------------------------------------------------------------
+2. Real-Life Analogy
+
+Imagine a file folder.
+
+You place stickers on it:
+
+"Important"
+"Confidential"
+"Urgent"
+
+The stickers do not change the file contents,
+but they tell people how to handle it.
+
+Annotations work similarly in Java.
+
+
+----------------------------------------------------------------------------------------------------
+What are Spring Boot Annotations?
+
+Spring Boot heavily depends on annotations.
+
+Annotations tell Spring:
+
+What object to create
+Dependency injection
+Configuration
+REST APIs
+Database mapping
+
+Without annotations, Spring configuration would be huge XML files.
+----------------------------------------------------------------------------------------------------
+
+@Controller	MVC controller
+@RestController	REST API controller
+@Autowired	Dependency injection
+@RequestMapping	Maps URLs
+@GetMapping	HTTP GET
+@PostMapping	HTTP POST
+@Entity	Hibernate entity
+@Table	Database table mapping
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

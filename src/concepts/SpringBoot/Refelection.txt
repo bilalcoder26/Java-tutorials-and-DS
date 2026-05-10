@@ -1,0 +1,755 @@
+# Reflection in Java — Complete Detailed Guide
+
+Reflection in Java is a feature that allows a program to:
+
+* Inspect classes
+* Access fields
+* Call methods
+* Create objects dynamically at runtime
+
+Even if the details are not known during compile time.
+
+Reflection is part of:
+
+```java
+java.lang.reflect
+```
+
+---
+
+# 1. What is Reflection?
+
+Normally in Java:
+
+```java
+Student s = new Student();
+s.show();
+```
+
+Everything is known at compile time.
+
+With Reflection:
+
+* Class can be loaded dynamically
+* Methods can be called dynamically
+* Fields can be modified dynamically
+
+---
+
+# 2. Why Reflection is Used?
+
+Reflection is heavily used in:
+
+* Spring Framework
+* Hibernate
+* JUnit
+* Dependency Injection
+* Annotations processing
+* IDE tools
+* Serialization
+* Debugging tools
+
+---
+
+# 3. Real-Life Analogy
+
+Imagine:
+
+* You have a closed box
+* Reflection allows you to inspect:
+
+  * What's inside
+  * Open private parts
+  * Change values
+  * Call hidden methods
+
+Even if you never saw the box before.
+
+---
+
+# 4. Reflection API Packages
+
+Main package:
+
+```java
+java.lang.reflect
+```
+
+Important classes:
+
+| Class       | Purpose                   |
+| ----------- | ------------------------- |
+| Class       | Represents class metadata |
+| Method      | Represents methods        |
+| Field       | Represents variables      |
+| Constructor | Represents constructors   |
+
+---
+
+# 5. The `Class` Class
+
+Everything in reflection starts with:
+
+```java
+Class
+```
+
+It stores metadata about a class.
+
+Example:
+
+* Class name
+* Methods
+* Fields
+* Constructors
+* Interfaces
+* Annotations
+
+---
+
+# 6. Ways to Get Class Object
+
+---
+
+## Method 1 — `.class`
+
+```java
+Class<?> c = Student.class;
+```
+
+---
+
+## Method 2 — `getClass()`
+
+```java
+Student s = new Student();
+
+Class<?> c = s.getClass();
+```
+
+---
+
+## Method 3 — `Class.forName()`
+
+```java
+Class<?> c = Class.forName("Student");
+```
+
+Very important in frameworks.
+
+Loads class dynamically at runtime.
+
+---
+
+# 7. Example Class
+
+```java
+class Student {
+
+    private String name;
+
+    public Student() {}
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    public void show() {
+        System.out.println("Hello " + name);
+    }
+
+    private void secret() {
+        System.out.println("Private Method");
+    }
+}
+```
+
+---
+
+# 8. Getting Class Information
+
+```java
+Class<?> c = Student.class;
+
+System.out.println(c.getName());
+System.out.println(c.getSimpleName());
+```
+
+Output:
+
+```text
+Student
+Student
+```
+
+---
+
+# 9. Getting Constructors
+
+```java
+Constructor<?>[] constructors = c.getConstructors();
+
+for(Constructor<?> con : constructors) {
+    System.out.println(con);
+}
+```
+
+---
+
+## Get Specific Constructor
+
+```java
+Constructor<?> con = c.getConstructor(String.class);
+```
+
+---
+
+# 10. Creating Objects Dynamically
+
+```java
+Constructor<?> con = c.getConstructor(String.class);
+
+Object obj = con.newInstance("Bilal");
+```
+
+Equivalent to:
+
+```java
+new Student("Bilal");
+```
+
+---
+
+# 11. Getting Methods
+
+```java
+Method[] methods = c.getMethods();
+
+for(Method m : methods) {
+    System.out.println(m.getName());
+}
+```
+
+---
+
+## Get Specific Method
+
+```java
+Method method = c.getMethod("show");
+```
+
+---
+
+# 12. Invoking Methods Dynamically
+
+```java
+method.invoke(obj);
+```
+
+Equivalent to:
+
+```java
+obj.show();
+```
+
+---
+
+# 13. Accessing Private Methods
+
+Normally:
+
+```java
+private void secret()
+```
+
+Cannot be accessed outside class.
+
+Reflection can bypass this.
+
+---
+
+## Example
+
+```java
+Method m = c.getDeclaredMethod("secret");
+
+m.setAccessible(true);
+
+m.invoke(obj);
+```
+
+Output:
+
+```text
+Private Method
+```
+
+---
+
+# 14. Accessing Fields
+
+```java
+Field[] fields = c.getDeclaredFields();
+
+for(Field f : fields) {
+    System.out.println(f.getName());
+}
+```
+
+---
+
+# 15. Accessing Private Fields
+
+```java
+Field field = c.getDeclaredField("name");
+
+field.setAccessible(true);
+
+field.set(obj, "Ahmed");
+
+System.out.println(field.get(obj));
+```
+
+---
+
+# 16. Complete Reflection Example
+
+```java
+import java.lang.reflect.*;
+
+class Student {
+
+    private String name;
+
+    public Student(String name) {
+        this.name = name;
+    }
+
+    public void show() {
+        System.out.println("Hello " + name);
+    }
+
+    private void secret() {
+        System.out.println("Secret Method");
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+
+        Class<?> c = Student.class;
+
+        Constructor<?> con = c.getConstructor(String.class);
+
+        Object obj = con.newInstance("Bilal");
+
+        Method method = c.getMethod("show");
+
+        method.invoke(obj);
+
+        Method privateMethod = c.getDeclaredMethod("secret");
+
+        privateMethod.setAccessible(true);
+
+        privateMethod.invoke(obj);
+    }
+}
+```
+
+Output:
+
+```text
+Hello Bilal
+Secret Method
+```
+
+---
+
+# 17. Reflection with Annotations
+
+Reflection is used heavily with annotations.
+
+Example:
+
+```java
+@Entity
+class Product {
+}
+```
+
+Frameworks inspect annotations using reflection.
+
+---
+
+# 18. Reflection in Spring Framework
+
+Spring uses reflection for:
+
+* Dependency Injection
+* Bean creation
+* Annotation scanning
+* Auto wiring
+
+Example:
+
+```java
+@Autowired
+private UserService service;
+```
+
+Spring injects object dynamically using reflection.
+
+---
+
+# 19. Reflection in Hibernate
+
+Hibernate uses reflection to:
+
+* Create entity objects
+* Access private fields
+* Map database columns
+
+---
+
+# 20. Reflection and Encapsulation
+
+Reflection can break encapsulation.
+
+Example:
+
+```java
+private field
+private method
+```
+
+Can still be accessed.
+
+That's why reflection should be used carefully.
+
+---
+
+# 21. Performance Issue
+
+Reflection is slower because:
+
+* JVM performs dynamic resolution
+* Security checks happen
+* Optimization is harder
+
+Direct method calls are much faster.
+
+---
+
+# 22. Important Reflection Methods
+
+---
+
+## Class Methods
+
+| Method               | Purpose             |
+| -------------------- | ------------------- |
+| getName()            | Full class name     |
+| getSimpleName()      | Simple name         |
+| getMethods()         | Public methods      |
+| getDeclaredMethods() | All methods         |
+| getFields()          | Public fields       |
+| getDeclaredFields()  | All fields          |
+| getConstructors()    | Public constructors |
+
+---
+
+## Method Class
+
+| Method          | Purpose     |
+| --------------- | ----------- |
+| invoke()        | Call method |
+| getName()       | Method name |
+| getReturnType() | Return type |
+
+---
+
+## Field Class
+
+| Method              | Purpose                |
+| ------------------- | ---------------------- |
+| get()               | Get value              |
+| set()               | Set value              |
+| setAccessible(true) | Access private members |
+
+---
+
+# 23. Difference Between `getMethods()` and `getDeclaredMethods()`
+
+---
+
+## `getMethods()`
+
+Returns:
+
+* Public methods
+* Including inherited methods
+
+---
+
+## `getDeclaredMethods()`
+
+Returns:
+
+* All methods of current class
+* Including private methods
+* Excludes inherited methods
+
+---
+
+# 24. Dynamic Class Loading
+
+```java
+Class<?> c = Class.forName("Student");
+```
+
+This loads class during runtime.
+
+Used in:
+
+* JDBC drivers
+* Spring
+* Plugins
+* Frameworks
+
+---
+
+# 25. Reflection and JDBC
+
+Old JDBC:
+
+```java
+Class.forName("com.mysql.cj.jdbc.Driver");
+```
+
+This loads driver dynamically.
+
+---
+
+# 26. Advantages of Reflection
+
+| Advantage              | Explanation        |
+| ---------------------- | ------------------ |
+| Dynamic behavior       | Runtime operations |
+| Framework support      | Spring/Hibernate   |
+| Access private members | Testing/debugging  |
+| Flexible code          | Generic processing |
+
+---
+
+# 27. Disadvantages of Reflection
+
+| Disadvantage         | Explanation            |
+| -------------------- | ---------------------- |
+| Slow performance     | Runtime overhead       |
+| Breaks encapsulation | Access private members |
+| Security risks       | Unsafe access          |
+| Harder debugging     | Dynamic behavior       |
+
+---
+
+# 28. Common Interview Questions
+
+---
+
+## Q1. What is Reflection in Java?
+
+Reflection allows inspection and manipulation of classes, methods, fields, and constructors at runtime.
+
+---
+
+## Q2. Which package is used for Reflection?
+
+```java
+java.lang.reflect
+```
+
+---
+
+## Q3. What is `Class<?>`?
+
+Represents metadata of a class.
+
+---
+
+## Q4. Difference between compile-time and runtime?
+
+| Compile Time             | Runtime                  |
+| ------------------------ | ------------------------ |
+| Checked before execution | Happens during execution |
+
+Reflection works at runtime.
+
+---
+
+## Q5. Why Reflection is slower?
+
+Because:
+
+* Dynamic resolution
+* Security checks
+* JVM optimizations are limited
+
+---
+
+## Q6. Can Reflection access private methods?
+
+Yes using:
+
+```java
+setAccessible(true)
+```
+
+---
+
+# 29. Tricky Interview Questions
+
+---
+
+## Q1
+
+```java
+Class<?> c1 = String.class;
+Class<?> c2 = "Hello".getClass();
+
+System.out.println(c1 == c2);
+```
+
+Output:
+
+```text
+true
+```
+
+Because both represent same class object.
+
+---
+
+## Q2
+
+```java
+privateMethod.setAccessible(true);
+```
+
+What does it do?
+
+It bypasses Java access control checks.
+
+---
+
+## Q3
+
+```java
+Method m = c.getMethod("show");
+```
+
+Will this fetch private methods?
+
+❌ No
+
+Only public methods.
+
+Use:
+
+```java
+getDeclaredMethod()
+```
+
+---
+
+## Q4
+
+```java
+Field f = c.getField("name");
+```
+
+Will it access private field?
+
+❌ No
+
+Use:
+
+```java
+getDeclaredField()
+```
+
+---
+
+# 30. Reflection vs Normal Access
+
+| Normal Java             | Reflection              |
+| ----------------------- | ----------------------- |
+| Fast                    | Slower                  |
+| Compile-time safe       | Runtime errors possible |
+| Encapsulation respected | Can break encapsulation |
+| Static behavior         | Dynamic behavior        |
+
+---
+
+# 31. Best Practices
+
+✅ Use reflection only when necessary
+✅ Avoid excessive reflection in performance-critical code
+✅ Prefer dependency injection frameworks
+✅ Be careful with private access
+✅ Cache reflective lookups if repeatedly used
+
+---
+
+# 32. Simple Memory Tricks
+
+---
+
+## Reflection Purpose
+
+```text
+Inspect + Manipulate at Runtime
+```
+
+---
+
+## Reflection Main Classes
+
+```text
+Class
+Method
+Field
+Constructor
+```
+
+---
+
+## Private Access
+
+```text
+setAccessible(true)
+```
+
+---
+
+# 33. Final Summary
+
+Reflection in Java:
+
+* Allows runtime inspection and manipulation
+* Uses `java.lang.reflect`
+* Can dynamically create objects
+* Can invoke methods dynamically
+* Can access private fields/methods
+* Used heavily in Spring and Hibernate
+* Powerful but slower and potentially unsafe
+
+Core concepts:
+
+* Class object
+* Methods
+* Fields
+* Constructors
+* Dynamic invocation
+* Access control bypass
+* Runtime inspection

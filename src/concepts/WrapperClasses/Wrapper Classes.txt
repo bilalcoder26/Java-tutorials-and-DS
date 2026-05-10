@@ -1,0 +1,264 @@
+In Java, wrapper classes are objects that “wrap” primitive data types into objects.
+This is necessary because Java is an object-oriented language, and many features
+(like collections, generics, and APIs) work only with objects—not primitives.
+
+----------------------------------------------------------------------------------------------------
+🔹 1. What are Wrapper Classes?
+
+A wrapper class is a class that encapsulates (wraps) a primitive data type into an object.
+
+Primitive → Wrapper mapping:
+
+| Primitive Type | Wrapper Class |
+| -------------- | ------------- |
+| byte           | Byte          |
+| short          | Short         |
+| int            | Integer       |
+| long           | Long          |
+| float          | Float         |
+| double         | Double        |
+| char           | Character     |
+| boolean        | Boolean       |
+
+
+----------------------------------------------------------------------------------------------------
+
+🔹 2. Why Wrapper Classes are Needed?
+
+----------------------------------------------------------------------------------------------------
+
+1. Collections Framework
+
+Collections (like ArrayList, HashMap) store objects only, not primitives.
+
+ArrayList<int> list = new ArrayList<>();   // ❌ Not allowed
+ArrayList<Integer> list = new ArrayList<>(); // ✅ Allowed
+
+----------------------------------------------------------------------------------------------------
+2. Utility Methods
+
+Wrapper classes provide useful methods:
+
+int x = Integer.parseInt("123");   // convert String → int
+String s = Integer.toString(100);  // int → String
+
+
+----------------------------------------------------------------------------------------------------
+
+3. Object Features
+
+Wrappers allow primitives to behave like objects:
+
+Can be stored in objects
+Can use methods
+Can be null (important difference!)
+
+
+----------------------------------------------------------------------------------------------------
+
+🔹 3. Boxing and Unboxing
+
+----------------------------------------------------------------------------------------------------
+
+➤ Boxing
+
+Converting primitive → wrapper object
+
+int a = 10;
+Integer obj = Integer.valueOf(a);  // manual boxing
+
+----------------------------------------------------------------------------------------------------
+
+Autoboxing (automatic)
+Integer obj = 10;  // compiler automatically converts
+
+----------------------------------------------------------------------------------------------------
+
+➤ Unboxing
+
+Converting wrapper → primitive
+
+Integer obj = 20;
+int x = obj.intValue();  // manual unboxing
+
+
+----------------------------------------------------------------------------------------------------
+
+Auto-unboxing
+int x = obj;  // automatic conversion
+
+----------------------------------------------------------------------------------------------------
+🔹 4. Important Methods of Wrapper Classes
+
+Example with Integer:
+Integer i = 100;
+
+// Convert to primitive
+int x = i.intValue();
+
+// Convert String to int
+int y = Integer.parseInt("123");
+
+// Convert int to String
+String s = i.toString();
+
+// Compare values
+Integer a = 10;
+Integer b = 20;
+System.out.println(a.compareTo(b));  // -1
+
+
+----------------------------------------------------------------------------------------------------
+
+
+🔹 5. Immutability
+
+Wrapper objects are immutable (cannot be changed once created).
+
+Integer x = 10;
+x = x + 5;  // actually creates a new object
+
+
+
+----------------------------------------------------------------------------------------------------
+
+🔹 6. Default Values
+
+Primitive types → have default values (e.g., int = 0)
+Wrapper classes → default is null
+Integer x;   // null
+int y;       // 0 (if instance variable)
+
+
+----------------------------------------------------------------------------------------------------
+
+🔹 7. Memory & Performance
+
+Primitives → faster, less memory
+Wrapper objects → slower, more memory (due to object overhead)
+
+👉 Use primitives when performance matters
+👉 Use wrappers when objects are required
+
+
+----------------------------------------------------------------------------------------------------
+🔹 8. Common Pitfalls
+
+❗ NullPointerException
+Integer x = null;
+int y = x;   // ❌ throws NullPointerException
+
+
+----------------------------------------------------------------------------------------------------
+❗ Comparison Issue
+Integer a = 100;
+Integer b = 100;
+System.out.println(a == b);  // true (cached)
+
+Integer x = 200;
+Integer y = 200;
+System.out.println(x == y);  // false (different objects)
+
+👉 Always use .equals() for comparison:
+
+x.equals(y);  // correct
+
+Integer a = 100;
+Integer b = 100;
+
+System.out.println(a == b);
+
+Output:
+
+true
+
+----------------------------------------------------------------------------------------------------
+
+
+You may think:
+
+"a and b are two different objects, so why true?"
+
+Because Java does Integer Caching.
+
+🔹 Step 2: Integer Cache
+
+Java internally keeps a cache of Integer objects from:
+
+✅ -128 to 127
+
+When you write:
+
+Integer a = 100;
+
+Java does NOT create a new object every time.
+
+Instead, it checks:
+
+"Is 100 inside cache range?"
+
+YES → Java reuses the SAME object.
+
+So:
+
+Integer a = 100;
+Integer b = 100;
+
+Actually becomes:
+
+a ----\
+       ---> [Integer object: 100]
+b ----/
+
+Both point to SAME memory object.
+
+Therefore:
+
+a == b
+
+becomes:
+
+true
+
+because both references are identical.
+
+----------------------------------------------------------------------------------------------------
+
+
+❌ 200 is OUTSIDE cache range
+
+Java creates TWO separate objects.
+
+Memory representation:
+
+x ----> [Integer object: 200]
+
+y ----> [Integer object: 200]
+
+Different objects in memory.
+
+So:
+
+x == y
+
+checks:
+
+"Do both references point to same object?"
+
+NO → false
+
+----------------------------------------------------------------------------------------------------
+
+🔹 9. Wrapper Class Caching (Important)
+
+Java caches small values:
+
+Integer: -128 to 127
+Boolean: true/false
+Integer a = 127;
+Integer b = 127;
+System.out.println(a == b); // true
+
+Integer x = 128;
+Integer y = 128;
+System.out.println(x == y); // false

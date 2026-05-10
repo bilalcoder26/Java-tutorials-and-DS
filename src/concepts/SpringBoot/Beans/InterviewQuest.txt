@@ -1,0 +1,183 @@
+1. What is Java Bean?
+Answer
+
+A Java Bean is a reusable Java class that follows conventions like:
+
+private fields
+public getter/setter
+public no-arg constructor
+serializable
+
+----------------------------------------------------------------------------------------------------
+2. Why no-argument constructor required in Bean?
+Answer
+
+Because frameworks create objects using reflection.
+
+Reflection requires no-arg constructor.
+
+----------------------------------------------------------------------------------------------------
+
+3. Difference between POJO and Bean?
+Answer
+
+POJO has no strict rules.
+
+Bean follows specific conventions.
+
+Every Bean is POJO.
+
+Every POJO is not Bean.
+
+----------------------------------------------------------------------------------------------------
+
+4. What is Spring Bean?
+Answer
+
+A Spring Bean is an object managed by Spring IOC container.
+
+----------------------------------------------------------------------------------------------------
+
+5. How Spring creates Beans?
+Answer
+
+Using:
+
+component scanning
+reflection
+IOC container
+
+----------------------------------------------------------------------------------------------------
+
+6. What is IOC?
+Answer
+
+IOC means control of object creation is transferred from programmer to Spring container.
+
+
+----------------------------------------------------------------------------------------------------
+
+7. What is Dependency Injection?
+Answer
+
+Providing dependencies automatically instead of creating them manually.
+
+----------------------------------------------------------------------------------------------------
+8. Difference between @Component and @Bean?
+
+@Component	        @Bean
+
+Auto detected	    Manually declared
+Class-level	        Method-level
+
+Example:
+
+@Bean
+public RestTemplate restTemplate() {
+    return new RestTemplate();
+}
+
+----------------------------------------------------------------------------------------------------
+
+
+Tricky Interview Questions
+
+----------------------------------------------------------------------------------------------------
+
+1. Can Bean class have parameterized constructor?
+Answer
+
+YES.
+
+But no-arg constructor is still recommended for frameworks.
+
+----------------------------------------------------------------------------------------------------
+2. Can immutable class be Bean?
+Answer
+
+YES.
+
+Using constructor initialization.
+
+Example:
+
+public class Student {
+
+    private final String name;
+
+    public Student(String name){
+        this.name = name;
+    }
+
+    public String getName(){
+        return name;
+    }
+}
+
+No setter required.
+
+
+----------------------------------------------------------------------------------------------------
+
+3. Is Serializable mandatory for Bean?
+Answer
+
+NO.
+
+It is convention/recommendation.
+
+Not compulsory.
+
+
+
+----------------------------------------------------------------------------------------------------
+
+4. Are all Spring Beans Singleton?
+Answer
+
+No.
+
+Default scope is singleton.
+
+But prototype/request/session scopes also exist.
+
+
+
+----------------------------------------------------------------------------------------------------
+5. Can we create Spring Bean without annotation?
+Answer
+
+YES.
+
+Using XML or @Bean.
+
+Example:
+
+@Bean
+public ProductService productService(){
+    return new ProductService();
+}
+
+
+----------------------------------------------------------------------------------------------------
+6. Can private constructor Bean exist?
+Answer
+
+Usually NO for framework-managed beans.
+
+Reflection may fail.
+
+----------------------------------------------------------------------------------------------------
+7. Does Spring Bean mean Java Bean?
+Answer
+
+NO.
+
+They are different concepts.
+
+This is a favorite tricky interview question.
+
+----------------------------------------------------------------------------------------------------
+Every Spring Bean is an object managed by Spring IOC container,
+while Java Bean is simply a class following standard conventions.
+

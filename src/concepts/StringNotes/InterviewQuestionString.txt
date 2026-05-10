@@ -1,0 +1,214 @@
+Q1: Why are strings immutable in Java?
+Expected answer:
+
+Security – Strings are used in class loading, network connections, file paths.
+Immutability prevents malicious modification.
+
+Thread Safety – No synchronization needed when sharing across threads.
+
+String Pool – Immutability allows string interning (pooling) without risk of corruption.
+
+HashCode Caching – Hash code is computed once and cached, improving HashMap performance.
+
+----------------------------------------------------------------------------------------------------
+
+
+Q2: What is the difference between StringBuilder and StringBuffer?
+Expected answer:
+StringBuilder is not synchronized (not thread-safe) but faster. StringBuffer is synchronized (thread-safe) but slower.
+Use StringBuilder in single-threaded scenarios; use StringBuffer when multiple threads modify the same string.
+
+----------------------------------------------------------------------------------------------------
+
+
+Q3: Will this code create new String objects? How many?
+java
+String s = "Java";
+for (int i = 0; i < 100; i++) {
+    s = s + "!";
+}
+Answer: 101 objects – 1 original + 100 new strings created in each iteration. Very inefficient.
+Should use StringBuilder.
+
+----------------------------------------------------------------------------------------------------
+
+
+Q4: What will this output?
+java
+String s1 = "Hello";
+String s2 = "Hello";
+String s3 = new String("Hello");
+
+System.out.println(s1 == s2); // true   (same reference from String Pool)
+System.out.println(s1 == s3); // false  (different objects – pool vs heap)
+System.out.println(s1.equals(s3)); // true   (same content)
+
+----------------------------------------------------------------------------------------------------
+
+Q5: How do you convert StringBuilder to String and vice versa?
+java
+// StringBuilder to String
+StringBuilder sb = new StringBuilder("Hello");
+String str = sb.toString();
+
+// String to StringBuilder
+StringBuilder sb2 = new StringBuilder("Hello");
+
+----------------------------------------------------------------------------------------------------
+
+
+Q6: What is the default capacity of StringBuilder/StringBuffer?
+Answer: 16 characters. When exceeded, capacity increases to (old capacity * 2) + 2.
+
+----------------------------------------------------------------------------------------------------
+
+
+Q7: Can you make StringBuilder thread-safe?
+Answer: Yes, by using external synchronization:
+
+java
+StringBuilder sb = new StringBuilder();
+synchronized(sb) {
+    sb.append("thread-safe operation");
+}
+But it's better to simply use StringBuffer for multi-threaded scenarios.
+
+----------------------------------------------------------------------------------------------------
+
+
+Q8: Predict the output:
+java
+String s = "Java";
+StringBuilder sb = new StringBuilder("Java");
+System.out.println(s.equals(sb)); //false  (String equals() checks type – StringBuilder not a String)
+
+System.out.println(sb.equals(s)); // false  (StringBuilder equals() not overridden – compares references)
+
+
+To compare content: s.equals(sb.toString())
+
+----------------------------------------------------------------------------------------------------
+
+
+Q9: Which is better in a web application (servlet environment)?
+Expected answer: StringBuilder unless the StringBuilder is shared across requests (which it shouldn't be).
+Each request typically runs in its own thread with isolated variables, so synchronization is unnecessary overhead.
+
+----------------------------------------------------------------------------------------------------
+
+
+
+Q10: Why not always use StringBuilder instead of String?
+Answer: Because:
+
+String is immutable, making it thread-safe by default
+
+String objects can be interned for memory efficiency
+
+String has hash code caching – better for HashMap keys
+
+For constant strings, String is more readable and optimized by compiler
+
+Using StringBuilder for simple concatenation adds unnecessary complexity
+
+----------------------------------------------------------------------------------------------------
+11 --> Are all String’s immutable?
+
+**Answer:**
+> "Yes, all Strings in Java are immutable. That means once a String object is created,
+its value cannot be changed. Any operation like concatenation creates a new String object
+instead of modifying the original."
+
+**Short version:**
+> "Yes, Strings are immutable in Java. You cannot change an existing String — any change makes a new String."
+
+----------------------------------------------------------------------------------------------------
+12-->  Where are String values stored in memory?
+
+
+**Answer:**
+> "String values are stored in a special area of memory called the **String Pool** (or String Constant Pool).
+When we create a String using double quotes like `String s = "hello"`, Java first checks the pool.
+If it already exists, it reuses the same object. This saves memory."
+
+**Short version:**
+> "In the String Pool. Java reuses String literals from the pool to save memory."
+
+----------------------------------------------------------------------------------------------------
+
+13 --> Why should you be careful about String concatenation(+) operator in loops?
+
+**Answer:**
+> "Because Strings are immutable, using `+` in a loop creates many new String objects.
+This wastes memory and makes the program slow. Instead, we should use `StringBuilder` or `StringBuffer`
+which are mutable and more efficient."
+
+**Short version:**
+> "It creates many unnecessary String objects, which is slow and wastes memory.
+Use `StringBuilder` inside loops instead."
+
+
+----------------------------------------------------------------------------------------------------
+
+14 --> . How do you solve above problem?
+
+
+**Answer:**
+> "Use `StringBuilder` or `StringBuffer` instead of `+` inside loops.
+`StringBuilder` is faster because it does not create new objects each time.
+For example: `StringBuilder sb = new StringBuilder(); for(int i=0;i<10;i++){ sb.append(i); }`"
+
+**Short version:**
+> "Replace `+` with `StringBuilder` and use its `append()` method.
+This is efficient and avoids creating multiple objects."
+
+
+----------------------------------------------------------------------------------------------------
+15--> What are differences between String and StringBuffer?
+
+
+**Answer:**
+> "String is immutable — once created, it cannot be changed.
+StringBuffer is mutable — we can modify it without creating new objects.
+StringBuffer is also thread-safe, meaning multiple threads can use it safely, but it is slower than StringBuilder."
+
+**Short version:**
+> "String cannot be changed. StringBuffer can be changed and is thread-safe but slower.
+For single-threaded code, StringBuilder is faster."
+
+
+----------------------------------------------------------------------------------------------------
+
+16-->  What are differences between StringBuilder and StringBuffer?
+
+**Answer:**
+> "Both are mutable, but `StringBuffer` is **thread-safe** (synchronized)
+so it can be used by multiple threads safely, but it is **slower**. `StringBuilder` is **not thread-safe**,
+so it should not be shared between threads, but it is **faster**. Use `StringBuilder` for single-threaded code."
+
+**Short version:**
+> "`StringBuffer` is thread-safe but slow. `StringBuilder` is not thread-safe but fast.
+For most cases, use `StringBuilder`."
+
+----------------------------------------------------------------------------------------------------
+
+17--> Can you give examples of different utility methods in String class?
+
+
+**Answer:**
+> "Yes, common String utility methods are:
+> - `length()` – returns number of characters
+> - `charAt(index)` – returns character at a position
+> - `substring(start, end)` – extracts part of the string
+> - `toUpperCase()` / `toLowerCase()` – changes case
+> - `trim()` – removes spaces from start and end
+> - `equals()` – compares two strings
+> - `split()` – divides string into parts"
+
+**Short version:**
+> "Examples: `length()`, `charAt()`, `substring()`, `trim()`, `toUpperCase()`, `equals()`, and `split()`."
+
+
+----------------------------------------------------------------------------------------------------
+
+

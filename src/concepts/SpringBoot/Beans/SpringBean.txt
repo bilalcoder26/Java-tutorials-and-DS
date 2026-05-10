@@ -1,0 +1,194 @@
+
+What is Spring Bean?
+
+In Spring:
+
+A Bean is simply:
+
+An object managed by the Spring IOC Container
+----------------------------------------------------------------------------------------------------
+IOC Container
+
+IOC = Inversion of Control
+
+Spring creates and manages objects for you.
+
+Instead of:
+
+StudentService service = new StudentService();
+
+Spring does it automatically.
+
+Example
+@Component
+public class StudentService {
+
+}
+
+Now Spring creates object automatically.
+
+This object is called:
+
+Spring Bean
+----------------------------------------------------------------------------------------------------
+Bean Lifecycle in Spring
+1. Container starts
+
+↓
+
+2. Bean created
+
+↓
+
+3. Dependencies injected
+
+↓
+
+4. Bean initialized
+
+↓
+
+5. Bean used
+
+↓
+
+6. Bean destroyed
+----------------------------------------------------------------------------------------------------
+
+How Spring Creates Beans?
+
+Using annotations:
+
+Annotation	Purpose
+@Component	Generic bean
+@Service	Service layer bean
+@Repository	DAO bean
+@Controller	Controller bean
+@Bean	Manual bean creation
+
+Example
+@Service
+public class ProductService {
+
+}
+
+Spring automatically registers it as Bean.
+
+----------------------------------------------------------------------------------------------------
+Bean Scope
+Singleton (default)
+
+Only ONE object created.
+
+@Service
+public class UserService {
+}
+
+Entire application uses same object.
+
+----------------------------------------------------------------------------------------------------
+
+Prototype
+
+New object every time.
+
+@Scope("prototype")
+
+----------------------------------------------------------------------------------------------------
+Important Internal Understanding
+
+When application starts:
+
+Spring scans classes.
+
+@ComponentScan
+
+When it finds:
+
+@Service
+@Component
+
+it creates objects and stores them in IOC container.
+
+----------------------------------------------------------------------------------------------------
+
+
+Dependency Injection Example
+@Service
+public class OrderService {
+
+    @Autowired
+    private PaymentService paymentService;
+}
+
+Spring automatically injects dependency.
+
+----------------------------------------------------------------------------------------------------
+
+Why Beans are Powerful?
+
+Without Spring Bean:
+
+PaymentService payment = new PaymentService();
+OrderService order = new OrderService(payment);
+
+Manual dependency management becomes difficult.
+
+Spring automates everything.
+
+----------------------------------------------------------------------------------------------------
+
+
+Deep Internal Flow of Spring Bean
+
+----------------------------------------------------------------------------------------------------
+
+Step 1
+
+Spring scans package.
+
+↓
+
+Step 2
+
+Detects annotations.
+
+↓
+
+Step 3
+
+Creates object using reflection.
+
+Class.newInstance()
+
+↓
+
+Step 4
+
+Stores object in IOC container.
+
+↓
+
+Step 5
+
+Injects dependencies.
+
+↓
+
+Step 6
+
+Provides object whenever needed.
+
+----------------------------------------------------------------------------------------------------
+Bean vs Object
+
+VERY IMPORTANT.
+
+Object	                    Bean
+Created manually	        Managed by Spring
+Lifecycle unmanaged	        Lifecycle managed
+No IOC	                    IOC managed
+
+Every bean is object.
+
+But every object is NOT bean.

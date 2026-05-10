@@ -1,0 +1,46 @@
+explain  @Service
+
+**Answer:**
+> "`@Service` is a Spring annotation used on classes that contain business logic.
+It is a specialization of `@Component`. Spring automatically detects and registers it as a bean during
+component scanning."
+
+**Example:**
+> import org.springframework.stereotype.Service;
+>
+> @Service  // Marks this class as a service layer bean
+> public class UserService {
+>
+>     public String getUserName(int id) {
+>         // business logic here
+>         return "John";
+>     }
+>
+>     public boolean validateUser(String email) {
+>         // business logic here
+>         return email != null && email.contains("@");
+>     }
+> }
+>
+> // Using the service in a controller
+> @RestController
+> public class UserController {
+>
+>     @Autowired
+>     private UserService userService;  // Spring injects the service bean
+>
+>     @GetMapping("/user")
+>     public String getUser() {
+>         return userService.getUserName(1);
+>     }
+> }
+
+**Short version for interview:**
+> "`@Service` is used on classes that contain business logic.
+It is a specialized version of `@Component`. It makes the code more readable by clearly indicating
+which classes belong to the service layer."
+
+**Note (if asked further):**
+> `@Service` is functionally same as `@Component`. The difference is only semantic —
+it tells developers that this class contains business logic. Some frameworks may add special behavior
+to `@Service` in future versions.

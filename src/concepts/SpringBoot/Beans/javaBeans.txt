@@ -1,0 +1,132 @@
+Beans in Java — Complete Deep Explanation
+
+The word Bean is used in two major contexts:
+
+Java Bean (Core Java concept)
+Spring Bean (Spring Framework concept)
+
+Many interviewers intentionally mix both to check understanding.
+
+----------------------------------------------------------------------------------------------------
+1. What is a Java Bean?
+
+A Java Bean is a special Java class that follows certain conventions.
+
+It is mainly used to:
+
+hold data
+transfer data
+encapsulate state
+
+Examples:
+
+Student
+Employee
+Product
+UserDTO
+Definition
+
+A Java Bean is a reusable Java class that:
+
+has private fields
+provides public getter/setter methods
+has a public no-argument constructor
+usually implements Serializable
+
+----------------------------------------------------------------------------------------------------
+        Rules of Java Bean
+----------------------------------------------------------------------------------------------------
+1. Fields should be private
+private String name;
+
+Why?
+
+Encapsulation.
+
+Direct access should not be allowed.
+
+
+----------------------------------------------------------------------------------------------------
+
+2. Public Getter and Setter
+
+Getter:
+
+public String getName()
+
+Setter:
+
+public void setName(String name)
+
+Why?
+
+Controlled access to fields.
+
+----------------------------------------------------------------------------------------------------
+
+3. Public No-Argument Constructor
+public Student() {
+}
+
+Why?
+
+Frameworks create objects using reflection.
+
+Example:
+
+Spring
+Hibernate
+JSP
+Jackson
+
+They internally do:
+
+Class.forName("Student").newInstance();
+
+This requires no-arg constructor.
+
+
+----------------------------------------------------------------------------------------------------
+
+4. Serializable (Optional but recommended)
+implements Serializable
+
+Why?
+
+Allows object conversion into byte stream.
+
+Used in:
+
+session management
+caching
+distributed systems
+
+----------------------------------------------------------------------------------------------------
+Advantages of Java Beans
+
+| Advantage               | Explanation                 |
+| ----------------------- | --------------------------- |
+| Reusability             | Can be reused anywhere      |
+| Encapsulation           | Data protection             |
+| Maintainability         | Cleaner code                |
+| Framework compatibility | Works with Spring/Hibernate |
+| Readability             | Standard structure          |
+
+
+
+----------------------------------------------------------------------------------------------------
+
+Difference Between POJO and Bean
+
+This is VERY IMPORTANT interview question.
+
+| Feature            | POJO                  | Java Bean               |
+| ------------------ | --------------------- | ----------------------- |
+| Full form          | Plain Old Java Object | Java Bean               |
+| Rules              | No strict rules       | Must follow conventions |
+| No-arg constructor | Not mandatory         | Mandatory               |
+| Getters/Setters    | Optional              | Mandatory               |
+| Serializable       | Optional              | Usually yes             |
+
+----------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,405 @@
+Generics in Java allow you to write type-safe and reusable code.
+
+They were introduced in Java 5.
+
+Without Generics, Java collections could store any type of object, which caused runtime errors.
+Generics solve this problem by checking types at compile time.
+
+----------------------------------------------------------------------------------------------------
+1. Why Generics Were Introduced
+
+Before Generics:
+
+ArrayList list = new ArrayList();
+
+list.add("Bilal");
+list.add(100);
+
+String name = (String) list.get(1); // Runtime Error
+
+Problem:
+
+Any datatype can be inserted
+Type casting required
+Runtime exceptions possible
+
+
+
+----------------------------------------------------------------------------------------------------
+
+2. Using Generics
+ArrayList<String> list = new ArrayList<>();
+
+list.add("Bilal");
+// list.add(100); ❌ Compile-time error
+
+String name = list.get(0);
+
+Now:
+
+Only String allowed
+No explicit type casting
+Compile-time safety
+
+
+
+----------------------------------------------------------------------------------------------------
+
+3. Syntax of Generics
+ClassName<Type>
+
+Example:
+
+List<Integer>
+Set<String>
+Map<String, Integer>
+
+Common Generic Type Names
+
+| Type | Meaning |
+| ---- | ------- |
+| T    | Type    |
+| E    | Element |
+| K    | Key     |
+| V    | Value   |
+| N    | Number  |
+
+
+
+----------------------------------------------------------------------------------------------------
+
+4. Generic Class
+
+A class that works with different datatypes.
+
+Example
+class Box<T> {
+
+    private T value;
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+}
+
+Usage:
+
+Box<String> box1 = new Box<>();
+box1.setValue("Hello");
+
+Box<Integer> box2 = new Box<>();
+box2.setValue(100);
+
+System.out.println(box1.getValue());
+System.out.println(box2.getValue());
+
+
+----------------------------------------------------------------------------------------------------
+
+5. What is <T> ?
+
+T is called a Type Parameter.
+
+It represents a datatype.
+
+Common naming conventions:
+
+Symbol	Meaning
+T	Type
+E	Element
+K	Key
+V	Value
+N	Number
+
+Example:
+
+Map<K, V>
+
+
+----------------------------------------------------------------------------------------------------
+
+6. Generic Method
+
+A method that works with different types.
+
+Example
+class PrintData {
+
+    public <T> void print(T data) {
+        System.out.println(data);
+    }
+}
+
+Usage:
+
+PrintData obj = new PrintData();
+
+obj.print("Bilal");
+obj.print(100);
+obj.print(true);
+
+----------------------------------------------------------------------------------------------------
+
+7. Generic Constructor
+class Test {
+
+    <T> Test(T data) {
+        System.out.println(data);
+    }
+}
+
+Usage:
+
+new Test("Hello");
+new Test(10);
+
+----------------------------------------------------------------------------------------------------
+8. Multiple Type Parameters
+class Data<K, V> {
+
+    K key;
+    V value;
+
+    Data(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    void display() {
+        System.out.println(key + " " + value);
+    }
+}
+
+Usage:
+
+Data<Integer, String> d1 = new Data<>(1, "Bilal");
+d1.display();
+
+----------------------------------------------------------------------------------------------------
+
+9. Generic Interface
+interface Container<T> {
+    void add(T item);
+}
+
+Implementation:
+
+class Store implements Container<String> {
+
+    public void add(String item) {
+        System.out.println(item);
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+10. Bounded Types
+
+Sometimes you want Generics to accept only certain types.
+
+Upper Bounded Generic
+
+Using extends
+
+class Calculator<T extends Number> {
+
+    T num;
+
+    Calculator(T num) {
+        this.num = num;
+    }
+
+    double square() {
+        return num.doubleValue() * num.doubleValue();
+    }
+}
+
+Usage:
+
+Calculator<Integer> c1 = new Calculator<>(10);
+Calculator<Double> c2 = new Calculator<>(5.5);
+
+// Calculator<String> ❌ Not allowed
+
+Meaning:
+
+Only subclasses of Number allowed
+----------------------------------------------------------------------------------------------------
+11. Wildcards in Generics
+
+Wildcards are represented using ?
+
+
+----------------------------------------------------------------------------------------------------
+
+A. Unbounded Wildcard <?>
+
+Accepts any type.
+
+public static void printList(List<?> list) {
+    for(Object obj : list) {
+        System.out.println(obj);
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+B. Upper Bounded Wildcard <? extends Class>
+public static double sum(List<? extends Number> list) {
+
+    double sum = 0;
+
+    for(Number n : list) {
+        sum += n.doubleValue();
+    }
+
+    return sum;
+}
+
+Can accept:
+
+Integer
+Double
+Float
+
+
+----------------------------------------------------------------------------------------------------
+C. Lower Bounded Wildcard <? super Class>
+public static void addNumbers(List<? super Integer> list) {
+    list.add(10);
+}
+
+Meaning:
+
+Integer or parent classes of Integer
+
+
+----------------------------------------------------------------------------------------------------
+12. PECS Rule (Important Interview Concept)
+
+PECS means:
+
+Producer Extends
+Consumer Super
+Producer → extends
+
+If data is being READ:
+
+<? extends Number>
+Consumer → super
+
+If data is being WRITTEN:
+
+<? super Integer>
+
+
+
+----------------------------------------------------------------------------------------------------
+13. Type Erasure (Very Important)
+
+Java removes generic information during compilation.
+
+This is called:
+
+Type Erasure
+
+Example:
+
+ArrayList<String>
+ArrayList<Integer>
+
+After compilation both become:
+
+ArrayList
+
+Why Type Erasure?
+
+Backward compatibility with older Java versions.
+
+
+----------------------------------------------------------------------------------------------------
+14. Important Limitations of Generics
+----------------------------------------------------------------------------------------------------
+
+A. Cannot Use Primitive Types
+
+❌ Wrong
+
+List<int>
+
+✅ Correct
+
+List<Integer>
+
+Because Generics work only with objects.
+
+
+----------------------------------------------------------------------------------------------------
+B. Cannot Create Object of Type Parameter
+
+❌
+
+T obj = new T();
+
+
+----------------------------------------------------------------------------------------------------
+
+C. Cannot Create Generic Array
+
+❌
+
+T[] arr = new T[10];
+
+----------------------------------------------------------------------------------------------------
+
+D. Static Members Cannot Use Type Parameter
+
+❌
+
+class Test<T> {
+    static T value;
+}
+
+Because static belongs to class, not object.
+
+----------------------------------------------------------------------------------------------------
+
+15. Generic Collections
+List
+List<String> names = new ArrayList<>();
+Set
+Set<Integer> nums = new HashSet<>();
+Map
+Map<Integer, String> map = new HashMap<>();
+
+----------------------------------------------------------------------------------------------------
+16. Advantages of Generics
+
+| Advantage             | Explanation                         |
+| --------------------- | ----------------------------------- |
+| Type Safety           | Errors caught at compile time       |
+| No Type Casting       | Cleaner code                        |
+| Reusability           | Same class works for multiple types |
+| Better Readability    | Easier understanding                |
+| Compile-Time Checking | Safer programs                      |
+
+
+----------------------------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------------------------
+
+
+
+----------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------------------------

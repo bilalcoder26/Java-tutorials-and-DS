@@ -1,0 +1,338 @@
+1--> What is default class modifier?
+**Answer:**
+> "If no access modifier is specified for a class, it is called the default modifier.
+The class is only accessible within its own package, not from outside the package."
+
+**Example:**
+
+> class Animal {  // default access modifier
+>     // this class can only be used inside the same package
+> }
+
+----------------------------------------------------------------------------------------------------
+2--> What is private access modifier?
+
+**Answer:**
+> "The `private` access modifier restricts access to only inside the same class. It is not visible outside the class,
+even in subclasses or other classes in the same package."
+
+**Example:**
+
+> class Animal {
+>     private int age;  // only accessible inside Animal class
+> }
+>
+> class Dog extends Animal {
+>     // cannot access age here because it is private
+> }
+
+----------------------------------------------------------------------------------------------------
+3--> What is default or package access modifier?
+
+**Answer:**
+> "The default (or package-private) access modifier means the member is accessible only within the same package.
+No keyword is used. It is not accessible outside the package, even by subclasses in different packages."
+
+**Example:**
+> class Animal {        // default class
+>     int age;          // default variable
+>
+>     void sound() {    // default method
+>         System.out.println("Some sound");
+>     }
+> }
+> // These can be accessed only by classes in the same package
+----------------------------------------------------------------------------------------------------
+
+4--> What is protected access modifier?
+**Answer:**
+> "The `protected` access modifier allows access inside the same package and also in subclasses (child classes)
+even if they are in different packages."
+
+**Example:**
+
+> package package1;
+> public class Animal {
+>     protected void sound() {
+>         System.out.println("Some sound");
+>     }
+> }
+>
+> package package2;
+> import package1.Animal;
+> class Dog extends Animal {
+>     public void makeSound() {
+>         sound();  // allowed because Dog is a subclass
+>     }
+> }
+
+
+----------------------------------------------------------------------------------------------------
+5--> What is public access modifier?
+
+**Answer:**
+> "The `public` access modifier allows access from anywhere — inside the same class, same package, different package,
+ and also from subclasses."
+
+**Example:**
+> package package1;
+> public class Animal {
+>     public void sound() {
+>         System.out.println("Some sound");
+>     }
+> }
+>
+> package package2;
+> import package1.Animal;
+> class Test {
+>     public static void main(String[] args) {
+>         Animal a = new Animal();
+>         a.sound();  // allowed because sound() is public
+>     }
+> }
+
+----------------------------------------------------------------------------------------------------
+6--> What access types of variables can be accessed from a class in same package?
+
+**Answer:**
+> "From a class in the same package, you can access:
+> - `public` variables
+> - `protected` variables
+> - default (package-private) variables
+>
+> Only `private` variables cannot be accessed."
+
+**Example:**
+> package samepackage;
+>
+> class Parent {
+>     public int a = 1;
+>     protected int b = 2;
+>     int c = 3;           // default
+>     private int d = 4;
+> }
+>
+> class Child {
+>     void test() {
+>         Parent p = new Parent();
+>         System.out.println(p.a);  // ✅ public
+>         System.out.println(p.b);  // ✅ protected
+>         System.out.println(p.c);  // ✅ default
+>         System.out.println(p.d);  // ❌ private - not accessible
+>     }
+> }
+----------------------------------------------------------------------------------------------------
+
+7--> What access types of variables can be accessed from a class in different package?
+
+**Answer:**
+> "From a class in a different package, you can access only `public` variables. `protected`, default,
+and `private` variables are not accessible."
+
+**Example:**
+> package package1;
+> public class Parent {
+>     public int a = 1;
+>     protected int b = 2;
+>     int c = 3;           // default
+>     private int d = 4;
+> }
+>
+> package package2;
+> import package1.Parent;
+> class Test {
+>     void test() {
+>         Parent p = new Parent();
+>         System.out.println(p.a);  // ✅ public - accessible
+>         System.out.println(p.b);  // ❌ protected - not accessible
+>         System.out.println(p.c);  // ❌ default - not accessible
+>         System.out.println(p.d);  // ❌ private - not accessible
+>     }
+> }
+
+
+----------------------------------------------------------------------------------------------------
+8--> What access types of variables can be accessed from a sub class in same package?
+**Answer:**
+> "From a subclass in the same package, you can access `public`, `protected`, and default variables.
+Only `private` variables cannot be accessed."
+
+**Example:**
+> package samepackage;
+>
+> class Parent {
+>     public int a = 1;
+>     protected int b = 2;
+>     int c = 3;        // default
+>     private int d = 4;
+> }
+>
+> class Child extends Parent {
+>     void test() {
+>         System.out.println(a);  // ✅ public
+>         System.out.println(b);  // ✅ protected
+>         System.out.println(c);  // ✅ default
+>         System.out.println(d);  // ❌ private
+>     }
+> }
+
+
+
+----------------------------------------------------------------------------------------------------
+ 9--> What access types of variables can be accessed from a sub class in different package?
+
+ **Answer:**
+ > "From a subclass in a different package, you can access `public` and `protected` variables.
+ You cannot access default or `private` variables."
+
+ **Example:**
+ > package package1;
+ > public class Parent {
+ >     public int a = 1;
+ >     protected int b = 2;
+ >     int c = 3;        // default
+ >     private int d = 4;
+ > }
+ >
+ > package package2;
+ > import package1.Parent;
+ > class Child extends Parent {
+ >     void test() {
+ >         System.out.println(a);  // ✅ public
+ >         System.out.println(b);  // ✅ protected (accessible because Child is a subclass)
+ >         System.out.println(c);  // ❌ default - not accessible (different package)
+ >         System.out.println(d);  // ❌ private
+ >     }
+ > }
+
+
+
+----------------------------------------------------------------------------------------------------
+10--> What is the use of a final modifier on a class?
+**Answer:**
+> "When a class is marked `final`, it cannot be extended (no subclass can inherit from it)."
+
+**Example:**
+> final class Animal {
+>     void sound() {
+>         System.out.println("Some sound");
+>     }
+> }
+>
+> class Dog extends Animal {  // ❌ ERROR - Cannot extend final class
+> }
+> ```
+
+
+----------------------------------------------------------------------------------------------------
+11--> What is the use of a final modifier on a method?
+
+**Answer:**
+> "When a method is marked `final`, it cannot be overridden by a subclass."
+
+**Example:**
+> class Animal {
+>     final void sound() {
+>         System.out.println("Some sound");
+>     }
+> }
+>
+> class Dog extends Animal {
+>     void sound() {  // ❌ ERROR - Cannot override final method
+>         System.out.println("Bark");
+>     }
+> }
+
+
+----------------------------------------------------------------------------------------------------
+12--> What is a final variable?
+
+**Answer:**
+> "A `final` variable is a variable whose value cannot be changed once it is assigned. It acts like a constant."
+
+**Example:**
+> class Example {
+>     final int MAX_SPEED = 120;
+>
+>     void change() {
+>         MAX_SPEED = 150;  // ❌ ERROR - Cannot change final variable
+>     }
+> }
+
+**Note:**
+> "A blank `final` variable (declared but not initialized) can be initialized only in the constructor."
+
+
+----------------------------------------------------------------------------------------------------
+13--> What is a final argument?
+
+**Answer:**
+> "A `final` argument is a method parameter that cannot be changed inside the method.
+Its value remains the same throughout the method."
+
+**Example:**
+> class Example {
+>     void display(final int x) {
+>         x = x + 10;  // ❌ ERROR - Cannot change final argument
+>     }
+>
+>     void print(final String name) {
+>         name = "John";  // ❌ ERROR - Cannot change final argument
+>         System.out.println(name);  // ✅ Allowed to read
+>     }
+> }
+
+**Short version for interview:**
+> "A `final` argument means the parameter value cannot be modified inside the method. It is read-only."
+
+----------------------------------------------------------------------------------------------------
+14--> What happens when a variable is marked as volatile?
+
+**Answer:**
+> "When a variable is marked as `volatile`, its value is always read directly from main memory,
+not from thread cache. This ensures that changes made by one thread are immediately visible to other threads."
+
+**Example:**
+> class SharedData {
+>     volatile boolean flag = true;
+>
+>     // Thread 1
+>     void stop() {
+>         flag = false;  // change is immediately visible to Thread 2
+>     }
+>
+>     // Thread 2
+>     void run() {
+>         while (flag) {
+>             // keeps running until flag becomes false
+>         }
+>     }
+> }
+
+**Short version for interview:**
+> "`volatile` prevents thread caching of a variable. Any change is instantly visible across all threads.
+It is used for flags or simple shared variables."
+
+----------------------------------------------------------------------------------------------------
+15-->  What is a static variable?
+
+**Answer:**
+> "A `static` variable belongs to the class itself, not to any specific object. All objects of that class share the same copy of the static variable."
+
+**Example:**
+> class Counter {
+>     static int count = 0;  // shared by all objects
+>
+>     Counter() {
+>         count++;
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Counter c1 = new Counter();  // count becomes 1
+>         Counter c2 = new Counter();  // count becomes 2
+>         System.out.println(Counter.count);  // prints 2
+>     }
+> }
+----------------------------------------------------------------------------------------------------
