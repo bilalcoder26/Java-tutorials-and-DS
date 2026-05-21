@@ -1,0 +1,2467 @@
+Why do we need collections in Java?
+
+**Answer:**
+> "We need collections in Java to store, manage, and process a group of objects efficiently.
+Unlike arrays, collections can grow and shrink dynamically and provide built-in methods for
+searching, sorting, insertion, and deletion."
+
+**Example:**
+> // Array has fixed size - problem
+> int[] numbers = new int[5];  // cannot store more than 5
+>
+> // Collection (ArrayList) - dynamic size
+> ArrayList<Integer> numbers = new ArrayList<>();
+> numbers.add(10);
+> numbers.add(20);   // can add any number of elements
+> numbers.remove(0); // easy removal
+> System.out.println(numbers.size()); // current size
+
+**Short version for interview:**
+> "Collections provide dynamic storage, ready-to-use data structures like List, Set, and Map, and
+many utility methods. They overcome the limitations of arrays which are fixed in size."
+
+----------------------------------------------------------------------------------------------------
+2--> What are the important interfaces in the collection hierarchy?
+"The main interfaces in the collection hierarchy are Collection (root interface),
+ List, Set, Queue, and Map. List, Set, and Queue extend Collection, but Map does not extend Collection."
+
+ Hierarchy overview:
+
+ Iterable (root)
+    └── Collection
+           ├── List
+           ├── Set
+           │      ├── HashSet
+           │      └── TreeSet
+           └── Queue
+                 └── Deque
+
+ Map (separate hierarchy)
+    ├── HashMap
+    ├── TreeMap
+    └── LinkedHashMap
+
+    List<String> list = new ArrayList<>();     // ordered, allows duplicates
+    Set<String> set = new HashSet<>();         // unique elements, no order
+    Queue<String> queue = new LinkedList<>();  // FIFO
+    Map<String, Integer> map = new HashMap<>(); // key-value pairs
+
+    Short version for interview:
+
+    "The key interfaces are Collection (root), List (ordered, allows duplicates),
+    Set (unique elements), Queue (FIFO), and Map (key-value pairs, does not extend Collection)."
+
+
+----------------------------------------------------------------------------------------------------
+3--> What are the important methods that are declared in the collection interface?
+**Answer:**
+> "The `Collection` interface declares basic methods for adding, removing, checking, and
+iterating over elements. All classes like `ArrayList`, `HashSet`, and `LinkedList` implement these methods."
+
+**Important methods:**
+
+| Method | What it does |
+|--------|--------------|
+| `add(E e)` | Adds an element |
+| `addAll(Collection c)` | Adds all elements from another collection |
+| `remove(Object o)` | Removes one element |
+| `removeAll(Collection c)` | Removes all elements from another collection |
+| `clear()` | Removes all elements |
+| `contains(Object o)` | Checks if element exists |
+| `containsAll(Collection c)` | Checks if all elements exist |
+| `size()` | Returns number of elements |
+| `isEmpty()` | Checks if collection is empty |
+| `iterator()` | Returns an iterator to loop over elements |
+| `toArray()` | Converts collection to array |
+
+**Example:**
+> Collection<String> names = new ArrayList<>();
+>
+> // Adding
+> names.add("Alice");           // add one
+> names.add("Bob");
+> names.addAll(Arrays.asList("Charlie", "David"));  // add multiple
+>
+> // Checking
+> System.out.println(names.size());        // 4
+> System.out.println(names.contains("Bob")); // true
+> System.out.println(names.isEmpty());      // false
+>
+> // Removing
+> names.remove("Alice");        // remove one
+> names.removeAll(Arrays.asList("Bob", "Charlie")); // remove multiple
+>
+> // Iterate
+> for (String name : names) {
+>     System.out.println(name);
+> }
+>
+> // Clear all
+> names.clear();
+> System.out.println(names.isEmpty());  // true
+
+**Short version for interview:**
+> "Key methods are `add()`, `remove()`, `contains()`, `size()`, `isEmpty()`, `clear()`, `iterator()`,
+and `toArray()`. These are available in all collection classes like `ArrayList`, `HashSet`, etc."
+
+
+----------------------------------------------------------------------------------------------------
+4-->Can you explain briefly about the List interface?
+
+**Answer:**
+> "The `List` interface is a child interface of `Collection`. It represents an ordered collection
+that allows duplicate elements. It maintains insertion order and provides index-based access to elements."
+
+**Key features:**
+> - Maintains insertion order (the order you add elements)
+> - Allows duplicate elements
+> - Allows null values (multiple nulls allowed)
+> - Provides index-based access (get, set, remove by position)
+
+**Common methods in List:**
+
+| Method | What it does |
+|--------|--------------|
+| `get(index)` | Returns element at specific position |
+| `set(index, element)` | Replaces element at position |
+| `add(index, element)` | Inserts element at position |
+| `remove(index)` | Removes element at position |
+| `indexOf(element)` | Returns first position of element |
+| `lastIndexOf(element)` | Returns last position of element |
+| `subList(from, to)` | Returns portion of list |
+
+**Example:**
+
+> List<String> fruits = new ArrayList<>();
+>
+> // Adding
+> fruits.add("Apple");
+> fruits.add("Banana");
+> fruits.add("Apple");      // duplicate allowed
+>
+> // Index-based access
+> System.out.println(fruits.get(0));     // Apple
+> System.out.println(fruits.get(2));     // Apple
+>
+> // Insert at position
+> fruits.add(1, "Orange");   // [Apple, Orange, Banana, Apple]
+>
+> // Update at position
+> fruits.set(0, "Mango");    // [Mango, Orange, Banana, Apple]
+>
+> // Remove by index
+> fruits.remove(1);          // [Mango, Banana, Apple]
+>
+> // Find index
+> System.out.println(fruits.indexOf("Apple"));  // 2
+>
+> // Get sublist
+> List<String> sub = fruits.subList(0, 2);   // [Mango, Banana]
+
+**Common implementations of List:**
+
+| Class | Description | When to use |
+|-------|-------------|-------------|
+| `ArrayList` | Resizable array | Most common, fast for get/set |
+| `LinkedList` | Doubly linked list | Fast for add/remove at ends |
+| `Vector` | Thread-safe version | Legacy class, rarely used |
+
+**Short version for interview:**
+> "`List` is an ordered collection that allows duplicates and provides index-based access.
+Methods include `get()`, `set()`, `add(index)`, `remove(index)`.
+Common implementations are `ArrayList` (faster for access) and `LinkedList` (faster for insertion/deletion)."
+
+
+----------------------------------------------------------------------------------------------------
+5--> Explain about ArrayList with an example?
+
+**Answer:**
+> "`ArrayList` is a resizable array implementation of the `List` interface.
+It stores elements in a dynamic array that grows automatically when needed.
+It allows duplicates, maintains insertion order, and provides fast random access."
+
+**Example:**
+> import java.util.ArrayList;
+>
+> public class ArrayListExample {
+>     public static void main(String[] args) {
+>         // Create an ArrayList
+>         ArrayList<String> fruits = new ArrayList<>();
+>
+>         // Add elements
+>         fruits.add("Apple");
+>         fruits.add("Banana");
+>         fruits.add("Mango");
+>         fruits.add("Apple");  // duplicate allowed
+>
+>         System.out.println(fruits);  // [Apple, Banana, Mango, Apple]
+>
+>         // Access by index
+>         System.out.println(fruits.get(1));  // Banana
+>
+>         // Insert at specific position
+>         fruits.add(2, "Orange");
+>         System.out.println(fruits);  // [Apple, Banana, Orange, Mango, Apple]
+>
+>         // Update element
+>         fruits.set(0, "Grapes");
+>         System.out.println(fruits);  // [Grapes, Banana, Orange, Mango, Apple]
+>
+>         // Remove element
+>         fruits.remove(3);      // remove by index
+>         fruits.remove("Apple"); // remove by object (removes first occurrence)
+>         System.out.println(fruits);  // [Grapes, Banana, Orange]
+>
+>         // Check size
+>         System.out.println("Size: " + fruits.size());  // 3
+>
+>         // Check if contains
+>         System.out.println(fruits.contains("Banana"));  // true
+>
+>         // Loop through elements
+>         for (String fruit : fruits) {
+>             System.out.println(fruit);
+>         }
+>
+>         // Clear all
+>         fruits.clear();
+>         System.out.println(fruits.isEmpty());  // true
+>     }
+> }
+
+**Important points about ArrayList:**
+
+| Feature | Description |
+|---------|-------------|
+| Initial capacity | Default is 10 |
+| Resizing | Grows by 50% when full |
+| Allows null | Yes |
+| Allows duplicates | Yes |
+| Maintains order | Yes (insertion order) |
+| Thread-safe | No (use `CopyOnWriteArrayList` for thread-safe) |
+
+**Performance (Big O):**
+
+| Operation | Time |
+|-----------|------|
+| `get(index)` | O(1) - very fast |
+| `add()` at end | O(1) amortized |
+| `add(index)` at middle | O(n) - slower |
+| `remove(index)` | O(n) - slower |
+| `search` | O(n) - linear scan |
+
+**Common operations summary:**
+> // Create
+> ArrayList<String> list = new ArrayList<>();
+>
+> // Add
+> list.add("A");              // add at end
+> list.add(0, "B");           // add at index
+>
+> // Get/Set
+> String value = list.get(0);
+> list.set(0, "C");
+>
+> // Remove
+> list.remove(0);             // remove by index
+> list.remove("C");           // remove by object
+>
+> // Size
+> int size = list.size();
+>
+> // Iterate
+> for (String s : list) { }
+> list.forEach(s -> System.out.println(s));
+
+**Short version for interview:**
+> "`ArrayList` is a dynamic array implementation of `List`. It allows duplicates, maintains insertion order,
+and provides fast random access using index.
+Example: `ArrayList<String> list = new ArrayList<>(); list.add("Hello");
+String s = list.get(0);` It is not thread-safe."
+
+----------------------------------------------------------------------------------------------------
+6--> How do you iterate around an ArrayList using iterator?
+**Answer:**
+> "We can iterate over an `ArrayList` using the `iterator()` method,
+which returns an `Iterator` object. The iterator has `hasNext()` to check
+if more elements exist and `next()` to get the next element."
+
+**Example:**
+
+> import java.util.ArrayList;
+> import java.util.Iterator;
+>
+> public class IteratorExample {
+>     public static void main(String[] args) {
+>         ArrayList<String> fruits = new ArrayList<>();
+>         fruits.add("Apple");
+>         fruits.add("Banana");
+>         fruits.add("Mango");
+>         fruits.add("Orange");
+>
+>         // Get iterator
+>         Iterator<String> iterator = fruits.iterator();
+>
+>         // Iterate using iterator
+>         while (iterator.hasNext()) {
+>             String fruit = iterator.next();
+>             System.out.println(fruit);
+>         }
+>     }
+> }
+
+**Output:**
+> ```
+> Apple
+> Banana
+> Mango
+> Orange
+> ```
+
+**Removing elements while iterating:**
+> Iterator<String> iterator = fruits.iterator();
+>
+> while (iterator.hasNext()) {
+>     String fruit = iterator.next();
+>     if (fruit.equals("Banana")) {
+>         iterator.remove();  // safe removal
+>     }
+> }
+>
+> System.out.println(fruits);  // [Apple, Mango, Orange]
+> ```
+
+**Important note (common interview trap):**
+> // ❌ Wrong - Cannot modify list directly while iterating
+> for (String fruit : fruits) {
+>     if (fruit.equals("Banana")) {
+>         fruits.remove(fruit);  // throws ConcurrentModificationException
+>     }
+> }
+>
+> // ✅ Correct - Use iterator's remove method
+> Iterator<String> it = fruits.iterator();
+> while (it.hasNext()) {
+>     if (it.next().equals("Banana")) {
+>         it.remove();  // safe
+>     }
+> }
+> ```
+
+**Other ways to iterate ArrayList (for comparison):**
+> // 1. Simple for loop
+> for (int i = 0; i < fruits.size(); i++) {
+>     System.out.println(fruits.get(i));
+> }
+>
+> // 2. Enhanced for loop
+> for (String fruit : fruits) {
+>     System.out.println(fruit);
+> }
+>
+> // 3. forEach with lambda
+> fruits.forEach(fruit -> System.out.println(fruit));
+>
+> // 4. Method reference
+> fruits.forEach(System.out::println);
+> ```
+
+**Iterator methods summary:**
+
+| Method | What it does |
+|--------|--------------|
+| `hasNext()` | Returns true if more elements exist |
+| `next()` | Returns the next element |
+| `remove()` | Removes the last element returned by `next()` |
+
+**Short version for interview:**
+> "Call `iterator()` on the ArrayList to get an Iterator.
+Then use `while(iterator.hasNext())` loop and call `iterator.next()` to get each element.
+To safely remove elements while iterating, use `iterator.remove()`, not the ArrayList's remove method."
+
+
+----------------------------------------------------------------------------------------------------
+
+7--> How do you sort an ArrayList?
+**Answer:**
+> "There are two common ways to sort an `ArrayList`: using `Collections.sort()`
+for natural ordering, or using `list.sort()` with a custom comparator."
+
+**Example 1: Natural order (numbers and strings)**
+
+> import java.util.ArrayList;
+> import java.util.Collections;
+>
+> ArrayList<Integer> numbers = new ArrayList<>();
+> numbers.add(5);
+> numbers.add(2);
+> numbers.add(8);
+> numbers.add(1);
+>
+> // Sort in ascending order (natural order)
+> Collections.sort(numbers);
+> System.out.println(numbers);  // [1, 2, 5, 8]
+>
+> // Sort strings alphabetically
+> ArrayList<String> names = new ArrayList<>();
+> names.add("Banana");
+> names.add("Apple");
+> names.add("Mango");
+>
+> Collections.sort(names);
+> System.out.println(names);  // [Apple, Banana, Mango]
+> ```
+
+**Example 2: Reverse order**
+> // Sort in reverse order
+> Collections.sort(numbers, Collections.reverseOrder());
+> System.out.println(numbers);  // [8, 5, 2, 1]
+
+**Example 3: Using list.sort() method (Java 8+)**
+> // Using list.sort() with Comparator
+> numbers.sort(null);  // null means natural order
+> System.out.println(numbers);  // [1, 2, 5, 8]
+>
+> // Custom comparator for reverse order
+> numbers.sort((a, b) -> b - a);
+> System.out.println(numbers);  // [8, 5, 2, 1]
+
+**Example 4: Sorting custom objects**
+> class Person {
+>     String name;
+>     int age;
+>
+>     Person(String name, int age) {
+>         this.name = name;
+>         this.age = age;
+>     }
+>
+>     public String toString() {
+>         return name + ":" + age;
+>     }
+> }
+>
+> ArrayList<Person> people = new ArrayList<>();
+> people.add(new Person("John", 30));
+> people.add(new Person("Alice", 25));
+> people.add(new Person("Bob", 35));
+>
+> // Sort by age
+> people.sort((p1, p2) -> p1.age - p2.age);
+> System.out.println(people);  // [Alice:25, John:30, Bob:35]
+>
+> // Sort by name
+> people.sort((p1, p2) -> p1.name.compareTo(p2.name));
+> System.out.println(people);  // [Alice:25, Bob:35, John:30]
+
+**Quick summary:**
+
+| Method | Example |
+|--------|---------|
+| Natural order | `Collections.sort(list)` |
+| Reverse order | `Collections.sort(list, Collections.reverseOrder())` |
+| Custom order | `list.sort((a,b) -> a.compareTo(b))` |
+| With Comparator | `Collections.sort(list, comparator)` |
+
+**Short version for interview:**
+> "Use `Collections.sort(arrayList)` for natural sorting.
+For custom sorting, use `arrayList.sort((a,b) -> a.compareTo(b))` or pass a `Comparator`.
+For reverse order, use `Collections.sort(list, Collections.reverseOrder())`."
+
+----------------------------------------------------------------------------------------------------
+
+8--> How do you sort elements in an ArrayList using comparable interface?
+**Answer:**
+> "To sort using `Comparable`, the class implements `Comparable<T>` and overrides the `compareTo()` method.
+Then `Collections.sort(list)` will automatically use this natural ordering."
+
+**Example:**
+> import java.util.ArrayList;
+> import java.util.Collections;
+>
+> // Step 1: Implement Comparable interface
+> class Student implements Comparable<Student> {
+>     int id;
+>     String name;
+>
+>     Student(int id, String name) {
+>         this.id = id;
+>         this.name = name;
+>     }
+>
+>     // Step 2: Override compareTo method
+>     @Override
+>     public int compareTo(Student other) {
+>         // Sort by id (ascending)
+>         return this.id - other.id;
+>     }
+>
+>     public String toString() {
+>         return id + ":" + name;
+>     }
+> }
+>
+> public class ComparableExample {
+>     public static void main(String[] args) {
+>         ArrayList<Student> students = new ArrayList<>();
+>         students.add(new Student(103, "John"));
+>         students.add(new Student(101, "Alice"));
+>         students.add(new Student(102, "Bob"));
+>
+>         System.out.println("Before: " + students);  // [103:John, 101:Alice, 102:Bob]
+>
+>         // Step 3: Sort using Collections.sort()
+>         Collections.sort(students);
+>
+>         System.out.println("After: " + students);   // [101:Alice, 102:Bob, 103:John]
+>     }
+> }
+
+**compareTo() method contract:**
+
+| Return value | Meaning |
+|--------------|---------|
+| Negative | this object is less than other |
+| Zero | this object equals other |
+| Positive | this object is greater than other |
+
+**Example with String comparison:**
+> ```java
+> class Person implements Comparable<Person> {
+>     String name;
+>     int age;
+>
+>     Person(String name, int age) {
+>         this.name = name;
+>         this.age = age;
+>     }
+>
+>     @Override
+>     public int compareTo(Person other) {
+>         // Sort by name alphabetically
+>         return this.name.compareTo(other.name);
+>     }
+>
+>     public String toString() {
+>         return name + ":" + age;
+>     }
+> }
+>
+> // Usage
+> ArrayList<Person> people = new ArrayList<>();
+> people.add(new Person("John", 30));
+> people.add(new Person("Alice", 25));
+> people.add(new Person("Bob", 35));
+>
+> Collections.sort(people);
+> System.out.println(people);  // [Alice:25, Bob:35, John:30]
+
+**Example with multiple fields:**
+> @Override
+> public int compareTo(Employee other) {
+>     // First compare by name
+>     int nameCompare = this.name.compareTo(other.name);
+>     if (nameCompare != 0) {
+>         return nameCompare;
+>     }
+>     // If names are same, compare by id
+>     return this.id - other.id;
+> }
+
+**Difference between Comparable and Comparator:**
+
+| Feature | Comparable | Comparator |
+|---------|------------|------------|
+| Package | `java.lang` | `java.util` |
+| Method | `compareTo(T o)` | `compare(T o1, T o2)` |
+| Sorting | Natural ordering | Custom ordering |
+| Changes class | Yes (modifies the class) | No (external) |
+
+**Short version for interview:**
+> "Implement `Comparable<T>` in the class and override `compareTo()`.
+Define sorting logic inside `compareTo()`. Then call `Collections.sort(list)` to sort.
+Example: `public int compareTo(Student s) { return this.id - s.id; }`"
+
+
+----------------------------------------------------------------------------------------------------
+9-->  How do you sort elements in an ArrayList using comparator interface?
+
+**Answer:**
+> "To sort using `Comparator`, we create a separate class that implements `Comparator<T>`
+and overrides `compare()` method. Then pass an instance of this comparator to `Collections.sort(list, comparator)`."
+
+**Example 1: Separate Comparator class**
+> import java.util.*;
+>
+> // Class to be sorted
+> class Student {
+>     int id;
+>     String name;
+>
+>     Student(int id, String name) {
+>         this.id = id;
+>         this.name = name;
+>     }
+>
+>     public String toString() {
+>         return id + ":" + name;
+>     }
+> }
+>
+> // Step 1: Create Comparator class
+> class NameComparator implements Comparator<Student> {
+>     @Override
+>     public int compare(Student s1, Student s2) {
+>         return s1.name.compareTo(s2.name);  // sort by name
+>     }
+> }
+>
+> class IdComparator implements Comparator<Student> {
+>     @Override
+>     public int compare(Student s1, Student s2) {
+>         return s1.id - s2.id;  // sort by id
+>     }
+> }
+>
+> // Step 2: Use Comparator
+> public class ComparatorExample {
+>     public static void main(String[] args) {
+>         ArrayList<Student> students = new ArrayList<>();
+>         students.add(new Student(103, "John"));
+>         students.add(new Student(101, "Alice"));
+>         students.add(new Student(102, "Bob"));
+>
+>         System.out.println("Original: " + students);  // [103:John, 101:Alice, 102:Bob]
+>
+>         // Sort by name using NameComparator
+>         Collections.sort(students, new NameComparator());
+>         System.out.println("By name: " + students);   // [101:Alice, 102:Bob, 103:John]
+>
+>         // Sort by id using IdComparator
+>         Collections.sort(students, new IdComparator());
+>         System.out.println("By id: " + students);     // [101:Alice, 102:Bob, 103:John]
+>     }
+> }
+
+**Example 2: Using anonymous class (shorter)**
+> // Sort by name using anonymous comparator
+> Collections.sort(students, new Comparator<Student>() {
+>     @Override
+>     public int compare(Student s1, Student s2) {
+>         return s1.name.compareTo(s2.name);
+>     }
+> });
+> ```
+
+**Example 3: Using lambda expression (Java 8+ shortest)**
+> // Sort by name
+> students.sort((s1, s2) -> s1.name.compareTo(s2.name));
+>
+> // Sort by id
+> students.sort((s1, s2) -> s1.id - s2.id);
+>
+> // Sort by name in reverse order
+> students.sort((s1, s2) -> s2.name.compareTo(s1.name));
+> ```
+
+**Example 4: Multiple field sorting**
+> ```java
+> Comparator<Student> multiField = (s1, s2) -> {
+>     // First sort by name
+>     int nameCompare = s1.name.compareTo(s2.name);
+>     if (nameCompare != 0) {
+>         return nameCompare;
+>     }
+>     // If names are same, sort by id
+>     return s1.id - s2.id;
+> };
+>
+> students.sort(multiField);
+> ```
+
+**Example 5: Using Comparator helper methods (Java 8+)**
+> ```java
+> // Using Comparator.comparing()
+> students.sort(Comparator.comparing(s -> s.name));
+> students.sort(Comparator.comparing(s -> s.id));
+>
+> // Chaining comparators
+> students.sort(Comparator.comparing(s -> s.name)
+>                         .thenComparing(s -> s.id));
+>
+> // Reverse order
+> students.sort(Comparator.comparing(s -> s.name).reversed());
+> ```
+
+**Summary of ways to use Comparator:**
+
+| Method | Example |
+|--------|---------|
+| Separate class | `Collections.sort(list, new MyComparator())` |
+| Anonymous class | `Collections.sort(list, new Comparator<T>(){...})` |
+| Lambda | `list.sort((a,b) -> a.value - b.value)` |
+| Helper methods | `list.sort(Comparator.comparing(T::getValue))` |
+
+**Difference between Comparable and Comparator:**
+
+| Feature | Comparable | Comparator |
+|---------|------------|------------|
+| Method | `compareTo()` | `compare()` |
+| Changes original class | Yes | No |
+| Multiple sorting options | No (only one) | Yes (many) |
+| Usage | `Collections.sort(list)` | `Collections.sort(list, comparator)` |
+
+**Short version for interview:**
+> "Create a class implementing `Comparator<T>` and override `compare()`.
+Pass it to `Collections.sort(list, comparator)`. Or use lambda: `list.sort((a,b) -> a.value - b.value)`.
+Comparator allows multiple sorting options without modifying the original class."
+
+----------------------------------------------------------------------------------------------------
+
+10--> What is vector class? How is it different from an ArrayList?
+**Answer:**
+> "`Vector` is a legacy class (from Java 1.0) that implements a dynamic array similar to `ArrayList`.
+The main difference is that `Vector` is **thread-safe** (synchronized), while `ArrayList` is not."
+
+**Example:**
+> import java.util.Vector;
+> import java.util.ArrayList;
+>
+> public class VectorExample {
+>     public static void main(String[] args) {
+>         // Vector usage (similar to ArrayList)
+>         Vector<String> vector = new Vector<>();
+>         vector.add("Apple");
+>         vector.add("Banana");
+>         vector.add("Mango");
+>
+>         System.out.println(vector);        // [Apple, Banana, Mango]
+>         System.out.println(vector.get(1)); // Banana
+>
+>         // Legacy methods (not in ArrayList)
+>         System.out.println(vector.capacity());  // default capacity is 10
+>     }
+> }
+> ```
+
+**Key differences between Vector and ArrayList:**
+
+| Feature | Vector | ArrayList |
+|---------|--------|-----------|
+| **Thread-safe** | Yes (synchronized) | No |
+| **Performance** | Slower (due to synchronization) | Faster |
+| **Introduced in** | Java 1.0 (legacy) | Java 1.2 |
+| **Growth policy** | Doubles size (100% growth) | Grows by 50% |
+| **Legacy methods** | Has extra methods like `elements()`, `capacity()` | No legacy methods |
+| **When to use** | Rarely (use `CopyOnWriteArrayList` instead) | Most common |
+
+**Performance example:**
+> // Vector is synchronized - slower
+> Vector<Integer> vector = new Vector<>();
+> vector.add(10);  // synchronized method
+>
+> // ArrayList is not synchronized - faster
+> ArrayList<Integer> list = new ArrayList<>();
+> list.add(10);    // not synchronized
+
+**Important note (common interview question):**
+> "If you need thread-safe list, do **NOT** use `Vector` (it's legacy and has performance issues).
+Instead use `Collections.synchronizedList(new ArrayList<>())` or `CopyOnWriteArrayList`."
+
+**Modern alternatives for thread-safe lists:**
+> // Option 1: Wrapped ArrayList
+> List<String> syncList = Collections.synchronizedList(new ArrayList<>());
+>
+> // Option 2: CopyOnWriteArrayList (for read-heavy scenarios)
+> List<String> copyList = new CopyOnWriteArrayList<>();
+
+**Short version for interview:**
+> "`Vector` is a thread-safe, synchronized version of `ArrayList`.
+It is slower because of synchronization. `ArrayList` is not thread-safe but faster.
+`Vector` is legacy and rarely used today — we prefer `ArrayList` with `Collections.synchronizedList()`
+if thread-safety is needed."
+
+
+----------------------------------------------------------------------------------------------------
+
+11-->What is linkedList? What interfaces does it implement? How is it different from an ArrayList?
+**Answer:**
+> "`LinkedList` is a doubly-linked list implementation of `List` and `Deque` interfaces.
+It stores elements as nodes where each node points to the previous and next node. It is different from `ArrayList`
+ because it is better for insertions/deletions but worse for random access."
+
+**Interfaces implemented by LinkedList:**
+> // LinkedList implements these interfaces:
+> // - List
+> // - Deque (Double ended queue)
+> // - Queue
+> // - Cloneable
+> // - Serializable
+>
+> LinkedList<String> list = new LinkedList<>();
+
+**Example:**
+> import java.util.LinkedList;
+>
+> public class LinkedListExample {
+>     public static void main(String[] args) {
+>         LinkedList<String> list = new LinkedList<>();
+>
+>         // List interface methods
+>         list.add("Apple");
+>         list.add("Banana");
+>         list.add("Mango");
+>         list.add(1, "Orange");  // insert at index
+>
+>         System.out.println(list);  // [Apple, Orange, Banana, Mango]
+>
+>         // Deque interface methods (additional)
+>         list.addFirst("Grapes");   // add at beginning
+>         list.addLast("Cherry");    // add at end
+>
+>         System.out.println(list);  // [Grapes, Apple, Orange, Banana, Mango, Cherry]
+>
+>         // Deque removal methods
+>         String first = list.removeFirst();  // removes first
+>         String last = list.removeLast();    // removes last
+>
+>         System.out.println(first);  // Grapes
+>         System.out.println(last);   // Cherry
+>         System.out.println(list);   // [Apple, Orange, Banana, Mango]
+>
+>         // Queue methods
+>         list.offer("Pear");      // adds at end (queue operation)
+>         String peek = list.peek();  // looks at first element
+>         String poll = list.poll();  // removes and returns first
+>     }
+> }
+> ```
+
+**Key differences between LinkedList and ArrayList:**
+
+| Feature | ArrayList | LinkedList |
+|---------|-----------|------------|
+| **Internal structure** | Dynamic array | Doubly linked list |
+| **Get by index** | O(1) - very fast | O(n) - slow |
+| **Add at end** | O(1) amortized | O(1) |
+| **Add at middle** | O(n) - slow (shifting) | O(1) if you have reference, else O(n) |
+| **Remove from middle** | O(n) - slow (shifting) | O(1) if you have reference, else O(n) |
+| **Memory usage** | Less overhead (just array) | More (stores prev/next pointers) |
+| **Implements Deque** | No | Yes |
+| **Best for** | Frequent searching, random access | Frequent insertions/deletions, queue/stack operations |
+
+**When to use which:**
+
+> // Use ArrayList when:
+> // - You need fast random access (get/set by index)
+> // - You mostly iterate or search
+> // - You rarely add/remove from middle
+>
+> // Use LinkedList when:
+> // - You need frequent insertions/deletions at beginning or middle
+> // - You need a Queue or Deque (FIFO, LIFO)
+> // - You don't need fast random access
+
+**Performance comparison example:**
+> // ArrayList - fast get
+> ArrayList<Integer> arrayList = new ArrayList<>();
+> arrayList.add(10);
+> System.out.println(arrayList.get(0));  // O(1) - very fast
+>
+> // LinkedList - slow get
+> LinkedList<Integer> linkedList = new LinkedList<>();
+> linkedList.add(10);
+> System.out.println(linkedList.get(0)); // O(n) - must traverse
+>
+> // LinkedList - fast add at beginning
+> linkedList.addFirst(5);   // O(1) - very fast
+>
+> // ArrayList - slow add at beginning (shifts all elements)
+> arrayList.add(0, 5);      // O(n) - slow
+
+**Short version for interview:**
+> "`LinkedList` implements `List` and `Deque` interfaces.
+It uses doubly-linked nodes. Unlike `ArrayList`, it has slower random access (O(n) vs O(1)) but
+faster insertions/deletions at beginning/middle. It also supports queue operations like `addFirst()`,
+`addLast()`, `poll()`, `peek()`."
+
+----------------------------------------------------------------------------------------------------
+11--> Can you briefly explain about the Set interface?
+
+**Answer:**
+> "The `Set` interface is a collection that **does not allow duplicate elements**.
+It is a child interface of `Collection`. It does not maintain any insertion order
+(unless using a specific implementation like `LinkedHashSet`)."
+
+**Key features:**
+> - No duplicate elements allowed
+> - At most one `null` element (in most implementations)
+> - No index-based access (cannot use `get(index)`)
+> - No insertion order (order may change)
+
+**Example:**
+> import java.util.HashSet;
+> import java.util.Set;
+>
+> public class SetExample {
+>     public static void main(String[] args) {
+>         Set<String> fruits = new HashSet<>();
+>
+>         // Adding elements
+>         fruits.add("Apple");
+>         fruits.add("Banana");
+>         fruits.add("Mango");
+>         fruits.add("Apple");  // duplicate - will be ignored
+>
+>         System.out.println(fruits);  // [Banana, Apple, Mango] (order not guaranteed)
+>         System.out.println(fruits.size());  // 3
+>
+>         // Checking existence
+>         System.out.println(fruits.contains("Banana"));  // true
+>
+>         // Removing
+>         fruits.remove("Mango");
+>         System.out.println(fruits);  // [Banana, Apple]
+>
+>         // Iterating
+>         for (String fruit : fruits) {
+>             System.out.println(fruit);
+>         }
+>     }
+> }
+
+**Common implementations of Set:**
+
+| Implementation | Order | Performance | Allows null |
+|----------------|-------|-------------|--------------|
+| `HashSet` | No order | O(1) average | Yes (one null) |
+| `LinkedHashSet` | Insertion order | O(1) | Yes (one null) |
+| `TreeSet` | Sorted order (natural/comparator) | O(log n) | No (throws exception) |
+
+**Quick example of each:**
+> // HashSet - no order
+> Set<String> hashSet = new HashSet<>();
+> hashSet.add("C"); hashSet.add("A"); hashSet.add("B");
+> System.out.println(hashSet);  // [A, B, C] (unpredictable order)
+>
+> // LinkedHashSet - insertion order
+> Set<String> linkedSet = new LinkedHashSet<>();
+> linkedSet.add("C"); linkedSet.add("A"); linkedSet.add("B");
+> System.out.println(linkedSet);  // [C, A, B] (insertion order)
+>
+> // TreeSet - sorted order
+> Set<String> treeSet = new TreeSet<>();
+> treeSet.add("C"); treeSet.add("A"); treeSet.add("B");
+> System.out.println(treeSet);  // [A, B, C] (sorted)
+
+**Important methods (from Collection interface):**
+
+| Method | Description |
+|--------|-------------|
+| `add(e)` | Adds element (returns false if duplicate) |
+| `remove(e)` | Removes element |
+| `contains(e)` | Checks if element exists |
+| `size()` | Returns number of elements |
+| `isEmpty()` | Checks if set is empty |
+| `clear()` | Removes all elements |
+
+**Short version for interview:**
+> "`Set` is a collection that does not allow duplicates.
+It has no index-based access. Main implementations: `HashSet` (no order, fast),
+`LinkedHashSet` (maintains insertion order), and `TreeSet` (sorted order)."
+
+----------------------------------------------------------------------------------------------------
+
+12--> What are the important interfaces related to the Set interface?
+
+"The Set interface extends the Collection interface. The main interfaces related to Set
+are SortedSet and NavigableSet, which are implemented by TreeSet."
+
+Iterable
+   └── Collection
+          └── Set
+               ├── SortedSet
+               │      └── NavigableSet
+               └── (HashSet, LinkedHashSet directly implement Set)
+
+ Explanation of each interface:
+
+ Interface	Description	Key methods
+ Set	No duplicates, no order	add(), remove(), contains()
+ SortedSet	Elements in sorted order	first(), last(), headSet(), tailSet(), subSet()
+ NavigableSet	Navigation methods (extends SortedSet)	lower(), higher(), floor(), ceiling(), pollFirst(), pollLast()
+
+ import java.util.SortedSet;
+ import java.util.TreeSet;
+
+ public class SortedSetExample {
+     public static void main(String[] args) {
+         SortedSet<Integer> numbers = new TreeSet<>();
+         numbers.add(10);
+         numbers.add(5);
+         numbers.add(20);
+         numbers.add(15);
+
+         System.out.println(numbers);           // [5, 10, 15, 20]
+         System.out.println(numbers.first());   // 5
+         System.out.println(numbers.last());    // 20
+
+         // Elements less than 15
+         System.out.println(numbers.headSet(15));  // [5, 10]
+
+         // Elements greater than or equal to 10
+         System.out.println(numbers.tailSet(10));  // [10, 15, 20]
+
+         // Elements between 5 and 15 (5 inclusive, 15 exclusive)
+         System.out.println(numbers.subSet(5, 15)); // [5, 10]
+     }
+ }
+
+ import java.util.NavigableSet;
+ import java.util.TreeSet;
+
+ public class NavigableSetExample {
+     public static void main(String[] args) {
+         NavigableSet<Integer> numbers = new TreeSet<>();
+         numbers.add(10);
+         numbers.add(20);
+         numbers.add(30);
+         numbers.add(40);
+
+         System.out.println(numbers);              // [10, 20, 30, 40]
+         System.out.println(numbers.lower(25));    // 20 (greatest element less than 25)
+         System.out.println(numbers.higher(25));   // 30 (smallest element greater than 25)
+         System.out.println(numbers.floor(25));    // 20 (greatest ≤ 25)
+         System.out.println(numbers.ceiling(25));  // 30 (smallest ≥ 25)
+
+         // Remove and return first/last
+         System.out.println(numbers.pollFirst());  // 10
+         System.out.println(numbers.pollLast());   // 40
+         System.out.println(numbers);              // [20, 30]
+     }
+ }
+
+ Interface	Implemented by	Adds to Set
+ Set	HashSet, LinkedHashSet, TreeSet	Basic set operations
+ SortedSet	TreeSet	Sorting and range views
+ NavigableSet	TreeSet	Navigation methods (closest matches)
+ Short version for interview:
+
+ "The key interfaces are SortedSet (for sorted order with range methods like first(), last(), headSet())
+ and NavigableSet (extends SortedSet with navigation methods like lower(), higher(), floor(), ceiling()).
+ Both are implemented by TreeSet."
+
+----------------------------------------------------------------------------------------------------
+13--> What is the difference between Set and sortedSet interfaces?
+
+**Answer:**
+> "`Set` is the base interface that only guarantees no duplicates but no order.
+`SortedSet` extends `Set` and guarantees that elements are stored in **sorted order**
+(either natural order or custom comparator order)."
+
+**Key differences:**
+
+| Feature | Set | SortedSet |
+|---------|-----|-----------|
+| **Order** | No guarantee of order | Elements are sorted |
+| **Methods** | Basic methods: `add()`, `remove()`, `contains()` | Extra methods: `first()`, `last()`, `headSet()`, `tailSet()`, `subSet()` |
+| **Implementations** | `HashSet`, `LinkedHashSet` | `TreeSet` |
+| **Null elements** | Allowed (one null) | Not allowed (throws NullPointerException) |
+
+**Example comparison:**
+> import java.util.*;
+>
+> public class SetVsSortedSet {
+>     public static void main(String[] args) {
+>         // Set - no order
+>         Set<Integer> hashSet = new HashSet<>();
+>         hashSet.add(30);
+>         hashSet.add(10);
+>         hashSet.add(20);
+>         System.out.println("HashSet: " + hashSet);  // [20, 10, 30] (no order)
+>
+>         // SortedSet - sorted order
+>         SortedSet<Integer> treeSet = new TreeSet<>();
+>         treeSet.add(30);
+>         treeSet.add(10);
+>         treeSet.add(20);
+>         System.out.println("TreeSet: " + treeSet);  // [10, 20, 30] (sorted)
+>
+>         // SortedSet extra methods
+>         System.out.println("First: " + treeSet.first());  // 10
+>         System.out.println("Last: " + treeSet.last());    // 30
+>         System.out.println("HeadSet (less than 20): " + treeSet.headSet(20));  // [10]
+>         System.out.println("TailSet (>= 20): " + treeSet.tailSet(20));         // [20, 30]
+>     }
+> }
+
+**Important note (null handling):**
+> // Set allows one null
+> Set<String> hashSet = new HashSet<>();
+> hashSet.add(null);   // ✅ allowed
+>
+> // SortedSet does NOT allow null
+> SortedSet<String> treeSet = new TreeSet<>();
+> treeSet.add(null);   // ❌ NullPointerException
+
+**When to use which:**
+
+| Use Set (HashSet) when | Use SortedSet (TreeSet) when |
+|------------------------|------------------------------|
+| Order doesn't matter | Need elements in sorted order |
+| Fast performance needed | Need range operations (headSet, tailSet) |
+| Only need basic add/remove/contains | Need first/last element access |
+
+**Short version for interview:**
+> "`Set` only guarantees no duplicates, but no order.
+`SortedSet` extends `Set` and guarantees elements are stored in sorted order.
+`SortedSet` provides extra methods like `first()`, `last()`, `headSet()`, and `tailSet()`."
+
+----------------------------------------------------------------------------------------------------
+14-->  Can you give examples of classes that implement the Set interface?
+**Answer:**
+> "The main classes that implement the `Set` interface are `HashSet`, `LinkedHashSet`, and `TreeSet`."
+
+**Quick comparison:**
+
+| Class | Order | Performance | Allows null | Sorted |
+|-------|-------|-------------|-------------|--------|
+| `HashSet` | No order | O(1) | Yes (one null) | No |
+| `LinkedHashSet` | Insertion order | O(1) | Yes (one null) | No |
+| `TreeSet` | Sorted order | O(log n) | No | Yes |
+
+**Example of each:**
+
+import java.util.*;
+
+public class SetImplementations {
+    public static void main(String[] args) {
+
+        // 1. HashSet - no order
+        Set<String> hashSet = new HashSet<>();
+        hashSet.add("Banana");
+        hashSet.add("Apple");
+        hashSet.add("Mango");
+        hashSet.add("Apple");  // duplicate ignored
+        System.out.println("HashSet: " + hashSet);  // [Banana, Apple, Mango]
+
+        // 2. LinkedHashSet - insertion order
+        Set<String> linkedHashSet = new LinkedHashSet<>();
+        linkedHashSet.add("Banana");
+        linkedHashSet.add("Apple");
+        linkedHashSet.add("Mango");
+        System.out.println("LinkedHashSet: " + linkedHashSet);  // [Banana, Apple, Mango]
+
+        // 3. TreeSet - sorted order
+        Set<String> treeSet = new TreeSet<>();
+        treeSet.add("Banana");
+        treeSet.add("Apple");
+        treeSet.add("Mango");
+        System.out.println("TreeSet: " + treeSet);  // [Apple, Banana, Mango]
+    }
+}
+```
+
+**When to use each:**
+
+| Use Case | Recommended Class |
+|----------|------------------|
+| Fastest performance, order doesn't matter | `HashSet` |
+| Need to preserve insertion order | `LinkedHashSet` |
+| Need sorted elements | `TreeSet` |
+
+**Short version for interview:**
+> "`HashSet` (no order, fastest), `LinkedHashSet` (maintains insertion order), and `TreeSet` (sorted order)."
+
+
+----------------------------------------------------------------------------------------------------
+15--> Explain briefly about Queue interface?
+
+**Answer:**
+> "The `Queue` interface is a collection designed for holding elements before processing.
+It follows the **FIFO** (First-In-First-Out) principle, meaning elements are added at the end
+and removed from the front."
+
+**Key features:**
+> - Follows FIFO order
+> - Two sets of methods: one throws exception, one returns special value
+> - Common implementations: `PriorityQueue`, `LinkedList`, `ArrayDeque`
+
+**Queue methods (two styles):**
+
+| Operation | Throws exception | Returns special value |
+|-----------|-----------------|----------------------|
+| Add | `add(e)` | `offer(e)` |
+| Remove | `remove()` | `poll()` |
+| Examine (peek) | `element()` | `peek()` |
+
+**Example using LinkedList as Queue:**
+> import java.util.*;
+>
+> public class QueueExample {
+>     public static void main(String[] args) {
+>         // Queue using LinkedList
+>         Queue<String> queue = new LinkedList<>();
+>
+>         // Adding elements
+>         queue.add("First");
+>         queue.add("Second");
+>         queue.add("Third");
+>         queue.offer("Fourth");  // alternative add
+>
+>         System.out.println(queue);  // [First, Second, Third, Fourth]
+>
+>         // Examine front element
+>         System.out.println(queue.element());  // First (throws if empty)
+>         System.out.println(queue.peek());     // First (returns null if empty)
+>
+>         // Remove elements (FIFO order)
+>         System.out.println(queue.remove());  // First
+>         System.out.println(queue.poll());    // Second
+>
+>         System.out.println(queue);  // [Third, Fourth]
+>     }
+> }
+
+**Output:**
+> ```
+> [First, Second, Third, Fourth]
+> First
+> First
+> First
+> Second
+> [Third, Fourth]
+
+**Common implementations:**
+
+| Implementation | Description | Order |
+|----------------|-------------|-------|
+| `LinkedList` | Implements Queue as well as List | FIFO |
+| `PriorityQueue` | Elements processed by priority, not FIFO | Based on priority |
+| `ArrayDeque` | Resizable array, faster than LinkedList | FIFO or LIFO |
+
+**PriorityQueue example (not FIFO):**
+> Queue<Integer> pq = new PriorityQueue<>();
+> pq.add(30);
+> pq.add(10);
+> pq.add(20);
+>
+> System.out.println(pq.poll());  // 10 (smallest first)
+> System.out.println(pq.poll());  // 20
+> System.out.println(pq.poll());  // 30
+
+**Short version for interview:**
+> "`Queue` follows FIFO (First-In-First-Out).
+Key methods: `offer()` (add), `poll()` (remove), `peek()` (examine).
+Common implementations: `LinkedList`, `PriorityQueue`, and `ArrayDeque`."
+
+----------------------------------------------------------------------------------------------------
+
+16-->  What are the important interfaces related to the Queue interface?
+
+**Answer:**
+> "The important interfaces related to `Queue` are `Deque` (Double Ended Queue) and `BlockingQueue`
+ (for concurrent programming)."
+
+**Hierarchy:**
+> Collection
+>    └── Queue
+>         ├── Deque (extends Queue)
+>         └── BlockingQueue (extends Queue)
+
+**Explanation of each interface:**
+
+| Interface | Description | Key methods |
+|-----------|-------------|-------------|
+| `Queue` | FIFO operations | `offer()`, `poll()`, `peek()` |
+| `Deque` | Double ended queue (add/remove from both ends) | `addFirst()`, `addLast()`, `removeFirst()`, `removeLast()` |
+| `BlockingQueue` | Thread-safe queue with waiting operations | `put()`, `take()`, `offer(timeout)` |
+
+---
+
+**1. Deque Interface (extends Queue)**
+
+> import java.util.*;
+>
+> public class DequeExample {
+>     public static void main(String[] args) {
+>         Deque<String> deque = new ArrayDeque<>();
+>
+>         // Add at both ends
+>         deque.addFirst("First");
+>         deque.addLast("Last");
+>         deque.offerFirst("New First");
+>         deque.offerLast("New Last");
+>
+>         System.out.println(deque);  // [New First, First, Last, New Last]
+>
+>         // Remove from both ends
+>         System.out.println(deque.removeFirst());  // New First
+>         System.out.println(deque.removeLast());   // New Last
+>
+>         // Peek at both ends
+>         System.out.println(deque.getFirst());  // First
+>         System.out.println(deque.getLast());   // Last
+>     }
+> }
+
+**Deque as Queue (FIFO):**
+> Deque<String> queue = new ArrayDeque<>();
+> queue.addLast("A");  // enqueue
+> queue.addLast("B");
+> String first = queue.removeFirst();  // dequeue -> A
+
+**Deque as Stack (LIFO):**
+> Deque<String> stack = new ArrayDeque<>();
+> stack.push("A");     // push
+> stack.push("B");
+> String top = stack.pop();  // pop -> B
+
+---
+
+**2. BlockingQueue Interface (concurrent)**
+
+> import java.util.concurrent.*;
+>
+> public class BlockingQueueExample {
+>     public static void main(String[] args) {
+>         BlockingQueue<String> queue = new ArrayBlockingQueue<>(5);
+>
+>         // put() - waits if queue is full
+>         // take() - waits if queue is empty
+>
+>         try {
+>             queue.put("Message");   // blocks if full
+>             String msg = queue.take();  // blocks if empty
+>         } catch (InterruptedException e) {}
+>     }
+> }
+
+**Common implementations:**
+
+| Interface | Implementations |
+|-----------|-----------------|
+| `Queue` | `LinkedList`, `PriorityQueue` |
+| `Deque` | `ArrayDeque`, `LinkedList` |
+| `BlockingQueue` | `ArrayBlockingQueue`, `LinkedBlockingQueue`, `PriorityBlockingQueue` |
+
+**Quick summary:**
+
+| Feature | Queue | Deque | BlockingQueue |
+|---------|-------|-------|---------------|
+| FIFO operations | Yes | Yes | Yes |
+| LIFO operations | No | Yes | No |
+| Thread-safe | No | No | Yes |
+| Blocks when full/empty | No | No | Yes |
+
+**Short version for interview:**
+> "The key interfaces are `Deque` (extends Queue, allows add/remove from both ends) and
+`BlockingQueue` (extends Queue, thread-safe with blocking operations like `put()` and `take()`)."
+
+----------------------------------------------------------------------------------------------------
+
+17--> Explain about the Deque interface?
+**Answer:**
+> "`Deque` stands for Double Ended Queue. It extends the `Queue` interface and
+allows adding or removing elements from **both ends** (front and back).
+It can be used as both a Queue (FIFO) and a Stack (LIFO)."
+
+**Key features:**
+> - Add/remove from both ends
+> - Can be used as Queue (FIFO) or Stack (LIFO)
+> - Methods for each operation in two styles (exception vs special value)
+
+**Deque methods:**
+
+| Operation | Throws exception (front) | Returns special (front) | Throws exception (back) | Returns special (back) |
+|-----------|------------------------|----------------------|----------------------|---------------------|
+| Add | `addFirst(e)` | `offerFirst(e)` | `addLast(e)` | `offerLast(e)` |
+| Remove | `removeFirst()` | `pollFirst()` | `removeLast()` | `pollLast()` |
+| Examine | `getFirst()` | `peekFirst()` | `getLast()` | `peekLast()` |
+
+**Example:**
+> import java.util.*;
+>
+> public class DequeExample {
+>     public static void main(String[] args) {
+>         // Using ArrayDeque (most common implementation)
+>         Deque<String> deque = new ArrayDeque<>();
+>
+>         // Adding at both ends
+>         deque.addFirst("First");
+>         deque.addLast("Last");
+>         deque.offerFirst("New First");
+>         deque.offerLast("New Last");
+>
+>         System.out.println(deque);  // [New First, First, Last, New Last]
+>
+>         // Examine both ends
+>         System.out.println(deque.getFirst());   // New First
+>         System.out.println(deque.peekLast());   // New Last
+>
+>         // Remove from both ends
+>         System.out.println(deque.removeFirst());  // New First
+>         System.out.println(deque.pollLast());     // New Last
+>
+>         System.out.println(deque);  // [First, Last]
+>     }
+> }
+
+**Using Deque as Queue (FIFO):**
+> Deque<String> queue = new ArrayDeque<>();
+>
+> // Add at tail, remove from head
+> queue.addLast("Task 1");
+> queue.addLast("Task 2");
+> queue.addLast("Task 3");
+>
+> while (!queue.isEmpty()) {
+>     System.out.println(queue.removeFirst());  // Task 1, Task 2, Task 3
+> }
+
+**Using Deque as Stack (LIFO):**
+> Deque<String> stack = new ArrayDeque<>();
+>
+> // Push and pop from same end
+> stack.push("Item 1");
+> stack.push("Item 2");
+> stack.push("Item 3");
+>
+> System.out.println(stack.pop());  // Item 3
+> System.out.println(stack.pop());  // Item 2
+> System.out.println(stack.pop());  // Item 1
+
+**Common implementations:**
+
+| Implementation | Thread-safe | Performance | When to use |
+|----------------|-------------|-------------|-------------|
+| `ArrayDeque` | No | Fastest | Most common use |
+| `LinkedList` | No | Good (more memory) | When need List operations too |
+| `ConcurrentLinkedDeque` | Yes | Good | Multi-threaded environment |
+
+**Difference between Queue and Deque:**
+
+| Feature | Queue | Deque |
+|---------|-------|-------|
+| Add/remove from | Only one end (front for remove, back for add) | Both ends |
+| Can be used as Stack | No | Yes |
+| Methods | `offer()`, `poll()`, `peek()` | `addFirst/Last`, `removeFirst/Last`, etc. |
+
+**Short version for interview:**
+> "`Deque` is a Double Ended Queue that allows adding and removing from both ends.
+It can be used as a Queue (FIFO) using `addLast()`/`removeFirst()` or as a Stack (LIFO) using `push()`/`pop()`.
+Common implementation is `ArrayDeque`."
+
+----------------------------------------------------------------------------------------------------
+
+18--> Explain the BlockingQueue interface?
+**Answer:**
+> "`BlockingQueue` is a thread-safe queue interface that **blocks** a thread when trying to add
+to a full queue or remove from an empty queue. It is designed for producer-consumer problems in
+multi-threaded environments."
+
+**Key features:**
+> - Thread-safe (can be used by multiple threads)
+> - Blocks when queue is full (on add) or empty (on remove)
+> - Supports timeout options
+> - Cannot add null elements
+
+**BlockingQueue methods:**
+
+| Operation | Throws exception | Special value | Blocks | Blocks with timeout |
+|-----------|-----------------|---------------|--------|---------------------|
+| Add | `add(e)` | `offer(e)` | `put(e)` | `offer(e, time, unit)` |
+| Remove | `remove()` | `poll()` | `take()` | `poll(time, unit)` |
+| Examine | `element()` | `peek()` | - | - |
+
+**Complete example (Producer-Consumer):**
+> import java.util.concurrent.*;
+>
+> class Producer implements Runnable {
+>     private BlockingQueue<Integer> queue;
+>
+>     Producer(BlockingQueue<Integer> queue) {
+>         this.queue = queue;
+>     }
+>
+>     public void run() {
+>         try {
+>             for (int i = 1; i <= 5; i++) {
+>                 queue.put(i);  // blocks if queue is full
+>                 System.out.println("Produced: " + i);
+>                 Thread.sleep(500);
+>             }
+>         } catch (InterruptedException e) {}
+>     }
+> }
+>
+> class Consumer implements Runnable {
+>     private BlockingQueue<Integer> queue;
+>
+>     Consumer(BlockingQueue<Integer> queue) {
+>         this.queue = queue;
+>     }
+>
+>     public void run() {
+>         try {
+>             for (int i = 1; i <= 5; i++) {
+>                 int value = queue.take();  // blocks if queue is empty
+>                 System.out.println("Consumed: " + value);
+>                 Thread.sleep(1000);
+>             }
+>         } catch (InterruptedException e) {}
+>     }
+> }
+>
+> public class BlockingQueueExample {
+>     public static void main(String[] args) {
+>         // Create a blocking queue with capacity 2
+>         BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(2);
+>
+>         Thread producer = new Thread(new Producer(queue));
+>         Thread consumer = new Thread(new Consumer(queue));
+>
+>         producer.start();
+>         consumer.start();
+>     }
+> }
+
+**Output example:**
+> Produced: 1
+> Produced: 2
+> (producer blocks because queue is full)
+> Consumed: 1
+> Produced: 3
+> Consumed: 2
+> Produced: 4
+
+
+**Common implementations:**
+
+| Implementation | Description | Use case |
+|----------------|-------------|----------|
+| `ArrayBlockingQueue` | Bounded queue backed by array | Fixed capacity |
+| `LinkedBlockingQueue` | Optionally bounded, backed by linked nodes | High throughput |
+| `PriorityBlockingQueue` | Unbounded, elements by priority | Priority ordering |
+| `SynchronousQueue` | Zero capacity (handoff only) | Direct handoff between threads |
+| `DelayQueue` | Elements with delay | Scheduled tasks |
+
+**Comparison with regular Queue:**
+
+| Feature | Queue | BlockingQueue |
+|---------|-------|---------------|
+| Thread-safe | No (not by default) | Yes |
+| Blocking on full | No | Yes (`put()` blocks) |
+| Blocking on empty | No | Yes (`take()` blocks) |
+| Null elements | Allowed | Not allowed |
+| Use case | Single-threaded | Producer-consumer |
+
+**Short version for interview:**
+> "`BlockingQueue` is a thread-safe queue where `put()` blocks if queue is full and `take()`
+blocks if queue is empty. It is used in producer-consumer problems. Common implementations:
+`ArrayBlockingQueue` and `LinkedBlockingQueue`."
+
+----------------------------------------------------------------------------------------------------
+
+19--> What is a priorityQueue?
+**Answer:**
+> "`PriorityQueue` is a queue implementation where elements are processed
+based on **priority** (natural order or custom comparator) rather than FIFO order.
+The smallest or highest priority element is always at the front."
+
+**Key features:**
+> - Does **not** follow FIFO order
+> - Elements are ordered by priority (natural order by default)
+> - The head of the queue is the smallest (or highest priority) element
+> - Does not allow null elements
+> - Not thread-safe
+
+**Example with natural order (numbers):**
+> import java.util.PriorityQueue;
+>
+> public class PriorityQueueExample {
+>     public static void main(String[] args) {
+>         PriorityQueue<Integer> pq = new PriorityQueue<>();
+>
+>         // Add elements (not in order)
+>         pq.add(30);
+>         pq.add(10);
+>         pq.add(50);
+>         pq.add(20);
+>         pq.add(40);
+>
+>         System.out.println("Queue: " + pq);  // [10, 20, 50, 30, 40] (heap order)
+>
+>         // Remove elements - comes out in sorted order (smallest first)
+>         while (!pq.isEmpty()) {
+>             System.out.print(pq.poll() + " ");  // 10 20 30 40 50
+>         }
+>     }
+> }
+
+**Example with strings (alphabetical order):**
+> PriorityQueue<String> pq = new PriorityQueue<>();
+> pq.add("Banana");
+> pq.add("Apple");
+> pq.add("Mango");
+> pq.add("Cherry");
+>
+> while (!pq.isEmpty()) {
+>     System.out.print(pq.poll() + " ");  // Apple Banana Cherry Mango
+> }
+
+**Example with custom comparator (reverse order):**
+> // Max-heap (largest element first)
+> PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+>
+> maxHeap.add(30);
+> maxHeap.add(10);
+> maxHeap.add(50);
+> maxHeap.add(20);
+>
+> while (!maxHeap.isEmpty()) {
+>     System.out.print(maxHeap.poll() + " ");  // 50 30 20 10
+> }
+
+**Example with custom objects:**
+> class Task implements Comparable<Task> {
+>     String name;
+>     int priority;
+>
+>     Task(String name, int priority) {
+>         this.name = name;
+>         this.priority = priority;
+>     }
+>
+>     @Override
+>     public int compareTo(Task other) {
+>         return this.priority - other.priority;  // lower number = higher priority
+>     }
+>
+>     public String toString() {
+>         return name + "(" + priority + ")";
+>     }
+> }
+>
+> // Usage
+> PriorityQueue<Task> taskQueue = new PriorityQueue<>();
+> taskQueue.add(new Task("Email", 3));
+> taskQueue.add(new Task("Report", 1));
+> taskQueue.add(new Task("Backup", 2));
+>
+> while (!taskQueue.isEmpty()) {
+>     System.out.print(taskQueue.poll() + " ");  // Report(1) Backup(2) Email(3)
+> }
+
+**Key methods:**
+
+| Method | Description |
+|--------|-------------|
+| `add(e)` / `offer(e)` | Adds element |
+| `poll()` | Removes and returns head (smallest element) |
+| `peek()` | Returns head without removing |
+| `remove()` | Removes head (throws if empty) |
+| `size()` | Returns number of elements |
+
+**Important notes:**
+> - Does **not** maintain full sorted order internally (uses heap structure)
+> - `poll()` and `peek()` always return the smallest element
+> - Iteration does **not** guarantee sorted order
+> - Time complexity: `offer()` and `poll()` are O(log n)
+
+**PriorityQueue vs regular Queue:**
+
+| Feature | Queue (LinkedList) | PriorityQueue |
+|---------|-------------------|---------------|
+| Order | FIFO (insertion order) | Based on priority (natural order) |
+| Head element | First inserted element | Smallest (or highest priority) element |
+| Use case | Simple task queue | Urgent tasks first, scheduling |
+
+**Short version for interview:**
+> "`PriorityQueue` orders elements by their natural order or a custom comparator.
+The head is always the smallest (or highest priority) element. It does not follow FIFO.
+Example: `PriorityQueue<Integer> pq = new PriorityQueue<>();` where `poll()` returns smallest element first."
+
+----------------------------------------------------------------------------------------------------
+
+20--> Can you give example implementations of the BlockingQueue interface?
+**Answer:**
+> "The main implementations of `BlockingQueue` are `ArrayBlockingQueue`, `LinkedBlockingQueue`,
+`PriorityBlockingQueue`, and `SynchronousQueue`."
+
+**Quick overview:**
+
+| Implementation | Bounded? | Ordering | Use case |
+|---------------|----------|----------|----------|
+| `ArrayBlockingQueue` | Yes (fixed size) | FIFO | Fixed capacity |
+| `LinkedBlockingQueue` | Optional (default unbounded) | FIFO | High throughput |
+| `PriorityBlockingQueue` | No (unbounded) | Priority | Priority-based processing |
+| `SynchronousQueue` | Zero capacity | None | Handoff between threads |
+
+---
+
+### 1. ArrayBlockingQueue (Bounded, FIFO)
+
+> import java.util.concurrent.ArrayBlockingQueue;
+> import java.util.concurrent.BlockingQueue;
+>
+> public class ArrayBlockingQueueExample {
+>     public static void main(String[] args) {
+>         // Fixed capacity of 3
+>         BlockingQueue<String> queue = new ArrayBlockingQueue<>(3);
+>
+>         try {
+>             queue.put("A");
+>             queue.put("B");
+>             queue.put("C");
+>             // queue.put("D"); // blocks here because queue is full
+>
+>             System.out.println(queue.take());  // A (FIFO)
+>             System.out.println(queue.take());  // B
+>             System.out.println(queue.take());  // C
+>         } catch (InterruptedException e) {}
+>     }
+> }
+> ```
+
+---
+
+### 2. LinkedBlockingQueue (Optionally bounded, FIFO)
+
+> import java.util.concurrent.LinkedBlockingQueue;
+> import java.util.concurrent.BlockingQueue;
+>
+> public class LinkedBlockingQueueExample {
+>     public static void main(String[] args) {
+>         // Unbounded (no capacity limit)
+>         BlockingQueue<String> unbounded = new LinkedBlockingQueue<>();
+>
+>         // Bounded (capacity 10)
+>         BlockingQueue<String> bounded = new LinkedBlockingQueue<>(10);
+>
+>         try {
+>             unbounded.put("Hello");
+>             unbounded.put("World");
+>
+>             System.out.println(unbounded.take());  // Hello
+>         } catch (InterruptedException e) {}
+>     }
+> }
+
+---
+
+### 3. PriorityBlockingQueue (Unbounded, priority order)
+
+> import java.util.concurrent.PriorityBlockingQueue;
+> import java.util.concurrent.BlockingQueue;
+>
+> public class PriorityBlockingQueueExample {
+>     public static void main(String[] args) {
+>         // Elements come out by priority (natural order)
+>         BlockingQueue<Integer> queue = new PriorityBlockingQueue<>();
+>
+>         try {
+>             queue.put(30);
+>             queue.put(10);
+>             queue.put(20);
+>
+>             System.out.println(queue.take());  // 10 (smallest first)
+>             System.out.println(queue.take());  // 20
+>             System.out.println(queue.take());  // 30
+>         } catch (InterruptedException e) {}
+>     }
+> }
+
+---
+
+### 4. SynchronousQueue (Zero capacity, handoff)
+
+> import java.util.concurrent.SynchronousQueue;
+> import java.util.concurrent.BlockingQueue;
+>
+> public class SynchronousQueueExample {
+>     public static void main(String[] args) {
+>         // Zero capacity - each put must wait for a take
+>         BlockingQueue<String> queue = new SynchronousQueue<>();
+>
+>         // Producer thread
+>         Thread producer = new Thread(() -> {
+>             try {
+>                 System.out.println("Putting element...");
+>                 queue.put("Message");
+>                 System.out.println("Put successful");
+>             } catch (InterruptedException e) {}
+>         });
+>
+>         // Consumer thread
+>         Thread consumer = new Thread(() -> {
+>             try {
+>                 Thread.sleep(1000);
+>                 String msg = queue.take();
+>                 System.out.println("Taken: " + msg);
+>             } catch (InterruptedException e) {}
+>         });
+>
+>         producer.start();
+>         consumer.start();
+>     }
+> }
+
+---
+
+### Comparison table:
+
+| Feature | ArrayBlockingQueue | LinkedBlockingQueue | PriorityBlockingQueue | SynchronousQueue |
+|---------|-------------------|--------------------|----------------------|------------------|
+| Capacity | Fixed | Optional (default unbounded) | Unbounded | Zero |
+| Order | FIFO | FIFO | Priority | None |
+| Memory | Array (less) | Linked nodes (more) | Heap | None |
+| Throughput | Good | Better (separate locks) | Good | Handoff only |
+
+**Short version for interview:**
+> "Common implementations: `ArrayBlockingQueue` (fixed size, FIFO), `LinkedBlockingQueue`
+(optionally bounded, higher throughput), `PriorityBlockingQueue` (unbounded, priority order),
+and `SynchronousQueue` (zero capacity, direct handoff)."
+
+----------------------------------------------------------------------------------------------------
+
+21--> Can you briefly explain about the Map interface?
+**Answer:**
+> "The `Map` interface stores data in **key-value pairs**. Each key is unique and maps to at most one value.
+Unlike `Collection`, `Map` does not extend the `Collection` interface."
+
+**Key features:**
+> - Stores data as key-value pairs (Entry)
+> - Keys are unique (no duplicate keys)
+> - Each key maps to one value
+> - Can have one null key (in some implementations)
+> - Multiple null values allowed
+
+**Example:**
+> import java.util.*;
+>
+> public class MapExample {
+>     public static void main(String[] args) {
+>         // Create a Map
+>         Map<String, Integer> studentMarks = new HashMap<>();
+>
+>         // Add key-value pairs
+>         studentMarks.put("Alice", 85);
+>         studentMarks.put("Bob", 90);
+>         studentMarks.put("Charlie", 78);
+>         studentMarks.put("Alice", 95);  // overwrites previous value
+>
+>         System.out.println(studentMarks);  // {Bob=90, Alice=95, Charlie=78}
+>
+>         // Get value by key
+>         System.out.println(studentMarks.get("Alice"));     // 95
+>         System.out.println(studentMarks.get("David"));     // null
+>
+>         // Check if key exists
+>         System.out.println(studentMarks.containsKey("Bob"));    // true
+>         System.out.println(studentMarks.containsValue(78));     // true
+>
+>         // Remove entry
+>         studentMarks.remove("Charlie");
+>         System.out.println(studentMarks);  // {Bob=90, Alice=95}
+>
+>         // Get size
+>         System.out.println(studentMarks.size());  // 2
+>
+>         // Iterate over keys
+>         for (String name : studentMarks.keySet()) {
+>             System.out.println(name + " = " + studentMarks.get(name));
+>         }
+>
+>         // Iterate over entries
+>         for (Map.Entry<String, Integer> entry : studentMarks.entrySet()) {
+>             System.out.println(entry.getKey() + " : " + entry.getValue());
+>         }
+>     }
+> }
+
+**Common implementations of Map:**
+
+| Implementation | Order | Null key | Null values | Thread-safe |
+|----------------|-------|----------|-------------|-------------|
+| `HashMap` | No order | Yes (one) | Yes | No |
+| `LinkedHashMap` | Insertion order | Yes (one) | Yes | No |
+| `TreeMap` | Sorted order (natural/comparator) | No | Yes | No |
+| `Hashtable` | No order | No | No | Yes (legacy) |
+| `ConcurrentHashMap` | No order | No | Yes | Yes (high performance) |
+
+**Important methods in Map:**
+
+| Method | Description |
+|--------|-------------|
+| `put(key, value)` | Adds key-value pair |
+| `get(key)` | Returns value for key |
+| `remove(key)` | Removes entry for key |
+| `containsKey(key)` | Checks if key exists |
+| `containsValue(value)` | Checks if value exists |
+| `keySet()` | Returns set of all keys |
+| `values()` | Returns collection of all values |
+| `entrySet()` | Returns set of all entries |
+| `size()` | Returns number of entries |
+| `isEmpty()` | Checks if map is empty |
+| `clear()` | Removes all entries |
+
+**Short version for interview:**
+> "`Map` stores key-value pairs with unique keys. It does not extend `Collection`.
+Key methods: `put()`, `get()`, `remove()`, `containsKey()`, `keySet()`, and `entrySet()`.
+Common implementations: `HashMap`, `LinkedHashMap`, and `TreeMap`."
+
+----------------------------------------------------------------------------------------------------
+
+22--> What is difference between Map and sortedMap?
+**Answer:**
+> "`Map` is the base interface that stores key-value pairs with no guarantee of order.
+`SortedMap` extends `Map` and guarantees that keys are stored in **sorted order**
+(either natural order or custom comparator order)."
+
+**Key differences:**
+
+| Feature | Map | SortedMap |
+|---------|-----|-----------|
+| **Order** | No guarantee of order | Keys are sorted |
+| **Methods** | Basic: `put()`, `get()`, `remove()` | Extra: `firstKey()`, `lastKey()`, `headMap()`, `tailMap()`, `subMap()` |
+| **Null keys** | Allowed in `HashMap` | Not allowed (throws NullPointerException) |
+| **Implementations** | `HashMap`, `LinkedHashMap` | `TreeMap` |
+
+**Example comparison:**
+
+import java.util.*;
+
+public class MapVsSortedMap {
+    public static void main(String[] args) {
+        // Map (HashMap) - no order
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("Banana", 3);
+        hashMap.put("Apple", 1);
+        hashMap.put("Mango", 2);
+        System.out.println("HashMap: " + hashMap);  // {Apple=1, Banana=3, Mango=2} (no order)
+
+        // SortedMap (TreeMap) - sorted by keys
+        SortedMap<String, Integer> treeMap = new TreeMap<>();
+        treeMap.put("Banana", 3);
+        treeMap.put("Apple", 1);
+        treeMap.put("Mango", 2);
+        System.out.println("TreeMap: " + treeMap);  // {Apple=1, Banana=3, Mango=2} (sorted)
+
+        // SortedMap extra methods
+        System.out.println("First key: " + treeMap.firstKey());  // Apple
+        System.out.println("Last key: " + treeMap.lastKey());    // Mango
+
+        // Head map (keys less than "Banana")
+        System.out.println("HeadMap: " + treeMap.headMap("Banana"));  // {Apple=1}
+
+        // Tail map (keys greater than or equal to "Banana")
+        System.out.println("TailMap: " + treeMap.tailMap("Banana"));  // {Banana=3, Mango=2}
+
+        // Sub map (keys between "Apple" and "Mango")
+        System.out.println("SubMap: " + treeMap.subMap("Apple", "Mango"));  // {Apple=1, Banana=3}
+    }
+}
+
+**SortedMap extra methods:**
+
+| Method | Description |
+|--------|-------------|
+| `firstKey()` | Returns the smallest key |
+| `lastKey()` | Returns the largest key |
+| `headMap(toKey)` | Returns view of keys less than toKey |
+| `tailMap(fromKey)` | Returns view of keys greater than or equal to fromKey |
+| `subMap(fromKey, toKey)` | Returns view of keys between fromKey and toKey |
+
+**Important note (null handling):**
+
+// Map allows null key
+Map<String, String> hashMap = new HashMap<>();
+hashMap.put(null, "value");  // ✅ allowed
+
+// SortedMap does NOT allow null key
+SortedMap<String, String> treeMap = new TreeMap<>();
+treeMap.put(null, "value");  // ❌ NullPointerException
+
+**Hierarchy:**
+
+Map
+ └── SortedMap
+       └── NavigableMap (extends SortedMap)
+             └── TreeMap
+
+**Short version for interview:**
+> "`Map` has no order guarantee. `SortedMap` extends `Map` and keeps keys in sorted order.
+`SortedMap` provides extra methods like `firstKey()`, `lastKey()`, `headMap()`, and `tailMap()`.
+`TreeMap` is the main implementation of `SortedMap`."
+
+----------------------------------------------------------------------------------------------------
+
+22--> What is a HashMap?
+
+**Answer:**
+> "`HashMap` is a hash table-based implementation of the `Map` interface.
+It stores key-value pairs and provides **O(1)** average time complexity for `put()`, `get()`, and `remove()`
+operations. It does **not guarantee any order** of keys."
+
+**Key features:**
+> - Allows one `null` key and multiple `null` values
+> - No order guarantee (order can change over time)
+> - Not thread-safe (use `ConcurrentHashMap` for multi-threading)
+> - Fast performance (O(1) average for basic operations)
+
+**Example:**
+
+import java.util.*;
+
+public class HashMapExample {
+    public static void main(String[] args) {
+        // Create a HashMap
+        HashMap<String, Integer> map = new HashMap<>();
+
+        // Add key-value pairs
+        map.put("Apple", 10);
+        map.put("Banana", 20);
+        map.put("Mango", 30);
+        map.put("Apple", 40);  // overwrites previous value for key "Apple"
+        map.put(null, 50);     // one null key allowed
+        map.put("Orange", null); // null value allowed
+
+        System.out.println(map);  // {null=50, Apple=40, Banana=20, Orange=null, Mango=30}
+
+        // Get value by key
+        System.out.println(map.get("Apple"));     // 40
+        System.out.println(map.get("Grapes"));    // null (key not found)
+
+        // Check existence
+        System.out.println(map.containsKey("Banana"));  // true
+        System.out.println(map.containsValue(20));      // true
+
+        // Remove entry
+        map.remove("Mango");
+        System.out.println(map);  // {null=50, Apple=40, Banana=20, Orange=null}
+
+        // Get size
+        System.out.println("Size: " + map.size());  // 4
+
+        // Iterate over keys
+        for (String key : map.keySet()) {
+            System.out.println(key + " = " + map.get(key));
+        }
+
+        // Iterate over entries
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+
+        // Iterate over values
+        for (Integer value : map.values()) {
+            System.out.println(value);
+        }
+
+        // Check if empty
+        System.out.println(map.isEmpty());  // false
+
+        // Clear all
+        map.clear();
+        System.out.println(map.isEmpty());  // true
+    }
+}
+```
+
+**Common methods:**
+
+| Method | Description |
+|--------|-------------|
+| `put(key, value)` | Adds or updates key-value pair |
+| `get(key)` | Returns value for key (or null) |
+| `remove(key)` | Removes entry for key |
+| `containsKey(key)` | Checks if key exists |
+| `containsValue(value)` | Checks if value exists |
+| `keySet()` | Returns Set of all keys |
+| `values()` | Returns Collection of all values |
+| `entrySet()` | Returns Set of all entries |
+| `size()` | Returns number of entries |
+| `isEmpty()` | Checks if map is empty |
+| `clear()` | Removes all entries |
+
+**HashMap internal working (brief):**
+
+> - Uses array of `Node` (buckets)
+> - `hashCode()` determines which bucket key goes to
+> - `equals()` checks for key equality
+> - Collisions handled by linked list or tree (Java 8+)
+
+**Performance (Big O):**
+
+| Operation | Average | Worst case |
+|-----------|---------|------------|
+| `put()` | O(1) | O(log n) or O(n) |
+| `get()` | O(1) | O(log n) or O(n) |
+| `remove()` | O(1) | O(log n) or O(n) |
+
+**Initial capacity and load factor:**
+
+// Default: capacity = 16, load factor = 0.75
+HashMap<String, Integer> map1 = new HashMap<>();
+
+// Custom capacity and load factor
+HashMap<String, Integer> map2 = new HashMap<>(32, 0.8f);
+
+**HashMap vs other Map implementations:**
+
+| Feature | HashMap | LinkedHashMap | TreeMap |
+|---------|---------|---------------|---------|
+| Order | No order | Insertion order | Sorted order |
+| Performance | O(1) | O(1) | O(log n) |
+| Null key | Yes (one) | Yes (one) | No |
+| When to use | Default choice | Need insertion order | Need sorted keys |
+
+**Short version for interview:**
+> "`HashMap` stores key-value pairs with O(1) average performance for put and get.
+It allows one null key and multiple null values. It does not guarantee any order.
+It is not thread-safe. Use `HashMap` when you don't care about order and need fast access."
+
+----------------------------------------------------------------------------------------------------
+
+23-->What is a TreeMap? How is different from a HashMap?
+**Answer:**
+> "`TreeMap` is a `SortedMap` implementation that stores key-value pairs in **sorted order**
+based on the natural order of keys or a custom comparator.
+It is different from `HashMap` because it maintains order but has slower O(log n) performance."
+
+**Example:**
+
+import java.util.*;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        // Create a TreeMap (sorted by keys)
+        TreeMap<String, Integer> treeMap = new TreeMap<>();
+
+        // Add elements (order doesn't matter)
+        treeMap.put("Banana", 3);
+        treeMap.put("Apple", 1);
+        treeMap.put("Mango", 2);
+        treeMap.put("Cherry", 4);
+
+        // Keys are automatically sorted
+        System.out.println(treeMap);  // {Apple=1, Banana=3, Cherry=4, Mango=2}
+
+        // Get first and last keys
+        System.out.println("First key: " + treeMap.firstKey());  // Apple
+        System.out.println("Last key: " + treeMap.lastKey());    // Mango
+
+        // Navigation methods
+        System.out.println("Lower key than Banana: " + treeMap.lowerKey("Banana"));  // Apple
+        System.out.println("Higher key than Banana: " + treeMap.higherKey("Banana")); // Cherry
+
+        // Range views
+        System.out.println("HeadMap (less than Banana): " + treeMap.headMap("Banana"));  // {Apple=1}
+        System.out.println("TailMap (>= Banana): " + treeMap.tailMap("Banana"));  // {Banana=3, Cherry=4, Mango=2}
+        System.out.println("SubMap (Apple to Mango): " + treeMap.subMap("Apple", "Mango"));  // {Apple=1, Banana=3, Cherry=4}
+
+        // Remove
+        treeMap.remove("Cherry");
+        System.out.println(treeMap);  // {Apple=1, Banana=3, Mango=2}
+    }
+}
+```
+
+**Example with custom comparator (reverse order):**
+
+// TreeMap with reverse order
+TreeMap<String, Integer> reverseMap = new TreeMap<>(Comparator.reverseOrder());
+
+reverseMap.put("Banana", 3);
+reverseMap.put("Apple", 1);
+reverseMap.put("Mango", 2);
+
+System.out.println(reverseMap);  // {Mango=2, Banana=3, Apple=1}
+```
+
+**Key differences between TreeMap and HashMap:**
+
+| Feature | HashMap | TreeMap |
+|---------|---------|---------|
+| **Order** | No order guarantee | Sorted order (natural/comparator) |
+| **Performance** | O(1) average | O(log n) |
+| **Null key** | Yes (one null) | No (throws NullPointerException) |
+| **Null values** | Yes | Yes |
+| **Thread-safe** | No | No |
+| **Memory** | Less overhead | More overhead (tree structure) |
+| **Navigation methods** | No | Yes (firstKey, lastKey, headMap, etc.) |
+| **When to use** | Default choice, fast access | Need sorted keys or range queries |
+
+**Performance comparison:**
+
+// HashMap - faster for most operations
+HashMap<String, Integer> hashMap = new HashMap<>();
+hashMap.put("A", 1);  // O(1)
+int val = hashMap.get("A");  // O(1)
+
+// TreeMap - slower but sorted
+TreeMap<String, Integer> treeMap = new TreeMap<>();
+treeMap.put("A", 1);  // O(log n)
+int val2 = treeMap.get("A");  // O(log n)
+```
+
+**Null key handling:**
+
+// HashMap allows one null key
+HashMap<String, Integer> hashMap = new HashMap<>();
+hashMap.put(null, 100);  // ✅ allowed
+
+// TreeMap does NOT allow null key
+TreeMap<String, Integer> treeMap = new TreeMap<>();
+treeMap.put(null, 100);  // ❌ NullPointerException
+```
+
+**When to use which:**
+
+| Use HashMap when | Use TreeMap when |
+|-----------------|------------------|
+| Order doesn't matter | Keys need to be sorted |
+| Fast performance needed | Need range queries (headMap, tailMap) |
+| Need null key | Need navigation methods (lowerKey, higherKey) |
+| Most common use case | Sorted output or dictionary-like data |
+
+**SortedMap/NavigableMap methods in TreeMap:**
+
+| Method | Description |
+|--------|-------------|
+| `firstKey()` | Smallest key |
+| `lastKey()` | Largest key |
+| `lowerKey(key)` | Greatest key less than given key |
+| `higherKey(key)` | Smallest key greater than given key |
+| `headMap(toKey)` | Keys less than toKey |
+| `tailMap(fromKey)` | Keys greater than or equal to fromKey |
+| `subMap(from, to)` | Keys between from and to |
+| `pollFirstEntry()` | Removes and returns first entry |
+| `pollLastEntry()` | Removes and returns last entry |
+
+**Short version for interview:**
+> "`TreeMap` stores keys in sorted order (O(log n) performance).
+It does not allow null keys. It provides navigation methods like `firstKey()`, `lastKey()`, `headMap()`,
+and `tailMap()`. Use `HashMap` for faster O(1) access when order doesn't matter; use `TreeMap`
+when you need sorted keys or range queries."
+
+----------------------------------------------------------------------------------------------------
+24--> Can you give an example of implementation of navigableMap interface?
+
+**Answer:**
+> "`TreeMap` is the main implementation of the `NavigableMap` interface.
+ It provides navigation methods to find closest matches, reverse order, and get subsets of the map."
+
+**Example:**
+
+import java.util.*;
+
+public class NavigableMapExample {
+    public static void main(String[] args) {
+        // TreeMap implements NavigableMap
+        NavigableMap<Integer, String> map = new TreeMap<>();
+
+        // Add entries
+        map.put(10, "Ten");
+        map.put(20, "Twenty");
+        map.put(30, "Thirty");
+        map.put(40, "Forty");
+        map.put(50, "Fifty");
+
+        System.out.println("Original: " + map);  // {10=Ten, 20=Twenty, 30=Thirty, 40=Forty, 50=Fifty}
+
+        // Closest matches
+        System.out.println("Lower (less than 25): " + map.lowerKey(25));     // 20
+        System.out.println("Higher (greater than 25): " + map.higherKey(25)); // 30
+        System.out.println("Floor (≤ 25): " + map.floorKey(25));     // 20
+        System.out.println("Ceiling (≥ 25): " + map.ceilingKey(25)); // 30
+
+        // First and last
+        System.out.println("First key: " + map.firstKey());  // 10
+        System.out.println("Last key: " + map.lastKey());    // 50
+
+        // Reverse order
+        System.out.println("Descending map: " + map.descendingMap());  // {50=Fifty, 40=Forty, 30=Thirty, 20=Twenty, 10=Ten}
+
+        // Remove first and last
+        System.out.println("Poll first: " + map.pollFirstEntry());  // 10=Ten
+        System.out.println("Poll last: " + map.pollLastEntry());    // 50=Fifty
+        System.out.println("After poll: " + map);  // {20=Twenty, 30=Thirty, 40=Forty}
+
+        // Subset views
+        System.out.println("HeadMap (keys < 30): " + map.headMap(30));     // {20=Twenty}
+        System.out.println("TailMap (keys ≥ 30): " + map.tailMap(30));     // {30=Thirty, 40=Forty}
+        System.out.println("SubMap (20 to 40): " + map.subMap(20, 40));    // {20=Twenty, 30=Thirty}
+    }
+}
+
+**NavigableMap methods summary:**
+
+| Method | Description |
+|--------|-------------|
+| `lowerKey(key)` | Greatest key strictly less than given key |
+| `higherKey(key)` | Smallest key strictly greater than given key |
+| `floorKey(key)` | Greatest key less than or equal to given key |
+| `ceilingKey(key)` | Smallest key greater than or equal to given key |
+| `firstKey()` / `lastKey()` | First and last key |
+| `pollFirstEntry()` / `pollLastEntry()` | Remove and return first/last entry |
+| `descendingMap()` | Returns map in reverse order |
+| `headMap(toKey)` | Keys less than toKey |
+| `tailMap(fromKey)` | Keys greater than or equal to fromKey |
+| `subMap(from, to)` | Keys between from and to |
+
+**Short version for interview:**
+> "`TreeMap` implements `NavigableMap`. It provides navigation methods like `lowerKey()`,
+`higherKey()`, `floorKey()`, `ceilingKey()`, `pollFirstEntry()`, `pollLastEntry()`, and `descendingMap()`."
+
+----------------------------------------------------------------------------------------------------
+25--> What are the static methods present in the collections class?
+
+
+**Answer:**
+> "The `Collections` class provides many static utility methods for working with collections.
+Common ones include `sort()`, `reverse()`, `shuffle()`, `binarySearch()`, `max()`, `min()`, `synchronizedXXX()`,
+and `unmodifiableXXX()`."
+
+**Examples of important static methods:**
+
+| Method | Description |
+|--------|-------------|
+| `sort(list)` | Sorts list in natural order |
+| `sort(list, comparator)` | Sorts list with custom comparator |
+| `reverse(list)` | Reverses order of list |
+| `shuffle(list)` | Randomly shuffles elements |
+| `binarySearch(list, key)` | Searches sorted list (returns index) |
+| `max(collection)` | Returns maximum element |
+| `min(collection)` | Returns minimum element |
+| `frequency(collection, element)` | Counts occurrences |
+| `swap(list, i, j)` | Swaps elements at positions |
+| `fill(list, obj)` | Replaces all elements with same object |
+| `copy(dest, src)` | Copies from source to destination |
+| `replaceAll(list, old, new)` | Replaces all occurrences |
+| `rotate(list, distance)` | Rotates elements |
+| `synchronizedList(list)` | Returns thread-safe list |
+| `synchronizedSet(set)` | Returns thread-safe set |
+| `synchronizedMap(map)` | Returns thread-safe map |
+| `unmodifiableList(list)` | Returns read-only list |
+| `unmodifiableSet(set)` | Returns read-only set |
+| `unmodifiableMap(map)` | Returns read-only map |
+| `emptyList()` | Returns empty immutable list |
+| `emptySet()` | Returns empty immutable set |
+| `emptyMap()` | Returns empty immutable map |
+| `singletonList(obj)` | Returns immutable list with one element |
+| `addAll(collection, elements...)` | Adds multiple elements |
+
+**Complete example:**
+
+import java.util.*;
+
+public class CollectionsClassExample {
+    public static void main(String[] args) {
+        // Sorting
+        List<Integer> list = new ArrayList<>(Arrays.asList(5, 2, 8, 1, 9));
+        Collections.sort(list);
+        System.out.println("Sorted: " + list);  // [1, 2, 5, 8, 9]
+
+        // Reverse
+        Collections.reverse(list);
+        System.out.println("Reversed: " + list);  // [9, 8, 5, 2, 1]
+
+        // Shuffle
+        Collections.shuffle(list);
+        System.out.println("Shuffled: " + list);  // random order
+
+        // Binary search (list must be sorted first)
+        Collections.sort(list);
+        int index = Collections.binarySearch(list, 5);
+        System.out.println("Index of 5: " + index);
+
+        // Max and Min
+        System.out.println("Max: " + Collections.max(list));  // 9
+        System.out.println("Min: " + Collections.min(list));  // 1
+
+        // Frequency
+        List<String> names = Arrays.asList("A", "B", "A", "C", "A");
+        System.out.println("Frequency of A: " + Collections.frequency(names, "A"));  // 3
+
+        // Swap
+        Collections.swap(list, 0, 4);
+        System.out.println("After swap: " + list);
+
+        // Fill
+        Collections.fill(list, 0);
+        System.out.println("After fill: " + list);  // [0, 0, 0, 0, 0]
+
+        // Replace all
+        List<String> words = new ArrayList<>(Arrays.asList("cat", "dog", "cat", "bird"));
+        Collections.replaceAll(words, "cat", "animal");
+        System.out.println("After replace: " + words);  // [animal, dog, animal, bird]
+
+        // Thread-safe wrappers
+        List<Integer> syncList = Collections.synchronizedList(new ArrayList<>());
+        Set<String> syncSet = Collections.synchronizedSet(new HashSet<>());
+        Map<String, Integer> syncMap = Collections.synchronizedMap(new HashMap<>());
+
+        // Unmodifiable (read-only) wrappers
+        List<Integer> readOnlyList = Collections.unmodifiableList(list);
+        // readOnlyList.add(10);  // throws UnsupportedOperationException
+
+        // Empty collections
+        List<String> emptyList = Collections.emptyList();
+        Set<String> emptySet = Collections.emptySet();
+        Map<String, String> emptyMap = Collections.emptyMap();
+
+        // Singleton collections
+        List<String> singleList = Collections.singletonList("OnlyOne");
+        Set<String> singleSet = Collections.singleton("OnlyOne");
+        Map<String, Integer> singleMap = Collections.singletonMap("Key", 100);
+
+        // Add all elements
+        List<Integer> numbers = new ArrayList<>();
+        Collections.addAll(numbers, 10, 20, 30, 40, 50);
+        System.out.println("AddAll: " + numbers);  // [10, 20, 30, 40, 50]
+
+        // Rotate
+        Collections.rotate(numbers, 2);
+        System.out.println("After rotate: " + numbers);  // [40, 50, 10, 20, 30]
+    }
+}
+
+**Most commonly used in interviews:**
+
+// Sorting
+Collections.sort(list);
+
+// Reverse
+Collections.reverse(list);
+
+// Thread-safe
+List<String> safeList = Collections.synchronizedList(new ArrayList<>());
+
+// Read-only
+List<String> readOnly = Collections.unmodifiableList(list);
+
+// Empty collection (type-safe)
+List<String> empty = Collections.emptyList();
+
+// Max/Min
+int max = Collections.max(numbers);
+
+**Short version for interview:**
+> "Important static methods: `sort()`, `reverse()`, `shuffle()`, `binarySearch()`, `max()`, `min()`,
+`frequency()`, `synchronizedList()`, `unmodifiableList()`, `emptyList()`, `addAll()`, and `replaceAll()`."
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

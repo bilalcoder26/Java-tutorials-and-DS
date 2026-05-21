@@ -1,0 +1,179 @@
+Collection
+
+In Java, a Collection is a framework that provides a set of classes and interfaces
+to store and manipulate groups of objects. It is part of the Java Collections Framework (JCF),
+found in the package:
+java.util
+
+----------------------------------------------------------------------------------------------------
+🔹 1. What is a Collection?
+
+A Collection is an object that represents a group of elements (objects). It helps you perform operations like:
+
+Adding elements
+Removing elements
+Searching elements
+Sorting elements
+
+----------------------------------------------------------------------------------------------------
+🔹 2. Collection Framework Hierarchy
+
+Iterable (root interface)
+   |
+Collection (interface)
+   |
+-------------------------------------------------
+|            |            |                      |
+List         Set          Queue                 (Others)
+
+
+Additionally, there is another important interface:
+
+Map (separate, not a subtype of Collection)
+
+
+----------------------------------------------------------------------------------------------------
+
+🔹 3. Main Interfaces in Collection Framework
+
+----------------------------------------------------------------------------------------------------
+1. Collection (Root Interface)
+
+Defines basic operations:
+
+add()
+remove()
+size()
+isEmpty()
+contains()
+clear()
+
+----------------------------------------------------------------------------------------------------
+
+2. List (Ordered Collection)
+
+Allows duplicate elements
+Maintains insertion order
+Access elements by index
+Common Classes:
+ArrayList
+LinkedList
+Vector (legacy)
+Example:
+List<String> list = new ArrayList<>();
+list.add("A");
+list.add("B");
+list.add("A"); // duplicates allowed
+System.out.println(list); // [A, B, A]
+
+----------------------------------------------------------------------------------------------------
+
+3. Set (Unique Elements)
+
+Does NOT allow duplicates
+No guaranteed order (depends on implementation)
+Common Classes:
+HashSet (unordered)
+LinkedHashSet (insertion order)
+TreeSet (sorted order)
+Example:
+Set<Integer> set = new HashSet<>();
+set.add(10);
+set.add(20);
+set.add(10); // ignored
+System.out.println(set); // [10, 20]
+
+----------------------------------------------------------------------------------------------------
+
+4. Queue (FIFO Structure)
+
+Follows First-In-First-Out principle
+Used for scheduling and buffering
+Common Classes:
+PriorityQueue
+LinkedList (can act as Queue)
+Example:
+Queue<Integer> queue = new LinkedList<>();
+queue.add(1);
+queue.add(2);
+queue.poll(); // removes 1
+
+----------------------------------------------------------------------------------------------------
+5. Map (Key-Value Pair)
+
+(Not part of Collection, but part of framework)
+
+Stores data in key-value pairs
+Keys must be unique
+Common Classes:
+HashMap
+LinkedHashMap
+TreeMap
+Example:
+Map<Integer, String> map = new HashMap<>();
+map.put(1, "A");
+map.put(2, "B");
+
+----------------------------------------------------------------------------------------------------
+
+🔹 4. Important Classes Explained
+ArrayList
+Dynamic array
+Fast random access
+Slow insertion/deletion in middle
+LinkedList
+Doubly linked list
+Fast insertion/deletion
+Slow access
+HashSet
+Uses hashing
+No order
+TreeSet
+Sorted elements
+Uses Red-Black tree
+HashMap
+Fast key-value storage
+No order
+
+----------------------------------------------------------------------------------------------------
+
+🔹 6. Advantages of Collection Framework
+Reduces programming effort
+Increases performance
+Provides reusable data structures
+Supports generics (type safety)
+
+----------------------------------------------------------------------------------------------------
+🔹 7. Difference: Array vs Collection
+
+| Feature     | Array              | Collection   |
+| ----------- | ------------------ | ------------ |
+| Size        | Fixed              | Dynamic      |
+| Data Type   | Primitive + Object | Objects only |
+| Flexibility | Less               | More         |
+
+----------------------------------------------------------------------------------------------------
+
+🔹 8. Generics in Collections
+
+Ensures type safety:
+
+List<Integer> list = new ArrayList<>();
+list.add(10);  // only integers allowed
+
+----------------------------------------------------------------------------------------------------
+
+🔹 9. When to Use What?
+Use List → when order matters
+Use Set → when uniqueness is required
+Use Queue → when processing order matters (FIFO)
+Use Map → when key-value relationship needed
+
+----------------------------------------------------------------------------------------------------
+
+🔹 10. Summary
+Collection framework = set of interfaces + classes
+Helps manage groups of objects efficiently
+Core interfaces: List, Set, Queue
+Map is separate but important
+----------------------------------------------------------------------------------------------------

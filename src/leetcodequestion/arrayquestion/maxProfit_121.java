@@ -24,8 +24,6 @@ public class maxProfit_121 {
             }else{
                int currentProfit = prices[i] - buyStock;
                profit = Math.max(profit,currentProfit);
-
-
             }
 
         }

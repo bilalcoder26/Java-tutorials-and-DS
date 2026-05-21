@@ -1,0 +1,94 @@
+
+
+---
+
+### 1. Java 8+ Streams & Functional Programming
+
+1. **Group by and Count:** Given a list of `Employee` objects, group them by `Department`
+    and find the count of employees in each.
+2. **Max/Min:** Find the highest-paid employee in each department using
+    `Collectors.groupingBy` and `Collectors.maxBy`.
+3. **FlatMap:** Given a list of `Orders`, where each order has a list of `LineItems`,
+    extract a unique list of all product names sold.
+4. **String Joiner:** Convert a list of strings into a single comma-separated string,
+    wrapped in brackets `[ ]`, ignoring empty strings.
+5. **Frequency Map:** Find the frequency of each character in a string using Streams.
+6. **Partitioning:** Partition a list of integers into two groups: prime and non-prime.
+7. **Summing:** Calculate the total sum of ages of all employees whose salary is > 50,000.
+8. **Custom Collector:** Implement a custom collector that calculates the arithmetic mean of a stream of Doubles.
+9. **Parallel Streams:** Write a snippet to process a large dataset in parallel and
+    explain when it might actually be slower than a sequential stream.
+10. **First Non-Repeated:** Find the first non-repeated character in a string using the Stream API.
+
+---
+
+### 2. Multi-threading & Concurrency
+
+11. **Producer-Consumer:** Implement a classic Producer-Consumer problem using `BlockingQueue`.
+12. **Custom Thread Pool:** Use `ThreadPoolExecutor` to create a fixed thread pool
+    with a custom `RejectedExecutionHandler`.
+13. **Deadlock Simulation:** Write a code snippet that consistently results in a deadlock between two threads.
+14. **Deadlock Fix:** Modify the previous code to resolve the deadlock using a consistent locking order.
+15. **CountDownLatch:** Implement a scenario where a "Main" thread waits for 3 "Worker" threads
+    to finish their initialization.
+16. **CyclicBarrier:** Simulate a multi-player game start where 4 players must reach
+    a "Ready" state before the game begins.
+17. **Atomic Operations:** Demonstrate why `i++` is not thread-safe and fix it using `AtomicInteger`.
+18. **CompletableFuture:** Run two independent tasks asynchronously and combine their results once both are finished.
+19. **ReadWriteLock:** Implement a thread-safe Cache where multiple threads can read simultaneously,
+    but only one can write.
+20. **Thread-Safe Singleton:** Write a double-checked locking Singleton pattern
+    that is safe from reflection and serialization.
+
+---
+
+### 3. Data Structures & Algorithms (Senior Level)
+
+21. **LRU Cache:** Implement a Least Recently Used (LRU) cache using `LinkedHashMap`.
+22. **Binary Tree Level Order:** Perform a level-order traversal (Breadth-First) of a binary tree.
+23. **Cycle Detection:** Detect if a Linked List has a cycle (Floyd’s Cycle-Finding Algorithm).
+24. **Balanced Parentheses:** Check if a string of brackets is balanced using a `Stack`.
+25. **Merge Intervals:** Given a list of time intervals, merge all overlapping intervals.
+26. **Reverse Linked List:** Reverse a Singly Linked List in-place.
+27. **K-th Largest Element:** Find the K-th largest element in an unsorted array (using a Min-Heap).
+28. **Two Sum:** Find two numbers in an array that add up to a specific target in $O(n)$ time.
+29. **Subarray Sum:** Find the length of the longest subarray with a sum equal to K.
+30. **Deep Copy:** Implement a method to deep copy a complex object graph with circular references.
+
+---
+
+### 4. Spring Boot & Microservices Logic
+
+31. **Custom Validator:** Write a custom Spring Boot Validation Annotation (e.g., `@ValidPassword`).
+32. **Circuit Breaker Logic:** Write a pseudo-code implementation of a fallback method using Resilience4j.
+33. **Entity Mapping:** Write the JPA entity mapping for a `Many-to-Many` relationship between `Student` and `Course`.
+34. **DTO Conversion:** Write a generic method to convert an Entity to a DTO using Reflection or MapStruct logic.
+35. **Feign Client:** Define a Feign Client interface to consume a specific REST endpoint.
+36. **Interceptors:** Implement a `HandlerInterceptor` to log the execution time of every incoming REST request.
+37. **Conditional Bean:** Write a Spring `@Configuration` class that creates a Bean only if a
+    specific environment variable is present.
+38. **Aspect-Oriented Programming (AOP):** Create an `@Around` aspect to log arguments and return
+    values of all methods in the `@Service` layer.
+39. **Batch Processing:** Write a basic Spring Batch Tasklet to move files from one directory to another.
+40. **Pagination:** Implement a Controller method that accepts `Pageable` and returns a `Page<User>`
+    from a JPA repository.
+
+---
+
+### 5. Design Patterns & Best Practices
+
+41. **Strategy Pattern:** Implement a payment system that supports Credit Card, PayPal, and Bitcoin
+    using the Strategy pattern.
+42. **Factory Pattern:** Create a `NotificationFactory` that returns either an `EmailNotification` or
+    `SMSNotification` based on input.
+43. **Observer Pattern:** Implement a simple Event Bus where multiple listeners react to a "UserRegistered" event.
+44. **Decorator Pattern:** Wrap a `DataSource` to add logging functionality without modifying the original class.
+45. **Adapter Pattern:** Write an adapter to make a legacy `XMLLogger` work with a new `JSONLogger` interface.
+46. **Builder Pattern:** Create a `Computer` class with multiple optional parameters using the Fluent Builder pattern.
+47. **Template Method:** Implement a "Data Parser" where the steps (Open, Parse, Close) are defined,
+    but the "Parse" logic varies for CSV vs JSON.
+48. **Proxy Pattern:** Implement a Dynamic Proxy to track the execution time of any interface method.
+49. **Immutable Class:** Create a truly immutable class containing a `java.util.Date`
+    field (remember defensive copying!).
+50. **Dependency Injection:** Write a simple manual Dependency Injection container
+    using Reflection to instantiate and inject fields marked with a custom `@Inject` annotation.

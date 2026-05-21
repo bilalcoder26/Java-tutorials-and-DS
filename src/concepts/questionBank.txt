@@ -1,0 +1,76 @@
+
+
+## 1. Core Java & JVM Internals (The Foundation)
+
+1. **[Previous]** How do you identify and resolve a memory leak in a production application?
+    (Heap Dumps, MAT tool, Static collections).
+2. **What is the Java Memory Model (JMM) and why is it important for multithreading?**
+3. **Explain the difference between G1GC and ZGC.** When would you choose one over the other?
+4. **How does a `HashMap` work internally in Java 8?** Explain the transition from LinkedList
+    to balanced trees (Red-Black trees).
+5. **What is the difference between `volatile` and `synchronized`?** Mention the happens-before relationship.
+6. **How does `CompletableFuture` differ from `Future`?** How do you handle exceptions in a chain?
+7. **Explain the "Diamond Problem" in Java.** How do default methods in interfaces address or complicate this?
+8. **What is the difference between `fail-fast` and `fail-safe` iterators?**
+    Provide examples from the `util` vs `concurrent` packages.
+9. **How do you prevent a deadlock in Java?** Explain the circular wait condition.
+10. **What are `ThreadLocal` variables and when should they be avoided?**
+    (Commonly used for Trace IDs but can cause leaks in thread pools).
+11. **Explain the difference between `String`, `StringBuilder`, and `StringBuffer**`
+    in terms of memory and thread safety.
+12. **What is the role of `ClassLoader` in Java?** Explain the delegation hierarchy.
+13. **How do you implement a custom Annotation in Java?**
+14. **What is the purpose of `Method Handles` compared to standard Reflection?**
+15. **Explain Java 17 Records.** How do they change the way we write DTOs?
+
+---
+
+## 2. Spring Framework & Spring Boot (The Engine)
+
+16. **[Previous]** Explain the Proxy Pattern and internal method calls with `@Transactional`.
+17. **How does Spring Boot's Auto-configuration work?** Explain `@ConditionalOnProperty` and `spring.factories`.
+18. **What is the difference between `@Component`, `@Service`, and `@Repository`?** Why use the specialized ones?
+19. **Explain the Bean Lifecycle.** What are `BeanPostProcessors`?
+20. **How do you handle Circular Dependencies in Spring?** (Setter injection vs. `@Lazy`).
+21. **What is the difference between Bean Scopes?** (Singleton, Prototype, Request, Session).
+22. **How does `@RestControllerAdvice` work for global exception handling?**
+23. **What is the "Context Hierarchy" in Spring?** (Parent context vs. Child context).
+24. **How do you secure a Spring Boot app using JWT and OAuth2?**
+25. **Explain Spring Boot Actuator.** Which endpoints are critical for production monitoring?
+26. **How do you use Spring Profiles for environment-specific configurations?**
+27. **What is the difference between `Liveness` and `Readiness` probes** in a Spring Boot application?
+28. **How do you implement Caching in Spring Boot using Redis?**
+29. **What is the purpose of `@Async`?** How do you configure the Executor for it?
+30. **How does Spring Data JPA handle "N+1 Select" problems?** (Explain `@EntityGraph` and Join Fetching).
+
+---
+
+## 3. Microservices Architecture (The System)
+
+31. **[Previous]** How do you prevent "Cascading Failures"? (Circuit Breaker, Resilience4j).
+32. **[Previous]** How do you maintain data consistency without 2PC? (Saga Pattern: Orchestration vs. Choreography).
+33. **[Previous]** API Gateway vs. Load Balancer. What are the specific roles of each?
+34. **How do you implement Service Discovery?** Explain the role of Eureka or Consul.
+35. **What is the Sidecar Pattern?** How is it used in Service Meshes like Istio?
+36. **Explain the "Database Per Service" pattern.** What are the pros and cons?
+37. **How do you handle Distributed Logging?** (ELK Stack, Sleuth/Brave Trace IDs).
+38. **What is "Event Sourcing" and "CQRS"?** When should they be used together?
+39. **How do you design Idempotent APIs?** Why is it critical for retries?
+40. **What is the "Backends for Frontends" (BFF) pattern?**
+41. **How do you handle secrets (Passwords, API keys) in Microservices?** (Vault, Config Server).
+42. **What is Contract Testing?** Explain how tools like PACT work.
+43. **How do you achieve Zero-Downtime deployment?** (Blue-Green vs. Canary deployments).
+44. **Explain the Bulkhead Pattern.** How does it isolate service failures?
+45. **How do you handle "Dual Writes" in a distributed system?** (The Outbox Pattern).
+
+---
+
+## 4. Databases & Messaging (The State)
+
+46. **What is the difference between Optimistic and Pessimistic locking** in JPA/Hibernate?
+47. **How does Kafka guarantee message ordering?** (Partitions and Keys).
+48. **When would you use RabbitMQ over Kafka?** (Complex routing vs. Log-based streaming).
+49. **Explain Database Isolation Levels.** Which one is the default for MySQL/PostgreSQL?
+50. **What is Sharding vs. Partitioning?** How do you scale a database horizontally?
+
+---
