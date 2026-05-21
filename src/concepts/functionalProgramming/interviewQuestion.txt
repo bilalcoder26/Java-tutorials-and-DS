@@ -1,0 +1,689 @@
+
+1-->  What is functional programming?
+**Answer:**
+> "Functional programming is a programming style where we treat functions as first-class citizens.
+In Java, it means we can pass behaviors (functions) as arguments, return them, and store them in variables.
+It focuses on *what* to do rather than *how* to do it, and avoids changing state."
+
+**Example comparing traditional vs functional:**
+
+> **Traditional (Imperative) way:**
+> List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+> for (String name : names) {
+>     if (name.startsWith("A")) {
+>         System.out.println(name);
+>     }
+> }
+
+> **Functional way (Java 8+):**
+> List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+> names.stream()
+>      .filter(name -> name.startsWith("A"))
+>      .forEach(System.out::println);
+
+**Key features in Java:**
+> - **Lambda expressions** – `(x, y) -> x + y`
+> - **Method references** – `System.out::println`
+> - **Stream API** – `filter()`, `map()`, `reduce()`
+> - **Functional interfaces** – `Predicate`, `Function`, `Consumer`
+
+**Benefits:**
+> - Code is shorter and more readable
+> - Less bugs (no mutable state)
+> - Easy to parallelize code
+> - Easier to test
+
+**Short version for interview:**
+> "Functional programming treats functions as values. In Java, we achieve it using lambda expressions,
+Stream API, and functional interfaces. It helps write cleaner, more readable code that is easy to parallelize."
+
+----------------------------------------------------------------------------------------------------
+
+2--> Can you give an example of functional programming?
+
+**Answer:**
+> "Here is a simple example that processes a list of numbers using functional programming in Java."
+
+**Example:**
+> import java.util.Arrays;
+> import java.util.List;
+> import java.util.stream.Collectors;
+>
+> public class FunctionalExample {
+>     public static void main(String[] args) {
+>         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+>
+>         // Functional approach
+>         List<Integer> result = numbers.stream()
+>             .filter(n -> n % 2 == 0)      // keep only even numbers
+>             .map(n -> n * 2)               // multiply each by 2
+>             .collect(Collectors.toList()); // collect into list
+>
+>         System.out.println(result);  // Output: [4, 8, 12, 16, 20]
+>     }
+> }
+
+**Without functional programming (traditional way):**
+> List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+> List<Integer> result = new ArrayList<>();
+>
+> for (Integer n : numbers) {
+>     if (n % 2 == 0) {
+>         result.add(n * 2);
+>     }
+> }
+> System.out.println(result);  // Output: [4, 8, 12, 16, 20]
+
+**Another example with strings:**
+> List<String> names = Arrays.asList("John", "Alice", "Bob", "Anna");
+>
+> // Find names starting with 'A' and convert to uppercase
+> List<String> result = names.stream()
+>     .filter(name -> name.startsWith("A"))
+>     .map(String::toUpperCase)
+>     .collect(Collectors.toList());
+>
+> System.out.println(result);  // Output: [ALICE, ANNA]
+
+**Short version for interview:**
+> "Example: `numbers.stream().filter(n -> n > 5).map(n -> n * 2).collect(Collectors.toList())`
+– this filters numbers greater than 5, doubles them, and collects results.
+No loops, no temporary variables, very readable."
+
+----------------------------------------------------------------------------------------------------
+
+3-->What is a stream?
+
+**Answer:**
+> "A stream in Java is a sequence of data that can be processed in a functional way.
+It allows us to perform operations like filtering, mapping, and collecting on collections
+without modifying the original data."
+
+**Example:**
+> List<String> names = Arrays.asList("John", "Alice", "Bob", "Anna");
+>
+> // Using stream to process data
+> names.stream()
+>      .filter(name -> name.startsWith("A"))
+>      .forEach(System.out::println);
+>
+> // Output: Alice, Anna
+
+**Key points about streams:**
+> - Does not change the original collection
+> - Can be processed in parallel (`parallelStream()`)
+> - Can be used only once (cannot reuse)
+> - Uses lazy evaluation (processes only when needed)
+
+**Short version for interview:**
+> "A stream is a sequence of data that supports functional operations like filter, map, and collect.
+It processes data without modifying the source."
+----------------------------------------------------------------------------------------------------
+
+4--> what are intermediate operations in streams?
+
+**Answer:**
+> "Intermediate operations are stream operations that transform one stream into another stream.
+They are **lazy** — they don't run until a terminal operation is called. They can be chained together."
+
+**Example:**
+> List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+>
+> numbers.stream()
+>     .filter(n -> n > 2)        // intermediate (filtering)
+>     .map(n -> n * 2)           // intermediate (transforming)
+>     .limit(3)                  // intermediate (limiting)
+>     .forEach(System.out::println);  // terminal operation - runs now
+>
+> // Output: 6, 8, 10
+
+**Common intermediate operations:**
+
+| Operation | What it does |
+|-----------|--------------|
+| `filter()` | Keeps only elements that match a condition |
+| `map()` | Transforms each element |
+| `limit(n)` | Limits to first n elements |
+| `skip(n)` | Skips first n elements |
+| `distinct()` | Removes duplicates |
+| `sorted()` | Sorts the elements |
+| `peek()` | Performs action on each element (for debugging) |
+
+**Lazy behavior example:**
+> numbers.stream()
+>     .filter(n -> {
+>         System.out.println("Filtering: " + n);
+>         return n > 2;
+>     })
+>     .map(n -> {
+>         System.out.println("Mapping: " + n);
+>         return n * 2;
+>     });
+>
+> // NOTHING PRINTS! No terminal operation, so no processing.
+
+**Short version for interview:**
+> "Intermediate operations transform a stream into another stream.
+They are lazy and don't run until a terminal operation is called. Examples: `filter()`, `map()`, `limit()`,
+ `sorted()`, `distinct()`."
+
+----------------------------------------------------------------------------------------------------
+
+4--> What are terminal operations in streams?
+**Answer:**
+> "Terminal operations are stream operations that produce a result or side effect.
+    They trigger the processing of the stream and close it. After a terminal operation, the stream cannot be reused."
+
+**Example:**
+> List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+>
+> // Terminal operations
+> numbers.stream()
+>     .filter(n -> n > 2)
+>     .forEach(System.out::println);  // forEach is terminal
+>
+> long count = numbers.stream()
+>     .filter(n -> n > 2)
+>     .count();  // count is terminal
+>
+> List<Integer> result = numbers.stream()
+>     .filter(n -> n > 2)
+>     .collect(Collectors.toList());  // collect is terminal
+
+**Common terminal operations:**
+
+| Operation | What it does | Returns |
+|-----------|--------------|---------|
+| `forEach()` | Performs action on each element | void |
+| `count()` | Returns number of elements | long |
+| `collect()` | Collects elements into a collection | Collection/List/Set |
+| `reduce()` | Combines elements to a single value | Optional |
+| `anyMatch()` | Checks if any element matches | boolean |
+| `allMatch()` | Checks if all elements match | boolean |
+| `noneMatch()` | Checks if no element matches | boolean |
+| `findFirst()` | Returns first element | Optional |
+| `findAny()` | Returns any element | Optional |
+| `min()` / `max()` | Returns min or max element | Optional |
+
+**Complete example:**
+> List<Integer> numbers = Arrays.asList(3, 1, 4, 1, 5, 9);
+>
+> // Terminal: collect
+> List<Integer> filtered = numbers.stream()
+>     .filter(n -> n > 3)
+>     .collect(Collectors.toList());
+> System.out.println(filtered);  // [4, 5, 9]
+>
+> // Terminal: count
+> long total = numbers.stream()
+>     .filter(n -> n > 3)
+>     .count();
+> System.out.println(total);  // 3
+>
+> // Terminal: reduce
+> int sum = numbers.stream()
+>     .reduce(0, (a, b) -> a + b);
+> System.out.println(sum);  // 23
+>
+> // Terminal: anyMatch
+> boolean hasFive = numbers.stream()
+>     .anyMatch(n -> n == 5);
+> System.out.println(hasFive);  // true
+> ```
+
+**Short version for interview:**
+> "Terminal operations trigger stream processing and produce a result or side effect.
+After calling them, the stream is consumed and cannot be reused. Examples: `forEach()`, `count()`,
+`collect()`, `reduce()`, `anyMatch()`, `findFirst()`."
+
+
+----------------------------------------------------------------------------------------------------
+5--> What are method references?
+
+**Answer:**
+> "Method references are a shorthand notation for lambda expressions.
+They let us refer to an existing method by name instead of writing the full lambda. They use the `::` operator."
+
+**Example comparing lambda vs method reference:**
+> List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+>
+> // Using lambda
+> names.forEach(name -> System.out.println(name));
+>
+> // Using method reference (shorter)
+> names.forEach(System.out::println);
+
+**Four types of method references:**
+
+| Type | Syntax | Example |
+|------|--------|---------|
+| Static method | `ClassName::staticMethod` | `Math::max` |
+| Instance method of specific object | `object::instanceMethod` | `list::add` |
+| Instance method of any object | `ClassName::instanceMethod` | `String::toUpperCase` |
+| Constructor | `ClassName::new` | `ArrayList::new` |
+
+**Examples:**
+> // 1. Static method reference
+> List<Integer> numbers = Arrays.asList(1, 2, 3);
+> numbers.stream()
+>     .map(Math::sqrt)  // instead of n -> Math.sqrt(n)
+>     .forEach(System.out::println);
+>
+> // 2. Instance method of specific object
+> PrintStream printer = System.out;
+> names.forEach(printer::println);  // instead of n -> printer.println(n)
+>
+> // 3. Instance method of any object
+> List<String> upper = names.stream()
+>     .map(String::toUpperCase)  // instead of s -> s.toUpperCase()
+>     .collect(Collectors.toList());
+>
+> // 4. Constructor reference
+> Supplier<List<String>> supplier = ArrayList::new;  // instead of () -> new ArrayList()
+> List<String> newList = supplier.get();
+
+**When to use method references:**
+> - When a lambda expression simply calls an existing method
+> - Makes code shorter and more readable
+
+**Short version for interview:**
+> "Method references are a compact way to write lambdas when you're just calling an existing method.
+They use `::`. Example: `System.out::println` instead of `x -> System.out.println(x)`."
+----------------------------------------------------------------------------------------------------
+6-->  What are lambda expressions?
+**Answer:**
+> "A lambda expression is a short, anonymous function that can be passed as an argument to methods.
+It allows us to write functional code without creating a separate class or method."
+
+**Basic syntax:**
+> `(parameters) -> expression` or `(parameters) -> { statements; }`
+
+**Examples:**
+> // 1. No parameter
+> Runnable r = () -> System.out.println("Hello");
+>
+> // 2. One parameter
+> Consumer<String> c = name -> System.out.println(name);
+>
+> // 3. Two or more parameters
+> Comparator<Integer> comp = (a, b) -> a - b;
+>
+> // 4. Multiple lines (with curly braces)
+> Calculator add = (x, y) -> {
+>     int result = x + y;
+>     return result;
+> };
+
+**Real-world example:**
+
+> List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+>
+> // Without lambda
+> names.sort(new Comparator<String>() {
+>     public int compare(String a, String b) {
+>         return a.compareTo(b);
+>     }
+> });
+>
+> // With lambda (much shorter)
+> names.sort((a, b) -> a.compareTo(b));
+>
+> // Even shorter
+> names.sort(String::compareTo);
+
+**Common functional interfaces (target types for lambdas):**
+
+| Interface | Method | Lambda example |
+|-----------|--------|----------------|
+| `Runnable` | `run()` | `() -> System.out.println("Hi")` |
+| `Consumer<T>` | `accept(t)` | `name -> System.out.println(name)` |
+| `Supplier<T>` | `get()` | `() -> new ArrayList()` |
+| `Function<T,R>` | `apply(t)` | `s -> s.length()` |
+| `Predicate<T>` | `test(t)` | `n -> n > 10` |
+
+**Example with Predicate:**
+> List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+>
+> numbers.stream()
+>     .filter(n -> n > 2)        // lambda as Predicate
+>     .map(n -> n * 2)           // lambda as Function
+>     .forEach(n -> System.out.println(n));  // lambda as Consumer
+
+**Short version for interview:**
+> "A lambda expression is a short way to write an anonymous function.
+Syntax: `(param) -> expression`. Example: `(x, y) -> x + y`.
+It is used to implement functional interfaces like `Predicate`, `Consumer`, and `Function`."
+
+----------------------------------------------------------------------------------------------------
+6--> Can you explain the relationship between lambda expression and functional interfaces?
+**Answer:**
+> "A lambda expression can only be used with a functional interface. The lambda provides the implementation
+for the single abstract method of that functional interface."
+
+**Simple relationship:**
+> - **Functional interface** = Interface with exactly one abstract method
+> - **Lambda expression** = Short way to implement that method
+> - The lambda's parameters and return type must match the abstract method
+
+**Example to show the relationship:**
+> // Step 1: Functional interface (one abstract method)
+> interface Calculator {
+>     int calculate(int a, int b);  // single abstract method
+> }
+>
+> // Step 2: Lambda provides implementation for that method
+> Calculator add = (a, b) -> a + b;
+>
+> // Step 3: Using the lambda
+> int result = add.calculate(5, 3);  // result = 8
+
+**Without lambda (traditional way):**
+> // Need to create an anonymous class to implement the interface
+> Calculator add = new Calculator() {
+>     public int calculate(int a, int b) {
+>         return a + b;
+>     }
+> };
+
+**Common built-in functional interfaces in Java:**
+
+| Functional Interface | Abstract Method | Lambda Example |
+|---------------------|-----------------|----------------|
+| `Predicate<T>` | `test(T t)` -> boolean | `n -> n > 5` |
+| `Consumer<T>` | `accept(T t)` -> void | `s -> System.out.println(s)` |
+| `Function<T,R>` | `apply(T t)` -> R | `s -> s.length()` |
+| `Supplier<T>` | `get()` -> T | `() -> new ArrayList()` |
+| `Runnable` | `run()` -> void | `() -> System.out.println("Hi")` |
+
+**Example showing how compiler matches lambda to functional interface:**
+> // Predicate has method: boolean test(Integer n)
+> Predicate<Integer> isEven = (Integer n) -> n % 2 == 0;
+>
+> // Compiler infers types
+> Predicate<Integer> isEven = n -> n % 2 == 0;
+>
+> // Using it
+> boolean result = isEven.test(4);  // true
+
+**Short version for interview:**
+> "A lambda expression provides the implementation for the single abstract method of a functional interface.
+You can only use a lambda where a functional interface is expected.
+For example, `Predicate<Integer> p = n -> n > 5` — the lambda implements the `test()` method of `Predicate`."
+
+----------------------------------------------------------------------------------------------------
+7--> What is a predicate?
+
+**Answer:**
+> "A `Predicate` is a built-in functional interface in Java that represents a condition.
+It has a method `test()` that takes one argument and returns a `boolean` (true or false)."
+
+**Syntax:**
+> Predicate<T> predicate = (value) -> condition;
+
+**Example:**
+> import java.util.function.Predicate;
+>
+> public class PredicateExample {
+>     public static void main(String[] args) {
+>         // Predicate to check if number is greater than 10
+>         Predicate<Integer> isGreaterThan10 = n -> n > 10;
+>
+>         System.out.println(isGreaterThan10.test(15));  // true
+>         System.out.println(isGreaterThan10.test(5));   // false
+>
+>         // Predicate to check if string is empty
+>         Predicate<String> isEmpty = s -> s.isEmpty();
+>
+>         System.out.println(isEmpty.test(""));        // true
+>         System.out.println(isEmpty.test("Hello"));   // false
+>     }
+> }
+
+**Using Predicate with streams:**
+
+> List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+>
+> // Using Predicate in filter()
+> Predicate<Integer> isEven = n -> n % 2 == 0;
+>
+> numbers.stream()
+>     .filter(isEven)          // pass the predicate
+>     .forEach(System.out::println);  // Output: 2, 4, 6
+
+**Combining multiple predicates:**
+
+> Predicate<Integer> greaterThan3 = n -> n > 3;
+> Predicate<Integer> lessThan8 = n -> n < 8;
+>
+> // Combine with and(), or(), negate()
+> Predicate<Integer> between = greaterThan3.and(lessThan8);
+>
+> System.out.println(between.test(5));  // true
+> System.out.println(between.test(2));  // false
+> System.out.println(between.test(9));  // false
+
+**Short version for interview:**
+> "`Predicate` is a functional interface that tests a condition and returns true or false.
+It has one method `test()`. It is commonly used in `filter()` method of streams.
+Example: `Predicate<Integer> p = n -> n > 5;`"
+
+----------------------------------------------------------------------------------------------------
+
+8-->  What is the functional interface - function?
+**Answer:**
+> "`Function` is a built-in functional interface in Java that takes one input and produces one output.
+It has a method `apply()` that transforms a value from type `T` to type `R`."
+
+**Syntax:**
+> Function<T, R> function = (input) -> output;
+> - `T` = input type
+> - `R` = output (result) type
+
+**Example:**
+> import java.util.function.Function;
+>
+> public class FunctionExample {
+>     public static void main(String[] args) {
+>         // Function to convert String to its length
+>         Function<String, Integer> getLength = s -> s.length();
+>
+>         System.out.println(getLength.apply("Hello"));    // 5
+>         System.out.println(getLength.apply("Java"));     // 4
+>
+>         // Function to convert Integer to String
+>         Function<Integer, String> toString = n -> "Number: " + n;
+>
+>         System.out.println(toString.apply(10));  // Number: 10
+>     }
+> }
+
+**Using Function with streams (map):**
+> List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+>
+> // Function to get length of each name
+> Function<String, Integer> lengthFunc = s -> s.length();
+>
+> List<Integer> lengths = names.stream()
+>     .map(lengthFunc)           // apply function to each element
+>     .collect(Collectors.toList());
+>
+> System.out.println(lengths);  // [5, 3, 7]
+
+**Chaining functions:**
+> Function<String, Integer> getLength = s -> s.length();
+> Function<Integer, Integer> doubleIt = n -> n * 2;
+>
+> // Chain: get length then double it
+> Function<String, Integer> doubleLength = getLength.andThen(doubleIt);
+>
+> System.out.println(doubleLength.apply("Hello"));  // 5 * 2 = 10
+
+**Difference between Predicate and Function:**
+
+| Interface | Method | Returns | Use case |
+|-----------|--------|---------|----------|
+| `Predicate<T>` | `test(T)` | `boolean` | Condition checking |
+| `Function<T,R>` | `apply(T)` | `R` (any type) | Transformation |
+
+**Short version for interview:**
+> "`Function` is a functional interface that takes one input and returns one output.
+It has a method `apply()`. It is commonly used in `map()` method of streams.
+Example: `Function<String, Integer> f = s -> s.length();`"
+
+----------------------------------------------------------------------------------------------------
+
+8--> What is a consumer?
+**Answer:**
+> "`Consumer` is a built-in functional interface in Java that takes one input and returns no result (void).
+It has a method `accept()` that performs an action on the input."
+
+**Syntax:**
+> Consumer<T> consumer = (input) -> { action; };
+
+**Example:**
+> import java.util.function.Consumer;
+>
+> public class ConsumerExample {
+>     public static void main(String[] args) {
+>         // Consumer to print a string
+>         Consumer<String> printer = s -> System.out.println(s);
+>
+>         printer.accept("Hello");  // Output: Hello
+>         printer.accept("World");  // Output: World
+>
+>         // Consumer to modify an object
+>         Consumer<StringBuilder> appender = sb -> sb.append(" World");
+>
+>         StringBuilder sb = new StringBuilder("Hello");
+>         appender.accept(sb);
+>         System.out.println(sb);  // Output: Hello World
+>     }
+> }
+
+**Using Consumer with streams (forEach):**
+> List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+>
+> // Consumer to print each name
+> Consumer<String> printName = n -> System.out.println(n);
+>
+> names.stream()
+>     .forEach(printName);  // Output: Alice Bob Charlie
+>
+> // Or shorter
+> names.forEach(n -> System.out.println(n));
+
+**Chaining consumers with andThen():**
+> Consumer<String> print = s -> System.out.print("Print: " + s);
+> Consumer<String> save = s -> System.out.println(" | Save: " + s);
+>
+> Consumer<String> printAndSave = print.andThen(save);
+>
+> printAndSave.accept("Data");
+> // Output: Print: Data | Save: Data
+
+**Comparison of common functional interfaces:**
+
+| Interface | Method | Input | Output | Common use |
+|-----------|--------|-------|--------|------------|
+| `Predicate<T>` | `test()` | Yes | boolean | Filtering |
+| `Function<T,R>` | `apply()` | Yes | Yes | Transformation |
+| `Consumer<T>` | `accept()` | Yes | void | Action |
+| `Supplier<T>` | `get()` | No | Yes | Create/Provide |
+
+**Short version for interview:**
+> "`Consumer` is a functional interface that takes one input and returns no result (void).
+It has a method `accept()`. It is commonly used in `forEach()` method.
+Example: `Consumer<String> c = s -> System.out.println(s);`"
+----------------------------------------------------------------------------------------------------
+9-->  Can you give examples of functional interfaces with multiple arguments?
+
+**Answer:**
+> "Yes, Java provides functional interfaces for multiple arguments: `BiPredicate`, `BiFunction`, and `BiConsumer`
+for two arguments. For more than two, we need to create custom functional interfaces."
+
+---
+
+### 1. BiPredicate (2 arguments, returns boolean)
+
+> BiPredicate<Integer, Integer> isSumGreaterThan10 = (a, b) -> (a + b) > 10;
+>
+> System.out.println(isSumGreaterThan10.test(5, 6));   // true (11 > 10)
+> System.out.println(isSumGreaterThan10.test(3, 4));   // false (7 > 10)
+
+---
+
+### 2. BiFunction (2 arguments, returns result)
+
+> BiFunction<Integer, Integer, String> addAndFormat = (a, b) -> "Sum is: " + (a + b);
+>
+> String result = addAndFormat.apply(10, 20);
+> System.out.println(result);  // Sum is: 30
+
+---
+
+### 3. BiConsumer (2 arguments, returns void)
+
+> BiConsumer<String, Integer> printDetails = (name, age) ->
+>     System.out.println(name + " is " + age + " years old");
+>
+> printDetails.accept("John", 25);  // John is 25 years old
+
+---
+
+### Real-world example with streams:
+
+> import java.util.function.BiFunction;
+>
+> public class MultiArgExample {
+>     public static void main(String[] args) {
+>         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+>
+>         // BiFunction to add two numbers
+>         BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+>
+>         // Using reduce with BiFunction
+>         int sum = numbers.stream()
+>             .reduce(0, add::apply);
+>
+>         System.out.println(sum);  // 15
+>     }
+> }
+
+---
+
+### Custom functional interface for 3 arguments:
+
+> // Custom functional interface with 3 arguments
+> @FunctionalInterface
+> interface TriFunction<T, U, V, R> {
+>     R apply(T t, U u, V v);
+> }
+>
+> public class Test {
+>     public static void main(String[] args) {
+>         TriFunction<Integer, Integer, Integer, Integer> sumThree = (a, b, c) -> a + b + c;
+>
+>         int result = sumThree.apply(10, 20, 30);
+>         System.out.println(result);  // 60
+>     }
+> }
+
+---
+
+### Quick summary table:
+
+| Interface | Arguments | Returns | Example |
+|-----------|-----------|---------|---------|
+| `BiPredicate<T,U>` | 2 | boolean | `(a, b) -> a > b` |
+| `BiFunction<T,U,R>` | 2 | R | `(a, b) -> a + b` |
+| `BiConsumer<T,U>` | 2 | void | `(a, b) -> System.out.println(a + b)` |
+| `TriFunction` (custom) | 3 | R | `(a, b, c) -> a + b + c` |
+
+---
+
+**Short version for interview:**
+> "Yes, Java provides `BiPredicate`, `BiFunction`, and `BiConsumer` for two arguments.
+Example: `BiFunction<Integer,Integer,Integer> add = (a,b) -> a + b;` For more than two arguments,
+we need to create a custom functional interface."
+----------------------------------------------------------------------------------------------------
+

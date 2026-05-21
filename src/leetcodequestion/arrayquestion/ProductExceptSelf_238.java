@@ -99,7 +99,7 @@ public class ProductExceptSelf_238 {
         System.out.println(Arrays.toString(ans2));
 
         int[] ans3 = productExceptSelf(new int[]{1,2,3,4});
-        System.out.println(Arrays.toString(ans3));
+        System.out.println("ans3" + Arrays.toString(ans3));
 
 
     }

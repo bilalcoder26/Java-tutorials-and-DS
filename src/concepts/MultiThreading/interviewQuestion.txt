@@ -1,0 +1,1222 @@
+1--> What is the need for threads in Java?
+**Answer:**
+> "Threads allow a program to do multiple tasks at the same time.
+This makes the program faster and more responsive, especially when one task is waiting
+ (like file loading or network call)."
+
+**Example:**
+> "For example, in a chat application, one thread can send messages while another thread
+receives messages at the same time."
+
+----------------------------------------------------------------------------------------------------
+2--> How do you create a thread?
+**Answer:**
+> "There are two ways to create a thread in Java: first, by extending the `Thread` class;
+second, by implementing the `Runnable` interface."
+
+**Example 1: Extending Thread class**
+
+> class MyThread extends Thread {
+>     public void run() {
+>         System.out.println("Thread is running");
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         MyThread t = new MyThread();
+>         t.start();  // starts the thread
+>     }
+> }
+
+**Example 2: Implementing Runnable interface (preferred)**
+
+> class MyRunnable implements Runnable {
+>     public void run() {
+>         System.out.println("Thread is running");
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Thread t = new Thread(new MyRunnable());
+>         t.start();
+>     }
+> }
+
+**Short version for interview:**
+> "Either extend `Thread` class and override `run()`, or implement `Runnable`
+interface and pass it to a `Thread` object. Then call `start()`. The `Runnable` way is better because
+Java doesn't support multiple inheritance."
+
+----------------------------------------------------------------------------------------------------
+
+3--> What are the different states of a thread?
+
+**Answer:**
+> "A thread has six states: NEW, RUNNABLE, RUNNING (not an official state, often grouped with RUNNABLE),
+BLOCKED, WAITING, TIMED_WAITING, and TERMINATED."
+
+*(In Java official documentation, there are 6 thread states:
+NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED)*
+
+**Example with simple explanation:**
+
+> Thread t = new Thread(() -> {});
+> System.out.println(t.getState()); // NEW - created but not started
+>
+> t.start();
+> System.out.println(t.getState()); // RUNNABLE - ready to run or running
+>
+> // When thread is waiting for lock - BLOCKED
+> // When thread calls wait() - WAITING
+> // When thread calls sleep(1000) - TIMED_WAITING
+> // After completion - TERMINATED
+> ```
+
+**Simple table for interview:**
+
+| State | Meaning |
+|-------|---------|
+| **NEW** | Thread created but not started |
+| **RUNNABLE** | Running or ready to run |
+| **BLOCKED** | Waiting for a lock to enter a synchronized block |
+| **WAITING** | Waiting indefinitely for another thread to signal |
+| **TIMED_WAITING** | Waiting for a specific time (sleep, wait with timeout) |
+| **TERMINATED** | Thread finished execution |
+
+**Short version for interview:**
+> "There are six states: NEW (created), RUNNABLE (running/ready), BLOCKED (waiting for lock),
+WAITING (waiting indefinitely), TIMED_WAITING (waiting with time limit), and TERMINATED (finished)."
+
+----------------------------------------------------------------------------------------------------
+
+4--> What is priority of a thread? How do you change the priority of a thread?
+
+**Answer:**
+> "Thread priority tells the thread scheduler how important a thread is. Higher priority threads
+usually get more CPU time. Priority ranges from 1 to 10, where 5 is normal. We change priority
+using the `setPriority()` method."
+
+**Example:**
+
+> class MyThread extends Thread {
+>     public void run() {
+>         System.out.println(Thread.currentThread().getName() + " - Priority: " + Thread.currentThread().getPriority());
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         MyThread t1 = new MyThread();
+>         MyThread t2 = new MyThread();
+>
+>         System.out.println("Default priority: " + t1.getPriority()); // 5
+>
+>         t1.setPriority(Thread.MIN_PRIORITY);  // 1
+>         t2.setPriority(Thread.MAX_PRIORITY);  // 10
+>
+>         t1.start();
+>         t2.start();
+>     }
+> }
+
+**Priority constants in Thread class:**
+> - `Thread.MIN_PRIORITY` = 1
+> - `Thread.NORM_PRIORITY` = 5 (default)
+> - `Thread.MAX_PRIORITY` = 10
+
+**Short version for interview:**
+> "Thread priority is a number from 1 to 10 that suggests the importance of a thread.
+Default is 5. We change it using `setPriority()` method like `thread.setPriority(Thread.MAX_PRIORITY)`."
+
+**Note:**
+> Priority is just a **suggestion** to the scheduler. The actual execution depends on the operating system.
+----------------------------------------------------------------------------------------------------
+
+5--> What is executorservice?
+
+**Answer:**
+> "`ExecutorService` is a framework in Java that manages a pool of threads and executes tasks asynchronously.
+Instead of manually creating and managing threads, we submit tasks to the executor, which handles thread creation,
+ reuse, and management automatically."
+
+**Example:**
+> import java.util.concurrent.ExecutorService;
+> import java.util.concurrent.Executors;
+>
+> class Test {
+>     public static void main(String[] args) {
+>         // Create a thread pool with 3 threads
+>         ExecutorService executor = Executors.newFixedThreadPool(3);
+>
+>         // Submit tasks
+>         for (int i = 1; i <= 5; i++) {
+>             final int taskId = i;
+>             executor.submit(() -> {
+>                 System.out.println("Task " + taskId + " running on thread " + Thread.currentThread().getName());
+>             });
+>         }
+>
+>         executor.shutdown();  // shutdown after tasks complete
+>     }
+> }
+
+**Common methods to create ExecutorService:**
+
+| Method | Description |
+|--------|-------------|
+| `Executors.newFixedThreadPool(5)` | Pool with fixed number of threads |
+| `Executors.newCachedThreadPool()` | Creates threads as needed, reuses idle threads |
+| `Executors.newSingleThreadExecutor()` | Single thread pool |
+| `Executors.newScheduledThreadPool(2)` | For scheduling tasks with delay |
+
+**Short version for interview:**
+> "`ExecutorService` is a thread pool manager. Instead of creating `new Thread()` manually,
+we submit tasks to it. It reuses threads, improves performance, and handles thread lifecycle automatically."
+
+**Key methods to know:**
+> - `submit(task)` - runs a task
+> - `shutdown()` - stops accepting new tasks, finishes existing
+> - `shutdownNow()` - tries to stop all running tasks immediately
+
+----------------------------------------------------------------------------------------------------
+6-->  Can you give an example for executorservice?
+**Answer:**
+> "Here is a simple example of using `ExecutorService` to run multiple tasks using a fixed thread pool."
+
+**Example:**
+> import java.util.concurrent.ExecutorService;
+> import java.util.concurrent.Executors;
+>
+> public class ExecutorServiceExample {
+>     public static void main(String[] args) {
+>         // Create a thread pool with 2 threads
+>         ExecutorService executor = Executors.newFixedThreadPool(2);
+>
+>         // Submit 5 tasks to the executor
+>         for (int i = 1; i <= 5; i++) {
+>             final int taskNumber = i;
+>             executor.submit(() -> {
+>                 System.out.println("Task " + taskNumber + " is running on " + Thread.currentThread().getName());
+>             });
+>         }
+>
+>         // Shutdown the executor
+>         executor.shutdown();
+>     }
+> }
+
+**Output (order may vary):**
+> Task 1 is running on pool-1-thread-1
+> Task 2 is running on pool-1-thread-2
+> Task 3 is running on pool-1-thread-1
+> Task 4 is running on pool-1-thread-2
+> Task 5 is running on pool-1-thread-1
+
+**Short version for interview:**
+> ExecutorService executor = Executors.newFixedThreadPool(3);
+> executor.submit(() -> System.out.println("Task running"));
+> executor.shutdown();
+
+
+----------------------------------------------------------------------------------------------------
+7--> Explain different ways of creating executor services .
+
+**Answer:**
+> "There are four main ways to create `ExecutorService` using the `Executors` factory class:
+fixed thread pool, cached thread pool, single thread pool, and scheduled thread pool."
+
+**Examples of each way:**
+
+**1. Fixed Thread Pool**
+
+> ExecutorService executor = Executors.newFixedThreadPool(5);
+> // Creates a pool with 5 threads. Reuses threads for multiple tasks.
+
+**2. Cached Thread Pool**
+> ExecutorService executor = Executors.newCachedThreadPool();
+> // Creates new threads as needed. Reuses idle threads. Good for many short tasks.
+
+**3. Single Thread Pool**
+> ExecutorService executor = Executors.newSingleThreadExecutor();
+> // Uses only one thread. Tasks run one after another in order.
+
+**4. Scheduled Thread Pool**
+> ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
+> // Used for tasks that need to run with delay or periodically.
+> // Example:
+> executor.schedule(() -> System.out.println("Delayed task"), 5, TimeUnit.SECONDS);
+> executor.scheduleAtFixedRate(() -> System.out.println("Repeating task"), 0, 10, TimeUnit.SECONDS);
+
+**Quick comparison table:**
+
+| Type | Method | Use case |
+|------|--------|----------|
+| Fixed | `newFixedThreadPool(n)` | Known number of threads, reuse for many tasks |
+| Cached | `newCachedThreadPool()` | Many short-lived tasks |
+| Single | `newSingleThreadExecutor()` | Tasks that must run in sequence |
+| Scheduled | `newScheduledThreadPool(n)` | Delayed or repeating tasks |
+
+**Short version for interview:**
+> "Using `Executors` class: `newFixedThreadPool(5)` for fixed threads,
+`newCachedThreadPool()` for dynamic threads, `newSingleThreadExecutor()` for single thread,
+and `newScheduledThreadPool(3)` for delayed or periodic tasks."
+
+
+----------------------------------------------------------------------------------------------------
+
+8--> How do you check whether an executionservice task executed successfully?
+**Answer:**
+> "We can use the `Future` object returned by the `submit()` method. Calling `future.get()`
+returns the result if successful, or throws an exception if the task failed."
+
+**Example:**
+> import java.util.concurrent.ExecutorService;
+> import java.util.concurrent.Executors;
+> import java.util.concurrent.Future;
+>
+> public class CheckTaskSuccess {
+>     public static void main(String[] args) {
+>         ExecutorService executor = Executors.newSingleThreadExecutor();
+>
+>         // Submit a task and capture Future
+>         Future<String> future = executor.submit(() -> {
+>             Thread.sleep(1000);
+>             return "Task completed successfully";
+>         });
+>
+>         try {
+>             // Get the result - waits for task to finish
+>             String result = future.get();
+>             System.out.println("Success: " + result);
+>         } catch (Exception e) {
+>             System.out.println("Task failed: " + e.getMessage());
+>         }
+>
+>         executor.shutdown();
+>     }
+> }
+
+**Other useful Future methods:**
+
+| Method | What it does |
+|--------|--------------|
+| `future.isDone()` | Returns true if task completed (normally or with exception) |
+| `future.isCancelled()` | Returns true if task was cancelled |
+| `future.cancel(true)` | Attempts to cancel the task |
+| `future.get()` | Waits for result. Throws exception if failed |
+
+**Check without waiting:**
+> Future<?> future = executor.submit(() -> {
+>     // task code
+> });
+>
+> if (future.isDone()) {
+>     System.out.println("Task finished");
+> }
+
+**Short version for interview:**
+> "The `submit()` method returns a `Future` object. Call `future.get()` — if it returns successfully,
+the task succeeded. If it throws an exception, the task failed. We can also use `future.isDone()`
+to check if it's finished."
+
+----------------------------------------------------------------------------------------------------
+
+9-->  What is callable? How do you execute a callable from executionservice?
+
+**Answer:**
+> "`Callable` is an interface similar to `Runnable`, but it can return a result and can throw an exception.
+ We execute a `Callable` using `ExecutorService.submit()` which returns a `Future` object to get the result."
+
+**Example:**
+> import java.util.concurrent.Callable;
+> import java.util.concurrent.ExecutorService;
+> import java.util.concurrent.Executors;
+> import java.util.concurrent.Future;
+>
+> public class CallableExample {
+>     public static void main(String[] args) {
+>         ExecutorService executor = Executors.newSingleThreadExecutor();
+>
+>         // Create a Callable task
+>         Callable<Integer> task = () -> {
+>             int sum = 0;
+>             for (int i = 1; i <= 5; i++) {
+>                 sum += i;
+>             }
+>             return sum;  // returns result
+>         };
+>
+>         // Execute Callable using submit()
+>         Future<Integer> future = executor.submit(task);
+>
+>         try {
+>             Integer result = future.get();  // get the result
+>             System.out.println("Sum: " + result);  // Output: Sum: 15
+>         } catch (Exception e) {
+>             e.printStackTrace();
+>         }
+>
+>         executor.shutdown();
+>     }
+> }
+
+**Difference between Runnable and Callable:**
+
+| Feature | Runnable | Callable |
+|---------|----------|----------|
+| Returns result | No (void) | Yes (generic type) |
+| Can throw exception | No | Yes |
+| Method name | `run()` | `call()` |
+| How to execute | `execute()` or `submit()` | `submit()` only |
+
+**Another example with multiple Callables:**
+
+> List<Callable<Integer>> tasks = new ArrayList<>();
+> tasks.add(() -> 10 + 20);
+> tasks.add(() -> 30 + 40);
+>
+> List<Future<Integer>> results = executor.invokeAll(tasks);
+>
+> for (Future<Integer> f : results) {
+>     System.out.println(f.get());
+> }
+> ```
+
+**Short version for interview:**
+> "`Callable` is like `Runnable` but returns a result. We execute it using `executor.submit(callableTask)`,
+which returns a `Future`. Then call `future.get()` to get the result."
+
+----------------------------------------------------------------------------------------------------
+
+10--> What is synchronization of threads?
+
+**Answer:**
+> "Synchronization is a mechanism that controls access to shared resources by multiple threads.
+It ensures that only one thread can access a shared object or method at a time, preventing data corruption."
+
+**Example without synchronization (problem):**
+
+> class Counter {
+>     private int count = 0;
+>
+>     public void increment() {
+>         count++;  // not thread-safe
+>     }
+>
+>     public int getCount() {
+>         return count;
+>     }
+> }
+>
+> // Multiple threads calling increment() can cause wrong results
+
+**Example with synchronization (solution):**
+
+> class Counter {
+>     private int count = 0;
+>
+>     public synchronized void increment() {  // synchronized method
+>         count++;  // only one thread can execute this at a time
+>     }
+>
+>     public synchronized int getCount() {
+>         return count;
+>     }
+> }
+
+**Another way - synchronized block:**
+> class Counter {
+>     private int count = 0;
+>     private final Object lock = new Object();
+>
+>     public void increment() {
+>         synchronized(lock) {  // synchronized block
+>             count++;
+>         }
+>     }
+> }
+
+**Short version for interview:**
+> "Synchronization ensures only one thread accesses a shared resource at a time.
+We use the `synchronized` keyword on methods or blocks. It prevents race conditions and data inconsistency."
+
+**Key points (if asked further):**
+> - Every Java object has an intrinsic lock (monitor)
+> - When a thread enters a synchronized method/block, it acquires the lock
+> - Other threads must wait until the lock is released
+
+----------------------------------------------------------------------------------------------------
+
+11--> . Can you give an example of a synchronized block?
+
+**Answer:**
+> "A `synchronized` block locks only a specific part of the method instead of the whole method.
+This is more efficient because other parts of the method can still run without waiting."
+
+**Example:**
+
+> class BankAccount {
+>     private double balance = 1000;
+>     private final Object lock = new Object();
+>
+>     public void withdraw(double amount) {
+>         System.out.println("Checking balance...");
+>
+>         // Only this part is synchronized
+>         synchronized(lock) {
+>             if (balance >= amount) {
+>                 balance = balance - amount;
+>                 System.out.println("Withdrawn: " + amount);
+>             } else {
+>                 System.out.println("Insufficient balance");
+>             }
+>         }
+>
+>         System.out.println("Transaction complete");
+>     }
+> }
+>
+> // Using the synchronized block
+> class Test {
+>     public static void main(String[] args) {
+>         BankAccount account = new BankAccount();
+>
+>         Runnable task = () -> account.withdraw(600);
+>
+>         Thread t1 = new Thread(task);
+>         Thread t2 = new Thread(task);
+>
+>         t1.start();
+>         t2.start();
+>     }
+> }
+
+**Another example with `this` reference:**
+
+> class Counter {
+>     private int count = 0;
+>
+>     public void increment() {
+>         // Some non-critical code
+>         System.out.println("Before increment");
+>
+>         // Synchronized block using current object
+>         synchronized(this) {
+>             count++;  // critical section
+>         }
+>
+>         // Some non-critical code
+>         System.out.println("After increment");
+>     }
+>
+>     public int getCount() {
+>         return count;
+>     }
+> }
+
+**Short version for interview:**
+
+> synchronized(lockObject) {
+>     // only one thread can execute this block at a time
+> }
+
+**When to use synchronized block:**
+> - When only part of the method needs synchronization (more efficient)
+> - When you want to use a specific object as a lock
+> - When you need to coordinate access to shared resources without locking entire methods
+
+----------------------------------------------------------------------------------------------------
+
+12--> Can a static method be synchronized?
+**Answer:**
+> "Yes, a static method can be synchronized. When a static method is synchronized,
+the lock is on the **class object** (not on the instance). Only one thread can execute any synchronized
+static method of that class at a time."
+
+**Example:**
+
+> class SharedResource {
+>     private static int counter = 0;
+>
+>     // Synchronized static method - locks on SharedResource.class
+>     public static synchronized void increment() {
+>         counter++;
+>         System.out.println(Thread.currentThread().getName() + " - Counter: " + counter);
+>     }
+>
+>     // Regular instance method
+>     public synchronized void instanceMethod() {
+>         // This locks on the instance, not on the class
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         Runnable task = () -> {
+>             for (int i = 0; i < 5; i++) {
+>                 SharedResource.increment();
+>             }
+>         };
+>
+>         Thread t1 = new Thread(task, "Thread-1");
+>         Thread t2 = new Thread(task, "Thread-2");
+>
+>         t1.start();
+>         t2.start();
+>     }
+> }
+> ```
+
+**Key difference:**
+
+| Type | Lock object | What gets locked |
+|------|-------------|------------------|
+| Synchronized instance method | `this` (instance) | Only that instance |
+| Synchronized static method | `ClassName.class` (class) | All instances of that class |
+
+**Synchronized static block equivalent:**
+> ```java
+> class SharedResource {
+>     private static int counter = 0;
+>
+>     public static void increment() {
+>         synchronized(SharedResource.class) {  // lock on class object
+>             counter++;
+>         }
+>     }
+> }
+> ```
+
+**Short version for interview:**
+> "Yes, static methods can be synchronized. The lock is on the **class object** (`ClassName.class`),
+not on an instance. This means only one thread can execute any synchronized static method of that class
+at a time across all instances."
+
+----------------------------------------------------------------------------------------------------
+13--> What is the use of join method in threads?
+
+**Answer:**
+> "The `join()` method makes one thread wait for another thread to finish.
+If thread A calls `threadB.join()`, thread A will pause until thread B completes its execution."
+
+**Example:**
+
+> class Test {
+>     public static void main(String[] args) {
+>         Thread t1 = new Thread(() -> {
+>             for (int i = 1; i <= 3; i++) {
+>                 System.out.println("Thread 1: " + i);
+>                 try { Thread.sleep(500); } catch (InterruptedException e) {}
+>             }
+>         });
+>
+>         Thread t2 = new Thread(() -> {
+>             for (int i = 1; i <= 3; i++) {
+>                 System.out.println("Thread 2: " + i);
+>                 try { Thread.sleep(500); } catch (InterruptedException e) {}
+>             }
+>         });
+>
+>         t1.start();
+>         t2.start();
+>
+>         try {
+>             t1.join();  // Main thread waits for t1 to finish
+>             t2.join();  // Main thread waits for t2 to finish
+>         } catch (InterruptedException e) {}
+>
+>         System.out.println("Both threads finished. Main thread continues.");
+>     }
+> }
+
+**Output:**
+> Thread 1: 1
+> Thread 2: 1
+> Thread 1: 2
+> Thread 2: 2
+> Thread 1: 3
+> Thread 2: 3
+> Both threads finished. Main thread continues.
+
+**Join with timeout:**
+> ```java
+> t1.join(2000);  // Wait for t1, but only for 2 seconds maximum
+> ```
+
+**Short version for interview:**
+> "`join()` makes the current thread wait until another thread dies.
+It's useful when you want to ensure a thread has finished before proceeding.
+For example, `thread.join()` makes the calling thread wait for `thread` to complete."
+
+**Key points:**
+> - `join()` throws `InterruptedException`
+> - Without `join()`, main thread might finish before child threads complete
+> - Use `join()` to coordinate thread execution order
+
+----------------------------------------------------------------------------------------------------
+
+14--> Describe a few other important methods in threads?
+Here are a few other important thread methods in Java:
+
+---
+
+### 1. **sleep()**
+Pauses the current thread for a specified amount of time.
+
+```java
+Thread.sleep(1000);  // pauses for 1 second
+```
+
+---
+
+### 2. **yield()**
+Hints to the scheduler that the current thread is willing to give up CPU time.
+
+```java
+Thread.yield();  // gives hint to scheduler
+```
+
+---
+
+### 3. **interrupt()**
+Interrupts a thread that is sleeping or waiting.
+
+```java
+thread.interrupt();  // interrupts the target thread
+```
+
+---
+
+### 4. **isAlive()**
+Checks if a thread is still running.
+
+```java
+if (thread.isAlive()) {
+    System.out.println("Thread is still running");
+}
+```
+
+---
+
+### 5. **currentThread()**
+Returns a reference to the currently running thread.
+
+```java
+Thread current = Thread.currentThread();
+System.out.println(current.getName());
+```
+
+---
+
+### 6. **setName() / getName()**
+Sets or gets the name of a thread.
+
+```java
+Thread t = new Thread();
+t.setName("MyWorker");
+String name = t.getName();  // returns "MyWorker"
+```
+
+---
+
+### 7. **setDaemon() / isDaemon()**
+Marks a thread as daemon (background thread). Daemon threads don't prevent JVM from exiting.
+
+Thread t = new Thread();
+t.setDaemon(true);  // JVM exits even if this thread is running
+t.start();
+```
+
+---
+
+### Quick Summary Table:
+
+| Method | What it does |
+|--------|--------------|
+| `sleep(ms)` | Pauses current thread for given milliseconds |
+| `yield()` | Suggests scheduler to run other threads |
+| `interrupt()` | Interrupts a waiting/sleeping thread |
+| `isAlive()` | Checks if thread is still running |
+| `currentThread()` | Returns current thread object |
+| `setName()` / `getName()` | Changes or reads thread name |
+| `setDaemon(true)` | Makes thread a background thread |
+
+---
+
+**Short version for interview:**
+> "Important methods: `sleep()` to pause, `yield()` to give up CPU, `interrupt()` to break waiting,
+`isAlive()` to check status, `currentThread()` to get current thread, and `setDaemon()`
+to create background threads."
+
+----------------------------------------------------------------------------------------------------
+15-->  What is a deadlock?
+**Answer:**
+> "Deadlock is a situation where two or more threads are blocked forever, each waiting for a lock
+that the other thread holds. Neither thread can proceed because each is waiting for the other
+to release its lock."
+
+**Example:**
+> class DeadlockExample {
+>     private static final Object lock1 = new Object();
+>     private static final Object lock2 = new Object();
+>
+>     public static void main(String[] args) {
+>         // Thread 1
+>         Thread t1 = new Thread(() -> {
+>             synchronized(lock1) {
+>                 System.out.println("Thread 1: Holding lock1...");
+>                 try { Thread.sleep(100); } catch (InterruptedException e) {}
+>
+>                 synchronized(lock2) {
+>                     System.out.println("Thread 1: Acquired lock2!");
+>                 }
+>             }
+>         });
+>
+>         // Thread 2
+>         Thread t2 = new Thread(() -> {
+>             synchronized(lock2) {
+>                 System.out.println("Thread 2: Holding lock2...");
+>                 try { Thread.sleep(100); } catch (InterruptedException e) {}
+>
+>                 synchronized(lock1) {
+>                     System.out.println("Thread 2: Acquired lock1!");
+>                 }
+>             }
+>         });
+>
+>         t1.start();
+>         t2.start();
+>     }
+> }
+
+**Output (deadlock happens):**
+> Thread 1: Holding lock1...
+> Thread 2: Holding lock2...
+> (program hangs forever)
+
+**Visual explanation:**
+> ```
+> Thread 1 holds lock1 → waiting for lock2
+> Thread 2 holds lock2 → waiting for lock1
+> Both are waiting forever → DEADLOCK
+> ```
+
+**How to prevent deadlock:**
+> - Always acquire locks in the same order
+> - Use `tryLock()` with timeout
+> - Avoid nested synchronized blocks
+> - Use higher-level concurrency utilities
+
+**Short version for interview:**
+> "Deadlock happens when two or more threads are each waiting for a lock that the other holds.
+Neither can proceed. For example, Thread A holds lock1 and waits for lock2, while Thread B holds lock2
+and waits for lock1."
+
+----------------------------------------------------------------------------------------------------
+16--> What are the important methods in Java for inter-thread communication?
+**Answer:**
+> "The important methods for inter-thread communication in Java are `wait()`, `notify()`, and `notifyAll()`.
+These methods allow threads to communicate with each other while accessing shared resources."
+
+**Important note:**
+> These methods must be called from inside a **synchronized** context (synchronized method or block).
+They are defined in the `Object` class.
+
+---
+
+### 1. **wait()**
+> Causes the current thread to release the lock and wait until another thread calls
+`notify()` or `notifyAll()` on the same object.
+
+synchronized(lock) {
+    lock.wait();  // Thread releases lock and waits
+}
+
+---
+
+### 2. **notify()**
+> Wakes up one single thread that is waiting on the same object.
+
+synchronized(lock) {
+    lock.notify();  // Wakes one waiting thread
+}
+
+---
+
+### 3. **notifyAll()**
+> Wakes up all threads that are waiting on the same object.
+
+synchronized(lock) {
+    lock.notifyAll();  // Wakes all waiting threads
+}
+
+---
+
+### Complete Example (Producer-Consumer):
+
+> class SharedResource {
+>     private int data;
+>     private boolean available = false;
+>
+>     public synchronized void produce(int value) {
+>         while (available) {
+>             try { wait(); } catch (InterruptedException e) {}
+>         }
+>         data = value;
+>         available = true;
+>         System.out.println("Produced: " + value);
+>         notify();  // Notify consumer
+>     }
+>
+>     public synchronized void consume() {
+>         while (!available) {
+>             try { wait(); } catch (InterruptedException e) {}
+>         }
+>         System.out.println("Consumed: " + data);
+>         available = false;
+>         notify();  // Notify producer
+>     }
+> }
+
+---
+
+### Quick Summary:
+
+| Method | What it does |
+|--------|--------------|
+| `wait()` | Releases lock and waits for notification |
+| `wait(timeout)` | Waits for notification or timeout |
+| `notify()` | Wakes one waiting thread |
+| `notifyAll()` | Wakes all waiting threads |
+
+---
+
+**Short version for interview:**
+> "The key methods are `wait()`, `notify()`, and `notifyAll()`. `wait()` makes a thread
+release the lock and wait. `notify()` wakes one waiting thread. `notifyAll()` wakes all waiting threads.
+These must be called inside synchronized code and are defined in the `Object` class."
+
+----------------------------------------------------------------------------------------------------
+
+17--> What is the use of wait method?
+**Answer:**
+> "The `wait()` method causes the current thread to release the lock it holds and go into a
+waiting state until another thread calls `notify()` or `notifyAll()` on the same object."
+
+**Example:**
+> class SharedQueue {
+>     private int item;
+>     private boolean isItemAvailable = false;
+>
+>     public synchronized void consume() {
+>         while (!isItemAvailable) {
+>             try {
+>                 wait();  // No item available, thread waits
+>             } catch (InterruptedException e) {}
+>         }
+>         System.out.println("Consumed: " + item);
+>         isItemAvailable = false;
+>     }
+>
+>     public synchronized void produce(int value) {
+>         item = value;
+>         isItemAvailable = true;
+>         System.out.println("Produced: " + value);
+>         notify();  // Wake up the waiting consumer
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         SharedQueue queue = new SharedQueue();
+>
+>         Thread consumer = new Thread(() -> queue.consume());
+>         Thread producer = new Thread(() -> queue.produce(100));
+>
+>         consumer.start();  // Consumer waits because no item
+>         producer.start();  // Producer produces item and notifies
+>     }
+> }
+
+**Output:**
+> Produced: 100
+> Consumed: 100
+
+**Short version for interview:**
+> "`wait()` makes a thread release its lock and pause until another thread calls `notify()` or `notifyAll()`
+on the same object. It is used when a thread needs to wait for a certain condition to be met,
+like waiting for data to become available."
+
+**Important points:**
+> - Must be called inside synchronized block/method
+> - Belongs to `Object` class, not `Thread` class
+> - Releases the lock immediately
+> - Can be called with timeout: `wait(1000)`
+
+----------------------------------------------------------------------------------------------------
+18--> What is the use of notify method?
+
+**Answer:**
+> "The `notify()` method wakes up one single thread that is waiting on the same object.
+The awakened thread can then try to acquire the lock and continue execution."
+
+**Example:**
+
+> class SharedResource {
+>     private boolean flag = false;
+>
+>     public synchronized void waitMethod() {
+>         try {
+>             System.out.println(Thread.currentThread().getName() + " is waiting...");
+>             wait();
+>             System.out.println(Thread.currentThread().getName() + " woke up!");
+>         } catch (InterruptedException e) {}
+>     }
+>
+>     public synchronized void notifyMethod() {
+>         System.out.println("Notifying one waiting thread...");
+>         notify();  // Wakes only one waiting thread
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         SharedResource resource = new SharedResource();
+>
+>         // Create two waiting threads
+>         Thread t1 = new Thread(() -> resource.waitMethod(), "Thread-1");
+>         Thread t2 = new Thread(() -> resource.waitMethod(), "Thread-2");
+>
+>         t1.start();
+>         t2.start();
+>
+>         try { Thread.sleep(1000); } catch (InterruptedException e) {}
+>
+>         // Notify only one thread
+>         Thread notifier = new Thread(() -> resource.notifyMethod(), "Notifier");
+>         notifier.start();
+>     }
+> }
+
+**Output (only one thread wakes up):**
+> Thread-1 is waiting...
+> Thread-2 is waiting...
+> Notifying one waiting thread...
+> Thread-1 woke up!
+> (Thread-2 remains waiting)
+
+**Short version for interview:**
+> "`notify()` wakes up one randomly chosen thread that is waiting on the same object.
+It should be called inside a synchronized block. If no thread is waiting, the call has no effect."
+
+**Important points:**
+> - Must be called inside synchronized block/method
+> - Belongs to `Object` class
+> - Wakes only **one** waiting thread (chosen arbitrarily)
+> - The awakened thread must reacquire the lock before proceeding
+> - Use `notifyAll()` if you need to wake all waiting threads
+
+----------------------------------------------------------------------------------------------------
+
+19--> What is the use of notifyall method?
+
+**Answer:**
+> "The `notifyAll()` method wakes up **all** threads that are waiting on the same object.
+Each awakened thread will then compete for the lock, and the one that gets the lock first will continue execution."
+
+**Example:**
+> class SharedResource {
+>     private boolean flag = false;
+>
+>     public synchronized void waitMethod() {
+>         try {
+>             System.out.println(Thread.currentThread().getName() + " is waiting...");
+>             wait();
+>             System.out.println(Thread.currentThread().getName() + " woke up!");
+>         } catch (InterruptedException e) {}
+>     }
+>
+>     public synchronized void notifyAllMethod() {
+>         System.out.println("Notifying ALL waiting threads...");
+>         notifyAll();  // Wakes all waiting threads
+>     }
+> }
+>
+> class Test {
+>     public static void main(String[] args) {
+>         SharedResource resource = new SharedResource();
+>
+>         // Create three waiting threads
+>         Thread t1 = new Thread(() -> resource.waitMethod(), "Thread-1");
+>         Thread t2 = new Thread(() -> resource.waitMethod(), "Thread-2");
+>         Thread t3 = new Thread(() -> resource.waitMethod(), "Thread-3");
+>
+>         t1.start();
+>         t2.start();
+>         t3.start();
+>
+>         try { Thread.sleep(1000); } catch (InterruptedException e) {}
+>
+>         // Notify all threads
+>         Thread notifier = new Thread(() -> resource.notifyAllMethod(), "Notifier");
+>         notifier.start();
+>     }
+> }
+
+**Output (all threads wake up):**
+> Thread-1 is waiting...
+> Thread-2 is waiting...
+> Thread-3 is waiting...
+> Notifying ALL waiting threads...
+> Thread-1 woke up!
+> Thread-2 woke up!
+> Thread-3 woke up!
+
+**Short version for interview:**
+> "`notifyAll()` wakes up **all** threads that are waiting on the same object.
+All awakened threads then compete for the lock. It is safer than `notify()` when multiple threads
+are waiting for different conditions."
+
+**Comparison - notify vs notifyAll:**
+
+| Method | Wakes up | Use case |
+|--------|----------|----------|
+| `notify()` | Only one thread (unknown which one) | When only one waiting thread can proceed |
+| `notifyAll()` | All waiting threads | When multiple threads may be waiting for different
+conditions or when you want to be safe |
+
+**Important points:**
+> - Must be called inside synchronized block/method
+> - Belongs to `Object` class
+> - Safer than `notify()` to avoid missed notifications
+> - Awakened threads must reacquire the lock one by one
+----------------------------------------------------------------------------------------------------
+20--> Can you write a synchronized program with wait and notify methods?
+
+**Answer:**
+> "Here is a classic Producer-Consumer program using `synchronized`, `wait()`, and `notify()`."
+
+**Complete Example:**
+
+> import java.util.LinkedList;
+> import java.util.Queue;
+>
+> class SharedBuffer {
+>     private Queue<Integer> buffer = new LinkedList<>();
+>     private int capacity = 5;
+>
+>     // Producer adds data to buffer
+>     public synchronized void produce(int value) throws InterruptedException {
+>         // Wait if buffer is full
+>         while (buffer.size() == capacity) {
+>             System.out.println("Buffer full. Producer waiting...");
+>             wait();
+>         }
+>
+>         // Add item to buffer
+>         buffer.add(value);
+>         System.out.println("Produced: " + value + " | Buffer size: " + buffer.size());
+>
+>         // Notify consumer that data is available
+>         notify();
+>     }
+>
+>     // Consumer removes data from buffer
+>     public synchronized int consume() throws InterruptedException {
+>         // Wait if buffer is empty
+>         while (buffer.isEmpty()) {
+>             System.out.println("Buffer empty. Consumer waiting...");
+>             wait();
+>         }
+>
+>         // Remove item from buffer
+>         int value = buffer.poll();
+>         System.out.println("Consumed: " + value + " | Buffer size: " + buffer.size());
+>
+>         // Notify producer that space is available
+>         notify();
+>
+>         return value;
+>     }
+> }
+>
+> class Producer extends Thread {
+>     private SharedBuffer buffer;
+>
+>     public Producer(SharedBuffer buffer) {
+>         this.buffer = buffer;
+>     }
+>
+>     public void run() {
+>         for (int i = 1; i <= 10; i++) {
+>             try {
+>                 buffer.produce(i);
+>                 Thread.sleep(500);  // Simulate production time
+>             } catch (InterruptedException e) {}
+>         }
+>     }
+> }
+>
+> class Consumer extends Thread {
+>     private SharedBuffer buffer;
+>
+>     public Consumer(SharedBuffer buffer) {
+>         this.buffer = buffer;
+>     }
+>
+>     public void run() {
+>         for (int i = 1; i <= 10; i++) {
+>             try {
+>                 buffer.consume();
+>                 Thread.sleep(1000);  // Simulate consumption time
+>             } catch (InterruptedException e) {}
+>         }
+>     }
+> }
+>
+> public class Test {
+>     public static void main(String[] args) {
+>         SharedBuffer buffer = new SharedBuffer();
+>
+>         Producer producer = new Producer(buffer);
+>         Consumer consumer = new Consumer(buffer);
+>
+>         producer.start();
+>         consumer.start();
+>     }
+> }
+> ```
+
+**Sample Output:**
+> ```
+> Buffer empty. Consumer waiting...
+> Produced: 1 | Buffer size: 1
+> Consumed: 1 | Buffer size: 0
+> Produced: 2 | Buffer size: 1
+> Consumed: 2 | Buffer size: 0
+> Produced: 3 | Buffer size: 1
+> Produced: 4 | Buffer size: 2
+> Consumed: 3 | Buffer size: 1
+> ...
+> ```
+
+**Explanation of how it works:**
+
+| Step | What happens |
+|------|--------------|
+| 1 | Consumer starts first, finds buffer empty → calls `wait()` and releases lock |
+| 2 | Producer gets lock, adds item → calls `notify()` to wake consumer |
+| 3 | Consumer wakes up, consumes item |
+| 4 | Process repeats |
+| 5 | If buffer becomes full, producer calls `wait()` until consumer consumes |
+
+**Short version for interview:**
+> "The producer adds data to a shared buffer. If buffer is full, it calls `wait()`. The consumer removes data.
+ If buffer is empty, it calls `wait()`. After each operation, they call `notify()` to wake the other thread.
+ This ensures they never access the buffer simultaneously and no data is lost."
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------

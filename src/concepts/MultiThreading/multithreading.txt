@@ -1,0 +1,196 @@
+🧠 What is Multithreading?
+
+Multithreading is a feature of Java that enables concurrent execution of two or more parts of a program
+for maximum utilization of CPU.
+
+A thread is a lightweight subprocess — the smallest unit of execution.
+A process can have multiple threads.
+
+👉 Example:
+
+A web browser can:
+Load images
+Play videos
+Handle user input
+all at the same time using multiple threads.
+
+----------------------------------------------------------------------------------------------------
+⚙️ Why Use Multithreading?
+1. Better Performance
+
+Multiple tasks can run in parallel, especially on multi-core CPUs.
+
+2. Responsiveness
+
+UI applications stay responsive while doing background work.
+
+3. Efficient Resource Usage
+
+Threads share memory, unlike processes.
+
+----------------------------------------------------------------------------------------------------
+
+🧵 Thread Lifecycle in Java
+
+A thread goes through different states:
+
+New – Thread created but not started
+Runnable – Ready to run
+Running – Currently executing
+Blocked/Waiting – Waiting for resources or other threads
+Terminated – Execution finished
+
+----------------------------------------------------------------------------------------------------
+
+🛠️ Ways to Create Threads in Java
+
+----------------------------------------------------------------------------------------------------
+
+1. Extending Thread class
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        t.start(); // starts a new thread
+    }
+}
+
+----------------------------------------------------------------------------------------------------
+
+2. Implementing Runnable interface (Recommended)
+class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        Thread t = new Thread(new MyRunnable());
+        t.start();
+    }
+}
+
+👉 Why better?
+
+Java supports multiple inheritance via interfaces
+Cleaner separation of task and thread
+----------------------------------------------------------------------------------------------------
+
+🔄 Thread Methods
+
+Important methods from Thread class:
+
+start() → starts a new thread
+run() → contains code executed by thread
+sleep(ms) → pauses execution
+join() → waits for another thread to finish
+setPriority() → sets thread priority
+
+
+----------------------------------------------------------------------------------------------------
+
+⚠️ Synchronization (Very Important)
+
+When multiple threads access shared resources, problems can occur.
+
+Example Problem: Race Condition
+
+Two threads updating the same variable can lead to incorrect results.
+
+Solution: Synchronization
+class Counter {
+    int count = 0;
+
+    synchronized void increment() {
+        count++;
+    }
+}
+
+👉 synchronized ensures only one thread accesses the method at a time.
+
+----------------------------------------------------------------------------------------------------
+
+🔐 Inter-Thread Communication
+
+Java provides methods for threads to communicate:
+
+wait()
+notify()
+notifyAll()
+
+Used in producer-consumer problems.
+
+----------------------------------------------------------------------------------------------------
+
+🧰 Advanced Multithreading Concepts
+
+----------------------------------------------------------------------------------------------------
+
+1. Thread Pool (Executor Framework)
+
+Instead of creating threads manually, Java provides:
+
+ExecutorService executor = Executors.newFixedThreadPool(5);
+executor.execute(() -> {
+    System.out.println("Task executed");
+});
+executor.shutdown();
+
+👉 Benefits:
+
+Reuses threads
+Improves performance
+Manages lifecycle
+
+----------------------------------------------------------------------------------------------------
+
+3. Deadlock
+
+Occurs when two threads wait for each other forever.
+
+👉 Example:
+
+Thread A holds lock1 and waits for lock2
+Thread B holds lock2 and waits for lock1
+
+----------------------------------------------------------------------------------------------------
+📊 Multithreading vs Multiprocessing
+
+| Feature       | Multithreading | Multiprocessing |
+| ------------- | -------------- | --------------- |
+| Memory        | Shared         | Separate        |
+| Speed         | Faster         | Slower          |
+| Complexity    | Higher         | Lower           |
+| Communication | Easy           | Hard            |
+
+
+----------------------------------------------------------------------------------------------------
+
+⚡ Best Practices
+Use ExecutorService instead of manual threads
+Avoid excessive synchronization
+Use immutable objects where possible
+Prefer Concurrent collections (ConcurrentHashMap)
+Handle exceptions properly
+
+----------------------------------------------------------------------------------------------------
+🧾 Summary
+
+Multithreading in Java allows:
+
+Parallel task execution
+Better CPU utilization
+Responsive applications
+
+Key concepts include:
+
+Thread creation
+Synchronization
+Thread communication
+Executor framework
+
+----------------------------------------------------------------------------------------------------
+

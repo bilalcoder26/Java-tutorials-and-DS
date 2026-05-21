@@ -1,6 +1,7 @@
 package leetcodequestion.arrayquestion;
 
 import java.util.Arrays;
+//https://leetcode.com/problems/rotate-array/?envType=problem-list-v2&envId=array
 /*
 Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
 
@@ -63,13 +64,14 @@ k = 10 % 7 = 3
         return nums;
     }
 
-    static int[] rotateLeft(int []nums, int k){
+    static int[] rotateRight(int []nums, int k){
         int n = nums.length;
         k = k%n;
 
         reverse(nums, 0,n-1);
         reverse(nums, 0,k-1);
         reverse(nums,k,n-1);
+
 
         return nums;
 
@@ -90,7 +92,7 @@ k = 10 % 7 = 3
     public static void main(String[] args) {
         int[] ans =rotateArray(new int[] {1,2,3,4,5,6,7}, 3);
         System.out.println("final ans --> " + Arrays.toString(ans));
-        int[] ans2=rotateLeft(new int[] {1,2,3,4,5,6,7}, 3);
+        int[] ans2=rotateRight(new int[] {1,2,3,4,5,6,7}, 3);
         System.out.println("without comment {1,2,3,4,5,6,7} ---> " + Arrays.toString(ans2));
 
     }

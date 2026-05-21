@@ -70,15 +70,13 @@ Java does the conversion automatically."
 
 6--> What are the advantages of auto boxing?
 
-
-
 **Answer:**
-> "Auto-boxing makes code shorter and easier to read. It also allows primitives to be used directly in collections like `ArrayList` and in method calls without manually converting them."
+> "Auto-boxing makes code shorter and easier to read. It also allows primitives to be used directly
+in collections like `ArrayList` and in method calls without manually converting them."
 
 **Short version:**
 > "It saves us from writing extra conversion code, reduces errors, and makes primitives work naturally with objects."
 
-Next question?
 
 
 ----------------------------------------------------------------------------------------------------

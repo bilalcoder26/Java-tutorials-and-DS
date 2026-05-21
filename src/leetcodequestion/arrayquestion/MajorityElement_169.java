@@ -18,7 +18,7 @@ Example 2:
 Input: nums = [2,2,1,1,1,2,2]
 Output: 2
  */
-public class MajorityElement {
+public class MajorityElement_169 {
 
     // this is my approach but best nhi hai ye
 //    ❗ Problem with this approach
